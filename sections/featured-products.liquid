@@ -1,97 +1,337 @@
-<section class="products-section" id="shop">
+<section class="featured-section" id="size-grid">
   <div class="container">
-    <h2 class="section-title">Choose Your <span class="highlight">Perfect Size</span></h2>
-    <p class="section-subtitle">
-      From cozy desk lamps to stunning statement pieces — find the perfect Kova Goods lamp for your space.
-    </p>
-    <div class="products-grid">
-      {% for product in collections.all.products %}
-        <div class="product-card">
-          {% if product.tags contains 'bestseller' %}
-            <div class="product-badge bestseller">Best Seller</div>
-          {% elsif product.tags contains 'popular' %}
-            <div class="product-badge popular">Most Popular</div>
+
+    <div class="featured-header">
+      <div class="featured-badge">
+        <i class="fas fa-th-large"></i> All Sizes
+      </div>
+      <h2 class="section-title">
+        Choose Your <span class="highlight">Perfect Size</span>
+      </h2>
+      <p class="section-subtitle">
+        From cozy desk lamps to stunning statement pieces —
+        find the perfect Kova Goods lamp for your space.
+      </p>
+    </div>
+
+    <div class="featured-grid">
+      {% assign main_product = all_products['sensory-bubble-tube-lamp-5-ft-bubble-fish-tube-sensory-aquarium-lamp-with-10-floating-fish-16-color-effects-remote-control-stress-relief-calming-light-for-bedroom-living-room-home-decor'] %}
+
+      {% for variant in main_product.variants %}
+        {% unless variant.title contains '15' or variant.title contains 'Bluetooth' %}
+
+          {% assign is_popular = false %}
+          {% assign has_gift = false %}
+
+          {% if variant.title contains '48' or variant.title contains '4 ft' or variant.title contains '4ft' %}
+            {% assign is_popular = true %}
+            {% assign has_gift = true %}
           {% endif %}
-          <div class="product-image-wrap">
-            {% if product.featured_image %}
-              <img
-                src="{{ product.featured_image | img_url: '600x600' }}"
-                alt="{{ product.title }}"
-                class="product-img"
-                loading="lazy"
-              >
-            {% else %}
-              <div class="product-img-placeholder">
-                <i class="fas fa-lightbulb"></i>
-              </div>
+
+          {% if variant.title contains '60' or variant.title contains '5 ft' or variant.title contains '5ft' %}
+            {% assign has_gift = true %}
+          {% endif %}
+
+          <div class="featured-card {% if is_popular %}featured-card--popular{% endif %}">
+
+            {% if is_popular %}
+              <div class="featured-popular-ribbon">Most Popular</div>
             {% endif %}
-            <div class="product-overlay">
-              <a href="{{ product.url }}" class="btn-primary" style="padding: 12px 28px; font-size: 14px;">
-                View Details
-              </a>
-            </div>
-          </div>
-          <div class="product-info">
-            <h3 class="product-title">{{ product.title }}</h3>
-            <p class="product-desc">{{ product.description | strip_html | truncate: 80 }}</p>
-            <div class="product-footer">
-              <div class="product-price">
-                {% if product.compare_at_price > product.price %}
-                  <span class="price-compare">{{ product.compare_at_price | money }}</span>
-                {% endif %}
-                <span class="price-current">{{ product.price | money }}</span>
+
+            <!-- Image -->
+            <div class="featured-img-wrap">
+              {% if main_product.featured_image %}
+                <img
+                  src="{{ main_product.featured_image | img_url: '600x600' }}"
+                  alt="{{ variant.title }}"
+                  class="featured-img"
+                  loading="lazy"
+                >
+              {% endif %}
+
+              {% if has_gift %}
+                <div class="featured-gift-overlay">
+                  <i class="fas fa-gift"></i> Free Bluetooth Speaker Included!
+                </div>
+              {% endif %}
+
+              <div class="featured-img-hover">
+                <a href="{{ main_product.url }}?variant={{ variant.id }}" class="btn-primary" style="padding: 12px 28px; font-size: 14px;">
+                  <i class="fas fa-eye"></i> View Details
+                </a>
               </div>
-              <a href="{{ product.url }}" class="add-to-cart-btn">
-                <i class="fas fa-cart-plus"></i> Add to Cart
-              </a>
             </div>
+
+            <!-- Info -->
+            <div class="featured-info">
+              <h3 class="featured-title">
+                Sensory Bubble Fish Lamp
+              </h3>
+              <p class="featured-size-tag">
+                <i class="fas fa-ruler-vertical"></i> {{ variant.title }}
+              </p>
+
+              {% if has_gift %}
+                <div class="featured-gift-badge">
+                  <i class="fas fa-gift"></i> Free Bluetooth Speaker Gift ($27 Value)
+                </div>
+              {% endif %}
+
+              <div class="featured-footer">
+                <div class="featured-price">
+                  {% assign compare = variant.price | plus: 2000 %}
+                  <span class="featured-compare">
+                    {{ compare | money }}
+                  </span>
+                  <span class="featured-current">{{ variant.price | money }}</span>
+                </div>
+                <a href="{{ main_product.url }}?variant={{ variant.id }}" class="featured-cta">
+                  <i class="fas fa-cart-plus"></i> Add to Cart
+                </a>
+              </div>
+            </div>
+
           </div>
-        </div>
+
+        {% endunless %}
       {% endfor %}
+
     </div>
   </div>
 </section>
 
 <style>
-.products-section { padding: 100px 0; background: var(--color-white); }
-.products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
-.product-card {
-  background: var(--color-white); border-radius: var(--radius);
-  overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-  transition: var(--transition); position: relative;
+/* ===== FEATURED SECTION ===== */
+.featured-section {
+  padding: 100px 0;
+  background: linear-gradient(180deg, #ffffff 0%, #f8faff 100%);
 }
-.product-card:hover { transform: translateY(-8px); box-shadow: 0 16px 40px rgba(0,201,200,0.15); }
-.product-badge {
-  position: absolute; top: 16px; left: 16px; z-index: 2;
-  padding: 6px 14px; border-radius: 50px; font-size: 11px;
-  font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+
+.featured-header {
+  text-align: center;
+  margin-bottom: 60px;
 }
-.product-badge.bestseller { background: var(--color-gold); color: var(--color-primary); }
-.product-badge.popular { background: var(--color-aqua); color: white; }
-.product-image-wrap { position: relative; overflow: hidden; aspect-ratio: 1; background: var(--color-light); }
-.product-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-.product-card:hover .product-img { transform: scale(1.08); }
-.product-img-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 60px; color: var(--color-aqua); opacity: 0.3; }
-.product-overlay {
-  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(13,27,42,0.6); display: flex; align-items: center;
-  justify-content: center; opacity: 0; transition: var(--transition);
+
+.featured-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0,201,200,0.1);
+  border: 1px solid rgba(0,201,200,0.3);
+  color: var(--color-aqua);
+  padding: 8px 20px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
 }
-.product-card:hover .product-overlay { opacity: 1; }
-.product-info { padding: 20px; }
-.product-title { font-size: 15px; font-weight: 700; color: var(--color-primary); margin-bottom: 8px; line-height: 1.3; }
-.product-desc { font-size: 13px; color: var(--color-gray); line-height: 1.5; margin-bottom: 16px; }
-.product-footer { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-.product-price { display: flex; flex-direction: column; }
-.price-compare { font-size: 12px; color: var(--color-gray); text-decoration: line-through; }
-.price-current { font-size: 20px; font-weight: 800; color: var(--color-primary); }
-.add-to-cart-btn {
+
+/* ===== GRID ===== */
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+}
+
+/* ===== CARD ===== */
+.featured-card {
+  background: var(--color-white);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  transition: all 0.3s ease;
+  position: relative;
+  border: 2px solid transparent;
+}
+
+.featured-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 50px rgba(0,201,200,0.15);
+  border-color: rgba(0,201,200,0.2);
+}
+
+.featured-card--popular {
+  border-color: var(--color-aqua);
+  box-shadow: 0 8px 32px rgba(0,201,200,0.2);
+}
+
+/* Popular Ribbon */
+.featured-popular-ribbon {
+  position: absolute;
+  top: 20px;
+  left: -8px;
   background: linear-gradient(135deg, var(--color-aqua), #0099CC);
-  color: white; padding: 10px 16px; border-radius: 50px;
-  font-size: 12px; font-weight: 700; letter-spacing: 0.5px;
-  transition: var(--transition); white-space: nowrap; border: none; cursor: pointer;
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 6px 16px 6px 12px;
+  letter-spacing: 0.5px;
+  z-index: 3;
+  border-radius: 0 4px 4px 0;
 }
-.add-to-cart-btn:hover { transform: scale(1.05); box-shadow: 0 4px 16px rgba(0,201,200,0.4); color: white; }
-@media (max-width: 1024px) { .products-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 480px) { .products-grid { grid-template-columns: 1fr; } }
+
+.featured-popular-ribbon::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  border-left: 8px solid transparent;
+  border-top: 8px solid #007a99;
+}
+
+/* ===== IMAGE ===== */
+.featured-img-wrap {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0D1B2A, #1A2B4A);
+}
+
+.featured-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.featured-card:hover .featured-img {
+  transform: scale(1.08);
+}
+
+.featured-gift-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(240,192,64,0.9));
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 20px 12px 10px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.featured-img-hover {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(13,27,42,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.featured-card:hover .featured-img-hover { opacity: 1; }
+
+/* ===== INFO ===== */
+.featured-info { padding: 20px; }
+
+.featured-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+.featured-size-tag {
+  font-size: 13px;
+  color: var(--color-aqua);
+  font-weight: 600;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.featured-gift-badge {
+  background: linear-gradient(135deg, rgba(240,192,64,0.12), rgba(240,192,64,0.06));
+  border: 1px solid rgba(240,192,64,0.3);
+  color: #b8860b;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: 8px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.featured-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.featured-price {
+  display: flex;
+  flex-direction: column;
+}
+
+.featured-compare {
+  font-size: 12px;
+  color: var(--color-gray);
+  text-decoration: line-through;
+}
+
+.featured-current {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--color-primary);
+}
+
+.featured-cta {
+  background: linear-gradient(135deg, var(--color-aqua), #0099CC);
+  color: white;
+  padding: 10px 16px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.featured-cta:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 16px rgba(0,201,200,0.4);
+  color: white;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .featured-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .featured-grid { grid-template-columns: 1fr; }
+  .featured-section { padding: 60px 0; }
+}
 </style>
+
+{% schema %}
+{
+  "name": "Featured Products",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Featured Products"
+    }
+  ]
+}
+{% endschema %}
