@@ -1,150 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="{{ page_description | default: 'Kova Goods - Bring the Ocean Home. Premium Sensory Bubble Fish Lamps for your home.' }}">
-  <title>{{ page_title | default: 'Kova Goods — Bring the Ocean Home' }}</title>
-
-  {{ content_for_header }}
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  {{ 'theme.css' | asset_url | stylesheet_tag }}
-
-  <style>
-    :root {
-      --color-primary: #1A2B4A;
-      --color-aqua: #00C9C8;
-      --color-gold: #F0C040;
-      --color-white: #FFFFFF;
-      --color-light: #F4F8FB;
-      --color-dark: #0D1B2A;
-      --color-text: #2C3E50;
-      --color-gray: #7F8C8D;
-      --font-main: 'Montserrat', sans-serif;
-      --shadow: 0 4px 24px rgba(0,201,200,0.15);
-      --radius: 16px;
-      --transition: all 0.3s ease;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: var(--font-main);
-      color: var(--color-text);
-      background: var(--color-white);
-      overflow-x: hidden;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    img {
-      max-width: 100%;
-      height: auto;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    .btn-primary {
-      display: inline-block;
-      background: linear-gradient(135deg, var(--color-aqua), #0099CC);
-      color: var(--color-white);
-      padding: 16px 40px;
-      border-radius: 50px;
-      font-weight: 700;
-      font-size: 16px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      transition: var(--transition);
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 4px 20px rgba(0,201,200,0.4);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 30px rgba(0,201,200,0.6);
-      color: var(--color-white);
-    }
-
-    .btn-secondary {
-      display: inline-block;
-      background: transparent;
-      color: var(--color-aqua);
-      padding: 14px 36px;
-      border-radius: 50px;
-      font-weight: 700;
-      font-size: 16px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      transition: var(--transition);
-      border: 2px solid var(--color-aqua);
-      cursor: pointer;
-    }
-
-    .btn-secondary:hover {
-      background: var(--color-aqua);
-      color: var(--color-white);
-      transform: translateY(-3px);
-    }
-
-    .section-title {
-      font-size: 36px;
-      font-weight: 800;
-      color: var(--color-primary);
-      text-align: center;
-      margin-bottom: 16px;
-    }
-
-    .section-subtitle {
-      font-size: 16px;
-      color: var(--color-gray);
-      text-align: center;
-      margin-bottom: 48px;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .highlight {
-      color: var(--color-aqua);
-    }
-
-    @media (max-width: 768px) {
-      .section-title {
-        font-size: 26px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="{{ page_description | default: 'Kova Goods - Bring the Ocean Home. Premium Sensory Bubble Fish Lamps for your home.' }}">
+<title>{{ page_title | default: 'Kova Goods — Bring the Ocean Home' }}</title>
+{{ content_for_header }}
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+{{ 'theme.css' | asset_url | stylesheet_tag }}
+<style>
+:root {
+  --color-primary: #1A2B4A;
+  --color-aqua: #00C9C8;
+  --color-gold: #F0C040;
+  --color-white: #FFFFFF;
+  --color-light: #F4F8FB;
+  --color-dark: #0D1B2A;
+  --color-text: #2C3E50;
+  --color-gray: #7F8C8D;
+  --font-main: 'Montserrat', sans-serif;
+  --shadow: 0 4px 24px rgba(0,201,200,0.15);
+  --radius: 16px;
+  --transition: all 0.3s ease;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: var(--font-main);
+  color: var(--color-text);
+  background: var(--color-white);
+  overflow-x: hidden;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.btn-primary {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--color-aqua), #0099CC);
+  color: var(--color-white);
+  padding: 16px 40px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: var(--transition);
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0,201,200,0.4);
+}
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(0,201,200,0.6);
+  color: var(--color-white);
+}
+.btn-secondary {
+  display: inline-block;
+  background: transparent;
+  color: var(--color-aqua);
+  padding: 14px 36px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: var(--transition);
+  border: 2px solid var(--color-aqua);
+  cursor: pointer;
+}
+.btn-secondary:hover {
+  background: var(--color-aqua);
+  color: var(--color-white);
+  transform: translateY(-3px);
+}
+.section-title {
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--color-primary);
+  text-align: center;
+  margin-bottom: 16px;
+}
+.section-subtitle {
+  font-size: 16px;
+  color: var(--color-gray);
+  text-align: center;
+  margin-bottom: 48px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.highlight {
+  color: var(--color-aqua);
+}
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 26px;
+  }
+}
+</style>
 </head>
 <body>
-
-  {% section 'announcement-bar' %}
-  {% section 'header' %}
-
-  <main>
-    {{ content_for_layout }}
-  </main>
-
-  {% section 'footer' %}
-
-  {{ 'theme.js' | asset_url | script_tag }}
-
+{% section 'announcement-bar' %}
+{% section 'header' %}
+<main>
+  {{ content_for_layout }}
+</main>
+{% section 'footer' %}
+{{ 'theme.js' | asset_url | script_tag }}
 </body>
 </html>
