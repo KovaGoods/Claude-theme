@@ -1,226 +1,45 @@
-/* ============================
-   KOVA GOODS — GLOBAL STYLES
-   ============================ */
-
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #00C9C8;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #0099CC;
-}
-
-/* Selection */
-::selection {
-  background: rgba(0, 201, 200, 0.2);
-  color: #1A2B4A;
-}
-
-/* Page Transition */
-body {
-  animation: fadeIn 0.4s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* Loading State */
-.loading {
-  pointer-events: none;
-  opacity: 0.6;
-}
-
-/* Utility Classes */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: #00C9C8; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #0099CC; }
+::selection { background: rgba(0,201,200,0.2); color: #1A2B4A; }
+body { animation: fadeIn 0.4s ease; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.loading { pointer-events: none; opacity: 0.6; }
 .text-center { text-align: center; }
 .text-aqua { color: #00C9C8; }
 .text-primary { color: #1A2B4A; }
 .mt-20 { margin-top: 20px; }
 .mb-20 { margin-bottom: 20px; }
-
-/* Page Hero (for inner pages) */
-.page-hero {
-  background: linear-gradient(135deg, #1A2B4A, #0D3B4A);
-  padding: 80px 0;
-  text-align: center;
-  color: white;
-}
-
-.page-hero h1 {
-  font-size: 48px;
-  font-weight: 800;
-  margin-bottom: 16px;
-}
-
-.page-hero p {
-  font-size: 16px;
-  color: rgba(255,255,255,0.7);
-  max-width: 500px;
-  margin: 0 auto;
-}
-
-/* Inner Page Content */
-.page-content {
-  padding: 80px 0;
-}
-
-.page-content h2 {
-  font-size: 24px;
-  font-weight: 700;
-  color: #1A2B4A;
-  margin: 32px 0 16px;
-}
-
-.page-content p {
-  font-size: 15px;
-  color: #7F8C8D;
-  line-height: 1.8;
-  margin-bottom: 16px;
-}
-
-.page-content ul {
-  list-style: none;
-  margin-bottom: 24px;
-}
-
-.page-content ul li {
-  font-size: 15px;
-  color: #7F8C8D;
-  line-height: 1.8;
-  padding-left: 20px;
-  position: relative;
-  margin-bottom: 8px;
-}
-
-.page-content ul li::before {
-  content: '✓';
-  position: absolute;
-  left: 0;
-  color: #00C9C8;
-  font-weight: 700;
-}
-
-/* FAQ Styles */
-.faq-item {
-  border: 1px solid rgba(0,0,0,0.06);
-  border-radius: 12px;
-  margin-bottom: 12px;
-  overflow: hidden;
-  transition: all 0.3s ease;
-}
-
-.faq-question {
-  padding: 20px 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 15px;
-  color: #1A2B4A;
-  background: #F4F8FB;
-  transition: all 0.3s ease;
-}
-
-.faq-question:hover {
-  background: rgba(0,201,200,0.05);
-  color: #00C9C8;
-}
-
-.faq-question i {
-  color: #00C9C8;
-  transition: transform 0.3s ease;
-  flex-shrink: 0;
-}
-
-.faq-item.open .faq-question i {
-  transform: rotate(180deg);
-}
-
-.faq-answer {
-  padding: 0 24px;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease, padding 0.3s ease;
-  font-size: 14px;
-  color: #7F8C8D;
-  line-height: 1.8;
-}
-
-.faq-item.open .faq-answer {
-  max-height: 300px;
-  padding: 20px 24px;
-}
-
-/* Contact Form */
-.contact-form {
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-.form-group label {
-  display: block;
-  font-size: 14px;
-  font-weight: 600;
-  color: #1A2B4A;
-  margin-bottom: 8px;
-}
-
+.page-hero { background: linear-gradient(135deg, #1A2B4A, #0D3B4A); padding: 80px 0; text-align: center; color: white; }
+.page-hero h1 { font-size: 48px; font-weight: 800; margin-bottom: 16px; }
+.page-hero p { font-size: 16px; color: rgba(255,255,255,0.7); max-width: 500px; margin: 0 auto; }
+.page-content { padding: 80px 0; }
+.page-content h2 { font-size: 24px; font-weight: 700; color: #1A2B4A; margin: 32px 0 16px; }
+.page-content p { font-size: 15px; color: #7F8C8D; line-height: 1.8; margin-bottom: 16px; }
+.page-content ul { list-style: none; margin-bottom: 24px; }
+.page-content ul li { font-size: 15px; color: #7F8C8D; line-height: 1.8; padding-left: 20px; position: relative; margin-bottom: 8px; }
+.page-content ul li::before { content: '✓'; position: absolute; left: 0; color: #00C9C8; font-weight: 700; }
+.faq-item { border: 1px solid rgba(0,0,0,0.06); border-radius: 12px; margin-bottom: 12px; overflow: hidden; transition: all 0.3s ease; }
+.faq-question { padding: 20px 24px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: 600; font-size: 15px; color: #1A2B4A; background: #F4F8FB; transition: all 0.3s ease; }
+.faq-question:hover { background: rgba(0,201,200,0.05); color: #00C9C8; }
+.faq-question i { color: #00C9C8; transition: transform 0.3s ease; flex-shrink: 0; }
+.faq-item.open .faq-question i { transform: rotate(180deg); }
+.faq-answer { padding: 0 24px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; font-size: 14px; color: #7F8C8D; line-height: 1.8; }
+.faq-item.open .faq-answer { max-height: 300px; padding: 20px 24px; }
+.contact-form { max-width: 600px; margin: 0 auto; }
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; font-size: 14px; font-weight: 600; color: #1A2B4A; margin-bottom: 8px; }
 .form-group input,
 .form-group textarea,
-.form-group select {
-  width: 100%;
-  padding: 14px 18px;
-  border: 2px solid rgba(0,0,0,0.08);
-  border-radius: 12px;
-  font-size: 14px;
-  font-family: 'Montserrat', sans-serif;
-  color: #2C3E50;
-  outline: none;
-  transition: all 0.3s ease;
-  background: #F4F8FB;
-}
-
+.form-group select { width: 100%; padding: 14px 18px; border: 2px solid rgba(0,0,0,0.08); border-radius: 12px; font-size: 14px; font-family: 'Montserrat', sans-serif; color: #2C3E50; outline: none; transition: all 0.3s ease; background: #F4F8FB; }
 .form-group input:focus,
-.form-group textarea:focus {
-  border-color: #00C9C8;
-  background: white;
-  box-shadow: 0 0 0 4px rgba(0,201,200,0.1);
-}
-
-.form-group textarea {
-  min-height: 140px;
-  resize: vertical;
-}
-
-/* Responsive Utilities */
+.form-group textarea:focus { border-color: #00C9C8; background: white; box-shadow: 0 0 0 4px rgba(0,201,200,0.1); }
+.form-group textarea { min-height: 140px; resize: vertical; }
 @media (max-width: 768px) {
-  .page-hero h1 {
-    font-size: 32px;
-  }
-
-  .hide-mobile {
-    display: none !important;
-  }
+  .page-hero h1 { font-size: 32px; }
+  .hide-mobile { display: none !important; }
 }
-
 @media (min-width: 769px) {
-  .hide-desktop {
-    display: none !important;
-  }
+  .hide-desktop { display: none !important; }
 }
