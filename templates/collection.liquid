@@ -1,0 +1,56 @@
+<div class="collection-page">
+  <div class="page-hero">
+    <div class="container">
+      <h1>{{ collection.title | default: 'All Products' }}</h1>
+      <p>{{ collection.description | default: 'Browse our full collection of Premium Sensory Bubble Fish Lamps' }}</p>
+    </div>
+  </div>
+  <div class="container" style="padding: 60px 20px">
+    <div class="products-grid">
+      {% for product in collection.products %}
+        <div class="product-card">
+          {% if product.tags contains 'bestseller' %}
+            <div class="product-badge bestseller">Best Seller</div>
+          {% elsif product.tags contains 'popular' %}
+            <div class="product-badge popular">Most Popular</div>
+          {% endif %}
+          <div class="product-image-wrap">
+            {% if product.featured_image %}
+              <img src="{{ product.featured_image | img_url: '600x600' }}" alt="{{ product.title }}" class="product-img" loading="lazy">
+            {% else %}
+              <div class="product-img-placeholder"><i class="fas fa-lightbulb"></i></div>
+            {% endif %}
+            <div class="product-overlay">
+              <a href="{{ product.url }}" class="btn-primary" style="padding: 12px 28px; font-size: 14px;">View Details</a>
+            </div>
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">{{ product.title }}</h3>
+            <p class="product-desc">{{ product.description | strip_html | truncate: 80 }}</p>
+            <div class="product-footer">
+              <div class="product-price">
+                {% if product.compare_at_price > product.price %}
+                  <span class="price-compare">{{ product.compare_at_price | money }}</span>
+                {% endif %}
+                <span class="price-current">{{ product.price | money }}</span>
+              </div>
+              <a href="{{ product.url }}" class="add-to-cart-btn">
+                <i class="fas fa-cart-plus"></i> Add to Cart
+              </a>
+            </div>
+          </div>
+        </div>
+      {% else %}
+        <div style="text-align: center; padding: 80px 0; grid-column: 1/-1">
+          <p style="font-size: 18px; color: #7F8C8D">No products found.</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<style>
+.collection-page .products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+@media (max-width: 1024px) { .collection-page .products-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .collection-page .products-grid { grid-template-columns: 1fr; } }
+</style>
