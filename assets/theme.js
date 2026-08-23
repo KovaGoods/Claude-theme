@@ -1,18 +1,10 @@
-// ============================
-// KOVA GOODS — THEME JAVASCRIPT
-// ============================
-
 document.addEventListener('DOMContentLoaded', function () {
 
   // ── Header Scroll Effect ──
   const header = document.getElementById('site-header');
   if (header) {
     window.addEventListener('scroll', function () {
-      if (window.scrollY > 50) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
-      }
+      header.classList.toggle('scrolled', window.scrollY > 50);
     });
   }
 
@@ -22,6 +14,12 @@ document.addEventListener('DOMContentLoaded', function () {
   const mobileMenu = document.getElementById('mobile-menu');
   const mobileOverlay = document.getElementById('mobile-overlay');
 
+  function closeMobileMenu() {
+    if (mobileMenu) mobileMenu.classList.remove('open');
+    if (mobileOverlay) mobileOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
   if (mobileMenuBtn) {
     mobileMenuBtn.addEventListener('click', function () {
       mobileMenu.classList.add('open');
@@ -29,61 +27,43 @@ document.addEventListener('DOMContentLoaded', function () {
       document.body.style.overflow = 'hidden';
     });
   }
-
-  function closeMobileMenu() {
-    mobileMenu.classList.remove('open');
-    mobileOverlay.classList.remove('open');
-    document.body.style.overflow = '';
-  }
-
   if (mobileCloseBtn) mobileCloseBtn.addEventListener('click', closeMobileMenu);
   if (mobileOverlay) mobileOverlay.addEventListener('click', closeMobileMenu);
 
   // ── Countdown Timer ──
   function startCountdown() {
     const timerKey = 'kova_timer_end';
-    let endTime = localStorage.getItem(timerKey);
-
-    if (!endTime) {
-      endTime = new Date().getTime() + (24 * 60 * 60 * 1000);
+    let endTime = parseInt(localStorage.getItem(timerKey));
+    if (!endTime || endTime < Date.now()) {
+      endTime = Date.now() + (24 * 60 * 60 * 1000);
       localStorage.setItem(timerKey, endTime);
     }
-
     function updateTimer() {
-      const now = new Date().getTime();
-      const remaining = endTime - now;
-
+      const remaining = endTime - Date.now();
       if (remaining <= 0) {
-        endTime = new Date().getTime() + (24 * 60 * 60 * 1000);
+        endTime = Date.now() + (24 * 60 * 60 * 1000);
         localStorage.setItem(timerKey, endTime);
         return;
       }
-
       const hours = Math.floor((remaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const mins = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
       const secs = Math.floor((remaining % (1000 * 60)) / 1000);
-
-      const hoursEl = document.getElementById('countdown-hours');
-      const minsEl = document.getElementById('countdown-mins');
-      const secsEl = document.getElementById('countdown-secs');
-
-      if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
-      if (minsEl) minsEl.textContent = String(mins).padStart(2, '0');
-      if (secsEl) secsEl.textContent = String(secs).padStart(2, '0');
+      const h = document.getElementById('countdown-hours');
+      const m = document.getElementById('countdown-mins');
+      const s = document.getElementById('countdown-secs');
+      if (h) h.textContent = String(hours).padStart(2, '0');
+      if (m) m.textContent = String(mins).padStart(2, '0');
+      if (s) s.textContent = String(secs).padStart(2, '0');
     }
-
     updateTimer();
     setInterval(updateTimer, 1000);
   }
-
   startCountdown();
 
   // ── Product Image Gallery ──
   window.changeImage = function (src, el) {
     const mainImg = document.getElementById('main-product-image');
-    if (mainImg) {
-      mainImg.src = src;
-    }
+    if (mainImg) mainImg.src = src;
     document.querySelectorAll('.thumbnail-wrap').forEach(t => t.classList.remove('active'));
     el.classList.add('active');
   };
@@ -109,17 +89,12 @@ document.addEventListener('DOMContentLoaded', function () {
     anchor.addEventListener('click', function (e) {
       e.preventDefault();
       const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
 
   // ── Scroll Reveal Animation ──
-  const revealElements = document.querySelectorAll(
-    '.why-card, .product-card, .review-card, .trust-item'
-  );
-
+  const revealElements = document.querySelectorAll('.why-card, .product-card, .review-card, .trust-item');
   const revealObserver = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
       if (entry.isIntersecting) {
@@ -129,7 +104,6 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
   }, { threshold: 0.1 });
-
   revealElements.forEach(function (el) {
     el.style.opacity = '0';
     el.style.transform = 'translateY(30px)';
@@ -137,60 +111,27 @@ document.addEventListener('DOMContentLoaded', function () {
     revealObserver.observe(el);
   });
 
-  // ── Cart Notification ──
-  const addToCartForms = document.querySelectorAll('.product-form');
-  addToCartForms.forEach(function (form) {
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      const formData = new FormData(form);
-
-      fetch('/cart/add.js', {
-        method: 'POST',
-        body: formData
-      })
-      .then(res => res.json())
-      .then(data => {
-        showCartNotification(data.product_title);
-        updateCartCount();
-      })
-      .catch(err => {
-        form.submit();
-      });
-    });
-  });
-
+  // ── Cart AJAX ──
   function showCartNotification(title) {
     let notification = document.getElementById('cart-notification');
     if (!notification) {
       notification = document.createElement('div');
       notification.id = 'cart-notification';
       notification.style.cssText = `
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        background: var(--color-primary);
-        color: white;
-        padding: 16px 24px;
-        border-radius: 12px;
-        font-size: 14px;
-        font-weight: 600;
-        z-index: 9999;
+        position: fixed; bottom: 30px; right: 30px;
+        background: var(--color-primary); color: white;
+        padding: 16px 24px; border-radius: 12px;
+        font-size: 14px; font-weight: 600; z-index: 9999;
         box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-        transform: translateY(100px);
-        transition: transform 0.3s ease;
-        max-width: 300px;
-        font-family: 'Montserrat', sans-serif;
+        transform: translateY(100px); transition: transform 0.3s ease;
+        max-width: 300px; font-family: 'Montserrat', sans-serif;
         border-left: 4px solid #00C9C8;
       `;
       document.body.appendChild(notification);
     }
-
-    notification.innerHTML = `✅ Added to cart! <br><small style="color: rgba(255,255,255,0.7)">${title}</small>`;
+    notification.innerHTML = `✅ Added to cart!<br><small style="color:rgba(255,255,255,0.7)">${title}</small>`;
     notification.style.transform = 'translateY(0)';
-
-    setTimeout(function () {
-      notification.style.transform = 'translateY(100px)';
-    }, 3000);
+    setTimeout(function () { notification.style.transform = 'translateY(100px)'; }, 3000);
   }
 
   function updateCartCount() {
@@ -202,7 +143,21 @@ document.addEventListener('DOMContentLoaded', function () {
       });
   }
 
-  // ── Bubble Particles on Hero ──
+  document.querySelectorAll('.product-form').forEach(function (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const formData = new FormData(form);
+      fetch('/cart/add.js', { method: 'POST', body: formData })
+        .then(res => res.json())
+        .then(data => {
+          showCartNotification(data.product_title);
+          updateCartCount();
+        })
+        .catch(() => { form.submit(); });
+    });
+  });
+
+  // ── Bubble Particles ──
   const particlesContainer = document.getElementById('hero-particles');
   if (particlesContainer) {
     for (let i = 0; i < 15; i++) {
@@ -211,20 +166,15 @@ document.addEventListener('DOMContentLoaded', function () {
       const left = Math.random() * 100;
       const delay = Math.random() * 8;
       const duration = Math.random() * 6 + 6;
-
       bubble.style.cssText = `
-        position: absolute;
-        width: ${size}px;
-        height: ${size}px;
+        position: absolute; width: ${size}px; height: ${size}px;
         border-radius: 50%;
-        border: 1px solid rgba(0, 201, 200, ${Math.random() * 0.3 + 0.1});
-        left: ${left}%;
-        bottom: -50px;
+        border: 1px solid rgba(0,201,200,${Math.random() * 0.3 + 0.1});
+        left: ${left}%; bottom: -50px;
         animation: bubbleRise ${duration}s ${delay}s infinite ease-in;
       `;
       particlesContainer.appendChild(bubble);
     }
-
     const style = document.createElement('style');
     style.textContent = `
       @keyframes bubbleRise {
