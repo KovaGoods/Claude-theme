@@ -4,7 +4,6 @@
     <p class="section-subtitle">
       More than just a lamp — it's an experience that transforms your space and your mood.
     </p>
-
     <div class="why-grid">
 
       <div class="why-card">
@@ -48,77 +47,23 @@
 </section>
 
 <style>
-  .why-section {
-    padding: 100px 0;
-    background: var(--color-light);
-  }
-
-  .why-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-  }
-
-  .why-card {
-    background: var(--color-white);
-    border-radius: var(--radius);
-    padding: 36px 28px;
-    text-align: center;
-    transition: var(--transition);
-    border: 1px solid rgba(0,201,200,0.08);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .why-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background: linear-gradient(135deg, var(--color-aqua), #0099CC);
-    transform: scaleX(0);
-    transition: var(--transition);
-  }
-
-  .why-card:hover::before {
-    transform: scaleX(1);
-  }
-
-  .why-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow);
-  }
-
-  .why-icon {
-    font-size: 48px;
-    margin-bottom: 20px;
-    display: block;
-  }
-
-  .why-card h3 {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--color-primary);
-    margin-bottom: 12px;
-  }
-
-  .why-card p {
-    font-size: 14px;
-    color: var(--color-gray);
-    line-height: 1.7;
-  }
-
-  @media (max-width: 768px) {
-    .why-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 480px) {
-    .why-grid {
-      grid-template-columns: 1fr;
-    }
-  }
+.why-section { padding: 100px 0; background: var(--color-light); }
+.why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.why-card {
+  background: var(--color-white); border-radius: var(--radius);
+  padding: 36px 28px; text-align: center; transition: var(--transition);
+  border: 1px solid rgba(0,201,200,0.08); position: relative; overflow: hidden;
+}
+.why-card::before {
+  content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px;
+  background: linear-gradient(135deg, var(--color-aqua), #0099CC);
+  transform: scaleX(0); transition: var(--transition);
+}
+.why-card:hover::before { transform: scaleX(1); }
+.why-card:hover { transform: translateY(-8px); box-shadow: var(--shadow); }
+.why-icon { font-size: 48px; margin-bottom: 20px; display: block; }
+.why-card h3 { font-size: 18px; font-weight: 700; color: var(--color-primary); margin-bottom: 12px; }
+.why-card p { font-size: 14px; color: var(--color-gray); line-height: 1.7; }
+@media (max-width: 768px) { .why-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .why-grid { grid-template-columns: 1fr; } }
 </style>
