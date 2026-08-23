@@ -10,24 +10,9 @@
   {
     "name": "Colors",
     "settings": [
-      {
-        "type": "color",
-        "id": "color_primary",
-        "label": "Primary Color",
-        "default": "#1A2B4A"
-      },
-      {
-        "type": "color",
-        "id": "color_aqua",
-        "label": "Accent Color",
-        "default": "#00C9C8"
-      },
-      {
-        "type": "color",
-        "id": "color_gold",
-        "label": "Gold Accent",
-        "default": "#F0C040"
-      }
+      { "type": "color", "id": "color_primary", "label": "Primary Color", "default": "#1A2B4A" },
+      { "type": "color", "id": "color_aqua", "label": "Accent Color", "default": "#00C9C8" },
+      { "type": "color", "id": "color_gold", "label": "Gold Accent", "default": "#F0C040" }
     ]
   },
   {
@@ -35,4 +20,26 @@
     "settings": [
       {
         "type": "font_picker",
-        "id": "font_heading
+        "id": "font_heading",
+        "label": "Heading Font",
+        "default": "montserrat_n7"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_body",
+        "label": "Body Font",
+        "default": "montserrat_n4"
+      }
+    ]
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon Image"
+      }
+    ]
+  }
+]
