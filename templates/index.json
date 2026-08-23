@@ -1,0 +1,41 @@
+{
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "settings": {}
+    },
+    "hero": {
+      "type": "hero",
+      "settings": {}
+    },
+    "trust-badges": {
+      "type": "trust-badges",
+      "settings": {}
+    },
+    "promo-banner": {
+      "type": "promo-banner",
+      "settings": {}
+    },
+    "featured-products": {
+      "type": "featured-products",
+      "settings": {}
+    },
+    "why-us": {
+      "type": "why-us",
+      "settings": {}
+    },
+    "reviews": {
+      "type": "reviews",
+      "settings": {}
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "hero",
+    "trust-badges",
+    "promo-banner",
+    "featured-products",
+    "why-us",
+    "reviews"
+  ]
+}
