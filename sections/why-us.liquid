@@ -1,0 +1,124 @@
+<section class="why-section" id="why-us">
+  <div class="container">
+    <h2 class="section-title">Why <span class="highlight">Kova Goods?</span></h2>
+    <p class="section-subtitle">
+      More than just a lamp — it's an experience that transforms your space and your mood.
+    </p>
+
+    <div class="why-grid">
+
+      <div class="why-card">
+        <div class="why-icon">🌊</div>
+        <h3>Calming & Stress Relief</h3>
+        <p>Scientifically proven that watching flowing water and gentle light reduces anxiety and promotes relaxation instantly.</p>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon">🎨</div>
+        <h3>16 Stunning Color Effects</h3>
+        <p>Match any mood, room, or occasion with 16 mesmerizing color modes all controlled by an easy remote.</p>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon">🐠</div>
+        <h3>Lifelike Floating Fish</h3>
+        <p>Watch 10 beautifully crafted fish glide through bubbling water — endlessly captivating for all ages.</p>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon">🏠</div>
+        <h3>Premium Home Decor</h3>
+        <p>Instantly elevates any space — bedroom, living room, office, or kids room into something truly magical.</p>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon">🎁</div>
+        <h3>Perfect Gift</h3>
+        <p>The gift that genuinely surprises and delights — perfect for birthdays, holidays, and special occasions.</p>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon">🔌</div>
+        <h3>Plug & Play Simple</h3>
+        <p>No complicated setup. Just plug in, fill with water, and enjoy your personal ocean paradise in minutes.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .why-section {
+    padding: 100px 0;
+    background: var(--color-light);
+  }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .why-card {
+    background: var(--color-white);
+    border-radius: var(--radius);
+    padding: 36px 28px;
+    text-align: center;
+    transition: var(--transition);
+    border: 1px solid rgba(0,201,200,0.08);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .why-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(135deg, var(--color-aqua), #0099CC);
+    transform: scaleX(0);
+    transition: var(--transition);
+  }
+
+  .why-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .why-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow);
+  }
+
+  .why-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .why-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 12px;
+  }
+
+  .why-card p {
+    font-size: 14px;
+    color: var(--color-gray);
+    line-height: 1.7;
+  }
+
+  @media (max-width: 768px) {
+    .why-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .why-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
