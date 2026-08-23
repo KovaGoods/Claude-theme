@@ -1,0 +1,209 @@
+<section class="promo-section">
+  <div class="container">
+    <div class="promo-inner">
+      <div class="promo-left">
+        <div class="promo-tag">🔥 LIMITED TIME OFFER</div>
+        <h2 class="promo-title">
+          Order 4ft or 5ft Lamp &<br>
+          Get a <span class="promo-highlight">FREE</span> Bluetooth<br>
+          Sensory Lamp!
+        </h2>
+        <p class="promo-subtitle">
+          Worth $60+ — Yours absolutely FREE when you upgrade to our premium sizes.
+          Perfect for gifting or keeping for yourself!
+        </p>
+        <a href="/collections/all" class="btn-primary">
+          <i class="fas fa-gift"></i> &nbsp; Claim Your Free Gift
+        </a>
+      </div>
+
+      <div class="promo-right">
+        <div class="promo-countdown">
+          <p class="countdown-label">Offer Ends In:</p>
+          <div class="countdown-timer" id="countdown-timer">
+            <div class="countdown-block">
+              <span class="countdown-num" id="countdown-hours">23</span>
+              <span class="countdown-unit">Hours</span>
+            </div>
+            <div class="countdown-sep">:</div>
+            <div class="countdown-block">
+              <span class="countdown-num" id="countdown-mins">59</span>
+              <span class="countdown-unit">Mins</span>
+            </div>
+            <div class="countdown-sep">:</div>
+            <div class="countdown-block">
+              <span class="countdown-num" id="countdown-secs">59</span>
+              <span class="countdown-unit">Secs</span>
+            </div>
+          </div>
+        </div>
+        <div class="promo-gift-box">
+          <div class="gift-icon">🎁</div>
+          <div class="gift-details">
+            <p class="gift-name">Bluetooth Sensory Lamp</p>
+            <p class="gift-value"><s>$60 Value</s> — FREE!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .promo-section {
+    background: linear-gradient(135deg, var(--color-primary) 0%, #0D3B4A 100%);
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .promo-section::before {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: rgba(0,201,200,0.05);
+    top: -100px;
+    right: -100px;
+  }
+
+  .promo-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .promo-tag {
+    display: inline-block;
+    background: var(--color-gold);
+    color: var(--color-primary);
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+
+  .promo-title {
+    font-size: 42px;
+    font-weight: 800;
+    color: var(--color-white);
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+
+  .promo-highlight {
+    color: var(--color-gold);
+  }
+
+  .promo-subtitle {
+    font-size: 16px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.7;
+    margin-bottom: 32px;
+  }
+
+  .promo-countdown {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius);
+    padding: 30px;
+    margin-bottom: 24px;
+    text-align: center;
+  }
+
+  .countdown-label {
+    color: rgba(255,255,255,0.6);
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .countdown-timer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .countdown-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(0,201,200,0.15);
+    border: 1px solid rgba(0,201,200,0.3);
+    border-radius: 12px;
+    padding: 16px 24px;
+    min-width: 80px;
+  }
+
+  .countdown-num {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--color-aqua);
+    line-height: 1;
+  }
+
+  .countdown-unit {
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+
+  .countdown-sep {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--color-aqua);
+    margin-bottom: 20px;
+  }
+
+  .promo-gift-box {
+    background: rgba(240,192,64,0.1);
+    border: 1px solid rgba(240,192,64,0.3);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .gift-icon {
+    font-size: 36px;
+  }
+
+  .gift-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-white);
+    margin-bottom: 4px;
+  }
+
+  .gift-value {
+    font-size: 14px;
+    color: var(--color-gold);
+    font-weight: 600;
+  }
+
+  .gift-value s {
+    color: rgba(255,255,255,0.4);
+    margin-right: 6px;
+  }
+
+  @media (max-width: 768px) {
+    .promo-inner {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      text-align: center;
+    }
+
+    .promo-title {
+      font-size: 28px;
+    }
+  }
+</style>
