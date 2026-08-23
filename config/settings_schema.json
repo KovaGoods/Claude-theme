@@ -1,0 +1,38 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Kova Goods Theme",
+    "theme_version": "1.0.0",
+    "theme_author": "Kova Goods",
+    "theme_documentation_url": "https://kovagoods.store",
+    "theme_support_url": "mailto:support@kovagoods.store"
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Primary Color",
+        "default": "#1A2B4A"
+      },
+      {
+        "type": "color",
+        "id": "color_aqua",
+        "label": "Accent Color",
+        "default": "#00C9C8"
+      },
+      {
+        "type": "color",
+        "id": "color_gold",
+        "label": "Gold Accent",
+        "default": "#F0C040"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "font_heading
