@@ -1,0 +1,201 @@
+<div class="notfound-page">
+  <div class="notfound-bg">
+    <div class="notfound-bubbles">
+      {% for i in (1..8) %}
+        <div class="nb nb-{{ i }}"></div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="notfound-content">
+
+      <div class="notfound-code">
+        <span class="code-4">4</span>
+        <span class="code-icon">🐠</span>
+        <span class="code-4">4</span>
+      </div>
+
+      <h1 class="notfound-title">Page Not Found</h1>
+      <p class="notfound-subtitle">
+        Looks like this page swam away! 🌊<br>
+        Don't worry — our lamps are still here waiting for you.
+      </p>
+
+      <div class="notfound-actions">
+        <a href="/" class="btn-primary">
+          <i class="fas fa-home"></i> &nbsp; Go Home
+        </a>
+        <a href="/collections/all" class="btn-secondary">
+          <i class="fas fa-shopping-bag"></i> &nbsp; Shop Now
+        </a>
+      </div>
+
+      <div class="notfound-links">
+        <p>Or try one of these:</p>
+        <div class="notfound-quick-links">
+          <a href="/pages/faq">
+            <i class="fas fa-question-circle"></i> FAQ
+          </a>
+          <a href="/pages/contact">
+            <i class="fas fa-headset"></i> Contact Us
+          </a>
+          <a href="/pages/about">
+            <i class="fas fa-info-circle"></i> About Us
+          </a>
+          <a href="/policies/shipping-policy">
+            <i class="fas fa-shipping-fast"></i> Shipping
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<style>
+.notfound-page {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0D1B2A 0%, #1A2B4A 60%, #0D3B4A 100%);
+}
+.notfound-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Animated Bubbles */
+.nb {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(0,201,200,0.2);
+  animation: nbRise linear infinite;
+}
+.nb-1 { width:20px; height:20px; left:10%; animation-duration:8s; animation-delay:0s;   bottom:-30px; }
+.nb-2 { width:12px; height:12px; left:25%; animation-duration:6s; animation-delay:1s;   bottom:-30px; }
+.nb-3 { width:30px; height:30px; left:40%; animation-duration:10s; animation-delay:2s;  bottom:-30px; }
+.nb-4 { width:8px;  height:8px;  left:55%; animation-duration:7s;  animation-delay:0.5s;bottom:-30px; }
+.nb-5 { width:18px; height:18px; left:65%; animation-duration:9s;  animation-delay:3s;  bottom:-30px; }
+.nb-6 { width:25px; height:25px; left:75%; animation-duration:11s; animation-delay:1.5s;bottom:-30px; }
+.nb-7 { width:10px; height:10px; left:85%; animation-duration:6s;  animation-delay:2.5s;bottom:-30px; }
+.nb-8 { width:16px; height:16px; left:90%; animation-duration:8s;  animation-delay:4s;  bottom:-30px; }
+
+@keyframes nbRise {
+  0%   { transform: translateY(0) scale(1);   opacity: 0.6; }
+  100% { transform: translateY(-110vh) scale(0.4); opacity: 0; }
+}
+
+/* Content */
+.notfound-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 80px 20px;
+}
+
+/* 404 Code */
+.notfound-code {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+.code-4 {
+  font-size: 140px;
+  font-weight: 800;
+  color: var(--color-aqua);
+  line-height: 1;
+  text-shadow: 0 0 60px rgba(0,201,200,0.4);
+}
+.code-icon {
+  font-size: 80px;
+  animation: fishSwim 3s ease-in-out infinite;
+}
+@keyframes fishSwim {
+  0%, 100% { transform: translateY(0) rotate(-5deg); }
+  50%       { transform: translateY(-20px) rotate(5deg); }
+}
+
+.notfound-title {
+  font-size: 42px;
+  font-weight: 800;
+  color: var(--color-white);
+  margin-bottom: 16px;
+}
+.notfound-subtitle {
+  font-size: 18px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.7;
+  margin-bottom: 40px;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Buttons */
+.notfound-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+.notfound-actions .btn-secondary {
+  color: var(--color-aqua);
+  border-color: var(--color-aqua);
+}
+.notfound-actions .btn-secondary:hover {
+  background: var(--color-aqua);
+  color: white;
+}
+
+/* Quick Links */
+.notfound-links p {
+  color: rgba(255,255,255,0.4);
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.notfound-quick-links {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.notfound-quick-links a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.7);
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: var(--transition);
+}
+.notfound-quick-links a:hover {
+  background: rgba(0,201,200,0.15);
+  border-color: var(--color-aqua);
+  color: var(--color-aqua);
+  transform: translateY(-2px);
+}
+.notfound-quick-links a i {
+  font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .code-4    { font-size: 90px; }
+  .code-icon { font-size: 50px; }
+  .notfound-title    { font-size: 28px; }
+  .notfound-subtitle { font-size: 15px; }
+}
+</style>
