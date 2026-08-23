@@ -1,0 +1,206 @@
+<section class="reviews-section">
+  <div class="container">
+    <h2 class="section-title">What Our <span class="highlight">Customers Say</span></h2>
+    <p class="section-subtitle">
+      Join hundreds of happy customers who transformed their spaces with Kova Goods.
+    </p>
+
+    <div class="reviews-grid">
+
+      <div class="review-card">
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <p class="review-text">
+          "This lamp completely transformed my bedroom. The colors are absolutely stunning and the floating fish are so calming. Best purchase I've made all year!"
+        </p>
+        <div class="review-author">
+          <div class="author-avatar">S</div>
+          <div class="author-info">
+            <span class="author-name">Sarah M.</span>
+            <span class="author-location">New York, USA</span>
+          </div>
+          <div class="review-verified">✅ Verified</div>
+        </div>
+      </div>
+
+      <div class="review-card featured">
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <p class="review-text">
+          "I bought the 5ft lamp for my living room and I get compliments every single time someone visits. My kids absolutely love it too. Worth every penny!"
+        </p>
+        <div class="review-author">
+          <div class="author-avatar">J</div>
+          <div class="author-info">
+            <span class="author-name">James T.</span>
+            <span class="author-location">California, USA</span>
+          </div>
+          <div class="review-verified">✅ Verified</div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">⭐⭐⭐⭐⭐</div>
+        <p class="review-text">
+          "Got the 4ft one and the free Bluetooth lamp — incredible deal! The shipping was fast and the quality is amazing. My anxiety has genuinely decreased!"
+        </p>
+        <div class="review-author">
+          <div class="author-avatar">M</div>
+          <div class="author-info">
+            <span class="author-name">Maria L.</span>
+            <span class="author-location">Texas, USA</span>
+          </div>
+          <div class="review-verified">✅ Verified</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="reviews-summary">
+      <div class="summary-score">4.9</div>
+      <div class="summary-stars">⭐⭐⭐⭐⭐</div>
+      <div class="summary-text">Based on 200+ reviews</div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .reviews-section {
+    padding: 100px 0;
+    background: var(--color-white);
+  }
+
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+
+  .review-card {
+    background: var(--color-light);
+    border-radius: var(--radius);
+    padding: 32px;
+    transition: var(--transition);
+    border: 1px solid rgba(0,0,0,0.04);
+    position: relative;
+  }
+
+  .review-card.featured {
+    background: linear-gradient(135deg, var(--color-primary), #0D3B4A);
+    border: none;
+    transform: scale(1.03);
+  }
+
+  .review-card.featured .review-text {
+    color: rgba(255,255,255,0.85);
+  }
+
+  .review-card.featured .author-name {
+    color: white;
+  }
+
+  .review-card.featured .author-location {
+    color: rgba(255,255,255,0.5);
+  }
+
+  .review-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow);
+  }
+
+  .review-card.featured:hover {
+    transform: scale(1.03) translateY(-6px);
+  }
+
+  .review-stars {
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+
+  .review-text {
+    font-size: 15px;
+    color: var(--color-text);
+    line-height: 1.7;
+    margin-bottom: 24px;
+    font-style: italic;
+  }
+
+  .review-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .author-avatar {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, var(--color-aqua), #0099CC);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .author-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .author-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .author-location {
+    font-size: 12px;
+    color: var(--color-gray);
+  }
+
+  .review-verified {
+    font-size: 11px;
+    color: #27AE60;
+    font-weight: 600;
+  }
+
+  .reviews-summary {
+    text-align: center;
+    padding: 32px;
+    background: var(--color-light);
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .summary-score {
+    font-size: 48px;
+    font-weight: 800;
+    color: var(--color-primary);
+  }
+
+  .summary-stars {
+    font-size: 24px;
+  }
+
+  .summary-text {
+    font-size: 14px;
+    color: var(--color-gray);
+  }
+
+  @media (max-width: 768px) {
+    .reviews-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .review-card.featured {
+      transform: scale(1);
+    }
+  }
+</style>
