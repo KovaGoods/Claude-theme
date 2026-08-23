@@ -3,42 +3,34 @@
     <div class="trust-grid">
 
       <div class="trust-item">
-        <div class="trust-icon">
-          <i class="fas fa-shipping-fast"></i>
-        </div>
+        <div class="trust-icon"><i class="fas fa-shipping-fast"></i></div>
         <div class="trust-text">
           <h4>Free USA Shipping</h4>
-          <p>On every single order, no minimum required</p>
+          <p>On every single order</p>
         </div>
       </div>
 
       <div class="trust-item">
-        <div class="trust-icon">
-          <i class="fas fa-shield-alt"></i>
-        </div>
+        <div class="trust-icon"><i class="fas fa-shield-alt"></i></div>
         <div class="trust-text">
           <h4>Secure Checkout</h4>
-          <p>256-bit SSL encryption on all transactions</p>
+          <p>256-bit SSL encryption</p>
         </div>
       </div>
 
       <div class="trust-item">
-        <div class="trust-icon">
-          <i class="fas fa-undo-alt"></i>
-        </div>
+        <div class="trust-icon"><i class="fas fa-undo"></i></div>
         <div class="trust-text">
-          <h4>Easy Returns</h4>
-          <p>30-day hassle-free return policy</p>
+          <h4>30-Day Returns</h4>
+          <p>Hassle-free guarantee</p>
         </div>
       </div>
 
       <div class="trust-item">
-        <div class="trust-icon">
-          <i class="fas fa-headset"></i>
-        </div>
+        <div class="trust-icon"><i class="fas fa-headset"></i></div>
         <div class="trust-text">
           <h4>24/7 Support</h4>
-          <p>We're always here to help you</p>
+          <p>Always here to help</p>
         </div>
       </div>
 
@@ -46,78 +38,23 @@
   </div>
 </section>
 
-{% schema %}
-{
-  "name": "Trust Badges",
-  "settings": [],
-  "presets": [
-    {
-      "name": "Trust Badges",
-      "category": "General"
-    }
-  ]
-}
-{% endschema %}
-
 <style>
-.trust-section {
-  background: var(--color-light);
-  padding: 40px 0;
-  border-top: 1px solid rgba(26,43,74,0.06);
-  border-bottom: 1px solid rgba(26,43,74,0.06);
-}
-.trust-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-}
+.trust-section { background: var(--color-light); padding: 40px 0; border-bottom: 1px solid rgba(0,201,200,0.1); }
+.trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
 .trust-item {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 20px;
-  background: white;
-  border-radius: var(--radius);
-  box-shadow: 0 2px 12px rgba(26,43,74,0.05);
-  transition: var(--transition);
+  display: flex; align-items: center; gap: 16px; padding: 20px;
+  background: white; border-radius: var(--radius);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04); transition: var(--transition);
 }
-.trust-item:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow);
-}
+.trust-item:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
 .trust-icon {
-  width: 50px;
-  height: 50px;
-  background: linear-gradient(135deg, rgba(0,201,200,0.1), rgba(0,201,200,0.2));
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+  width: 50px; height: 50px;
+  background: linear-gradient(135deg, var(--color-aqua), #0099CC);
+  border-radius: 12px; display: flex; align-items: center;
+  justify-content: center; color: white; font-size: 20px; flex-shrink: 0;
 }
-.trust-icon i {
-  font-size: 22px;
-  color: var(--color-aqua);
-}
-.trust-text h4 {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--color-primary);
-  margin-bottom: 4px;
-}
-.trust-text p {
-  font-size: 12px;
-  color: var(--color-gray);
-  line-height: 1.4;
-}
-@media (max-width: 900px) {
-  .trust-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-@media (max-width: 480px) {
-  .trust-grid {
-    grid-template-columns: 1fr;
-  }
-}
+.trust-text h4 { font-size: 14px; font-weight: 700; color: var(--color-primary); margin-bottom: 4px; }
+.trust-text p { font-size: 12px; color: var(--color-gray); }
+@media (max-width: 768px) { .trust-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .trust-grid { grid-template-columns: 1fr; } }
 </style>
