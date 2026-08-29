@@ -1,186 +1,168 @@
 {% assign p = all_products['sensory-bubble-tube-lamp-5-ft-bubble-fish-tube-sensory-aquarium-lamp-with-10-floating-fish-16-color-effects-remote-control-stress-relief-calming-light-for-bedroom-living-room-home-decor'] %}
-
 <section class="ph-section">
+<!-- Ambient Background Particles -->
+<div class="ph-bg">
+  <div class="ph-bubble ph-bubble--1"></div>
+  <div class="ph-bubble ph-bubble--2"></div>
+  <div class="ph-bubble ph-bubble--3"></div>
+  <div class="ph-bubble ph-bubble--4"></div>
+  <div class="ph-bubble ph-bubble--5"></div>
+  <div class="ph-glow ph-glow--left"></div>
+  <div class="ph-glow ph-glow--right"></div>
+</div>
 
-  <!-- Ambient Background Particles -->
-  <div class="ph-bg">
-    <div class="ph-bubble ph-bubble--1"></div>
-    <div class="ph-bubble ph-bubble--2"></div>
-    <div class="ph-bubble ph-bubble--3"></div>
-    <div class="ph-bubble ph-bubble--4"></div>
-    <div class="ph-bubble ph-bubble--5"></div>
-    <div class="ph-glow ph-glow--left"></div>
-    <div class="ph-glow ph-glow--right"></div>
+<div class="ph-container">
+  <!-- ═══ LEFT: IMAGE SIDE ═══ -->
+  <div class="ph-visual">
+    <!-- Main Image Frame -->
+    <div class="ph-frame">
+      <div class="ph-frame-glow"></div>
+      <div class="ph-img-wrap" id="ph-main-img-wrap">
+        {% if p.featured_image %}
+        <img
+          src="{{ p.featured_image | img_url: '800x800' }}"
+          alt="{{ p.title }}"
+          class="ph-main-img"
+          id="ph-main-img"
+        >
+        {% endif %}
+        <!-- Floating Orbs on image -->
+        <div class="ph-orb ph-orb--1"></div>
+        <div class="ph-orb ph-orb--2"></div>
+      </div>
+      <!-- Live Badge -->
+      <div class="ph-live-badge">
+        <span class="ph-live-dot"></span>
+        Live Preview
+      </div>
+      <!-- Discount Tag -->
+      <div class="ph-discount-tag">
+        <span class="ph-discount-num">20%</span>
+        <span class="ph-discount-txt">OFF</span>
+      </div>
+    </div>
+
+    <!-- Thumbnail Strip -->
+    <div class="ph-thumbs">
+      {% for image in p.images limit: 5 %}
+      <button
+        class="ph-thumb {% if forloop.first %}ph-thumb--active{% endif %}"
+        onclick="phSwitchImg('{{ image | img_url: '800x800' }}', this)"
+        aria-label="View image {{ forloop.index }}"
+      >
+        <img src="{{ image | img_url: '120x120' }}" alt="View {{ forloop.index }}" loading="lazy">
+      </button>
+      {% endfor %}
+    </div>
   </div>
 
-  <div class="ph-container">
+  <!-- ═══ RIGHT: INFO SIDE ═══ -->
+  <div class="ph-info">
+    <!-- Top Label -->
+    <div class="ph-labels">
+      <span class="ph-label ph-label--new">
+        <i class="fas fa-star"></i> New Arrival
+      </span>
+      <span class="ph-label ph-label--stock">
+        <i class="fas fa-check-circle"></i> In Stock
+      </span>
+    </div>
 
-    <!-- ═══ LEFT: IMAGE SIDE ═══ -->
-    <div class="ph-visual">
+    <!-- Title -->
+    <h1 class="ph-title">
+      Sensory Bubble
+      <span class="ph-title-highlight">Fish Lamp</span>
+    </h1>
 
-      <!-- Main Image Frame -->
-      <div class="ph-frame">
-        <div class="ph-frame-glow"></div>
-        <div class="ph-img-wrap" id="ph-main-img-wrap">
-          {% if p.featured_image %}
-            <img
-              src="{{ p.featured_image | img_url: '800x800' }}"
-              alt="{{ p.title }}"
-              class="ph-main-img"
-              id="ph-main-img"
-            >
-          {% endif %}
-          <!-- Floating Orbs on image -->
-          <div class="ph-orb ph-orb--1"></div>
-          <div class="ph-orb ph-orb--2"></div>
-        </div>
+    <!-- Stars -->
+    <div class="ph-stars">
+      <div class="ph-stars-icons">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star-half-alt"></i>
+      </div>
+      <span class="ph-stars-count">4.8</span>
+      <span class="ph-stars-reviews">(247 reviews)</span>
+    </div>
 
-        <!-- Live Badge -->
-        <div class="ph-live-badge">
-          <span class="ph-live-dot"></span>
-          Live Preview
-        </div>
+    <!-- Price Block -->
+    <div class="ph-price-block">
+      <div class="ph-price-wrap" id="ph-price-display">
+        <span class="ph-price-old" id="ph-price-old">$179.99</span>
+        <span class="ph-price-current" id="ph-price-current">$149.99</span>
+      </div>
+      <div class="ph-price-save">
+        You save <strong>$30.00</strong> today!
+      </div>
+    </div>
 
-        <!-- Discount Tag -->
-        <div class="ph-discount-tag">
-          <span class="ph-discount-num">20%</span>
-          <span class="ph-discount-txt">OFF</span>
-        </div>
+    <!-- Divider -->
+    <div class="ph-divider"></div>
+
+    <!-- Size Selector -->
+    <div class="ph-sizes">
+      <div class="ph-sizes-label">
+        <i class="fas fa-ruler-vertical"></i>
+        Select Your Size
+        <span class="ph-sizes-hint">— hover to preview</span>
       </div>
 
-      <!-- Thumbnail Strip -->
-      <div class="ph-thumbs">
-        {% for image in p.images limit: 5 %}
-          <button
-            class="ph-thumb {% if forloop.first %}ph-thumb--active{% endif %}"
-            onclick="phSwitchImg('{{ image | img_url: '800x800' }}', this)"
-            aria-label="View image {{ forloop.index }}"
-          >
-            <img src="{{ image | img_url: '120x120' }}" alt="View {{ forloop.index }}" loading="lazy">
-          </button>
+      <div class="ph-sizes-grid">
+        {% for variant in p.variants %}
+          {% unless variant.title contains '15' or variant.title contains 'Bluetooth' %}
+            {% assign has_gift = false %}
+            {% if variant.title contains '48' or variant.title contains '4 ft' or variant.title contains '4ft'
+               or variant.title contains '60' or variant.title contains '5 ft' or variant.title contains '5ft' %}
+              {% assign has_gift = true %}
+            {% endif %}
+
+            {% assign is_popular = false %}
+            {% if variant.title contains '48' or variant.title contains '4 ft' or variant.title contains '4ft' %}
+              {% assign is_popular = true %}
+            {% endif %}
+
+            <div
+              class="ph-size-card {% if is_popular %}ph-size-card--popular{% endif %}"
+              data-variant-id="{{ variant.id }}"
+              data-price="{{ variant.price | money }}"
+              data-compare="{{ variant.price | plus: 2000 | money }}"
+              data-has-gift="{{ has_gift }}"
+              onclick="phSelectSize(this)"
+            >
+              {% if is_popular %}
+              <div class="ph-size-ribbon">⭐ Best</div>
+              {% endif %}
+
+              <div class="ph-size-icon">
+                <i class="fas fa-ruler"></i>
+              </div>
+              <div class="ph-size-name">{{ variant.title }}</div>
+              <div class="ph-size-price">{{ variant.price | money }}</div>
+
+              {% if has_gift %}
+              <div class="ph-size-gift">
+                <i class="fas fa-gift"></i> +Free Lamp
+              </div>
+              {% endif %}
+            </div>
+          {% endunless %}
         {% endfor %}
       </div>
 
-    </div>
-
-    <!-- ═══ RIGHT: INFO SIDE ═══ -->
-    <div class="ph-info">
-
-      <!-- Top Label -->
-      <div class="ph-labels">
-        <span class="ph-label ph-label--new">
-          <i class="fas fa-star"></i> New Arrival
-        </span>
-        <span class="ph-label ph-label--stock">
-          <i class="fas fa-check-circle"></i> In Stock
-        </span>
+      <!-- Dynamic Gift / Warning Message -->
+      <div class="ph-gift-dynamic" id="ph-gift-dynamic">
+        <!-- يتغير ديناميكياً بالـ JS -->
       </div>
 
-      <!-- Title -->
-      <h1 class="ph-title">
-        Sensory Bubble
-        <span class="ph-title-highlight">Fish Lamp</span>
-      </h1>
-
-      <!-- Stars -->
-      <div class="ph-stars">
-        <div class="ph-stars-icons">
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star-half-alt"></i>
-        </div>
-        <span class="ph-stars-count">4.8</span>
-        <span class="ph-stars-reviews">(247 reviews)</span>
-      </div>
-
-      <!-- Price Block -->
-      <div class="ph-price-block">
-        <div class="ph-price-wrap" id="ph-price-display">
-          <span class="ph-price-old" id="ph-price-old">$179.99</span>
-          <span class="ph-price-current" id="ph-price-current">$149.99</span>
-        </div>
-        <div class="ph-price-save">
-          You save <strong>$30.00</strong> today!
-        </div>
-      </div>
-
-      <!-- Divider -->
-      <div class="ph-divider"></div>
-
-      <!-- Size Selector -->
-      <div class="ph-sizes">
-        <div class="ph-sizes-label">
-          <i class="fas fa-ruler-vertical"></i>
-          Select Your Size
-          <span class="ph-sizes-hint">— hover to preview</span>
-        </div>
-
-        <div class="ph-sizes-grid">
-
-          {% for variant in p.variants %}
-            {% unless variant.title contains '15' or variant.title contains 'Bluetooth' %}
-
-              {% assign has_gift = false %}
-              {% if variant.title contains '48' or variant.title contains '4 ft' or variant.title contains '4ft'
-                  or variant.title contains '60' or variant.title contains '5 ft' or variant.title contains '5ft' %}
-                {% assign has_gift = true %}
-              {% endif %}
-
-              {% assign is_popular = false %}
-              {% if variant.title contains '48' or variant.title contains '4 ft' or variant.title contains '4ft' %}
-                {% assign is_popular = true %}
-              {% endif %}
-
-              <div
-                class="ph-size-card {% if is_popular %}ph-size-card--popular{% endif %}"
-                data-variant-id="{{ variant.id }}"
-                data-price="{{ variant.price | money }}"
-                data-compare="{{ variant.price | plus: 2000 | money }}"
-                onclick="phSelectSize(this)"
-              >
-                {% if is_popular %}
-                  <div class="ph-size-ribbon">⭐ Best</div>
-                {% endif %}
-
-                <div class="ph-size-icon">
-                  {% if variant.title contains '32' or variant.title contains '2.6' %}
-                    <i class="fas fa-ruler"></i>
-                  {% elsif variant.title contains '39' or variant.title contains '3.3' or variant.title contains '3 ft' %}
-                    <i class="fas fa-ruler"></i>
-                  {% elsif variant.title contains '48' or variant.title contains '4 ft' %}
-                    <i class="fas fa-ruler"></i>
-                  {% else %}
-                    <i class="fas fa-ruler"></i>
-                  {% endif %}
-                </div>
-
-                <div class="ph-size-name">{{ variant.title }}</div>
-                <div class="ph-size-price">{{ variant.price | money }}</div>
-
-                {% if has_gift %}
-                  <div class="ph-size-gift">
-                    <i class="fas fa-gift"></i> +Free Speaker
-                  </div>
-                {% endif %}
-
-              </div>
-
-            {% endunless %}
-          {% endfor %}
-
-        </div>
-      </div>
-
-      <!-- Gift Banner -->
-      <div class="ph-gift-banner">
+      <!-- Gift Banner (يظهر/يختفي حسب الاختيار) -->
+      <div class="ph-gift-banner" id="ph-gift-banner">
         <div class="ph-gift-icon">
           <i class="fas fa-gift"></i>
         </div>
         <div class="ph-gift-text">
-          <strong>FREE Bluetooth Speaker Lamp</strong> included with
-          every 48" & 60" order
+          <strong>FREE Bluetooth Lamp</strong> included with every 48" &amp; 60" order
           <span class="ph-gift-value">— a $60 value, yours free!</span>
         </div>
         <div class="ph-gift-ribbon">🎁</div>
@@ -188,22 +170,23 @@
 
       <!-- CTA Buttons -->
       <div class="ph-ctas" id="ph-ctas">
-        <a
-          href="{{ p.url }}?variant={{ p.variants.first.id }}"
+        <button
           class="ph-btn-main"
           id="ph-btn-main"
+          onclick="phBuyNow()"
         >
           <span class="ph-btn-icon"><i class="fas fa-bolt"></i></span>
           <span class="ph-btn-text">Buy Now — Get Yours Today</span>
           <span class="ph-btn-arrow"><i class="fas fa-arrow-right"></i></span>
-        </a>
-        <a
-          href="{{ p.url }}?variant={{ p.variants.first.id }}"
+        </button>
+        <button
           class="ph-btn-cart"
           id="ph-btn-cart"
+          onclick="phAddToCart()"
         >
-          <i class="fas fa-shopping-cart"></i> Add to Cart
-        </a>
+          <i class="fas fa-shopping-cart"></i>
+          <span id="ph-cart-btn-text">Add to Cart</span>
+        </button>
       </div>
 
       <!-- Trust Mini Row -->
@@ -225,16 +208,15 @@
           <span>24/7 Support</span>
         </div>
       </div>
-
     </div>
   </div>
+</div>
 </section>
 
 <!-- ═══════════════════════════════════════
      STYLES
 ═══════════════════════════════════════ -->
 <style>
-
 /* ── Root & Section ── */
 .ph-section {
   position: relative;
@@ -253,7 +235,6 @@
   pointer-events: none;
   z-index: 0;
 }
-
 .ph-bubble {
   position: absolute;
   border-radius: 50%;
@@ -265,7 +246,6 @@
 .ph-bubble--3 { width:150px; height:150px; left:70%; top:20%; animation-duration:10s; animation-delay:1s; }
 .ph-bubble--4 { width:250px; height:250px; left:80%; top:65%; animation-duration:18s; animation-delay:3s; }
 .ph-bubble--5 { width:100px; height:100px; left:50%; top:80%; animation-duration:8s;  animation-delay:0.5s; }
-
 .ph-glow--left {
   position: absolute;
   left: -200px; top: 50%;
@@ -281,11 +261,10 @@
   border-radius: 50%;
   background: radial-gradient(circle, rgba(102,51,255,0.08), transparent 70%);
 }
-
 @keyframes phFloat {
-  0%   { transform: translateY(0)   scale(1); opacity: 0.6; }
+  0%   { transform: translateY(0) scale(1);    opacity: 0.6; }
   50%  { transform: translateY(-40px) scale(1.05); opacity: 1; }
-  100% { transform: translateY(0)   scale(1); opacity: 0.6; }
+  100% { transform: translateY(0) scale(1);    opacity: 0.6; }
 }
 
 /* ── Container ── */
@@ -322,7 +301,6 @@
     0 30px 80px rgba(0,0,0,0.5),
     inset 0 1px 0 rgba(255,255,255,0.05);
 }
-
 .ph-frame-glow {
   position: absolute;
   inset: 0;
@@ -330,21 +308,18 @@
   pointer-events: none;
   z-index: 2;
 }
-
 .ph-img-wrap {
   position: relative;
   aspect-ratio: 1;
   overflow: hidden;
 }
-
 .ph-main-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.6s ease;
+  transition: transform 0.6s ease, opacity 0.2s ease;
 }
-
 .ph-frame:hover .ph-main-img {
   transform: scale(1.04);
 }
@@ -367,9 +342,8 @@
   background: radial-gradient(circle, rgba(102,51,255,0.2), transparent 70%);
   animation: phPulse 6s ease-in-out infinite reverse;
 }
-
 @keyframes phPulse {
-  0%, 100% { transform: scale(1); opacity: 0.6; }
+  0%, 100% { transform: scale(1);   opacity: 0.6; }
   50%       { transform: scale(1.3); opacity: 1; }
 }
 
@@ -391,14 +365,12 @@
   align-items: center;
   gap: 6px;
 }
-
 .ph-live-dot {
   width: 7px; height: 7px;
   border-radius: 50%;
   background: #00c9c8;
   animation: phBlink 1.5s ease-in-out infinite;
 }
-
 @keyframes phBlink {
   0%, 100% { opacity: 1; }
   50%       { opacity: 0.2; }
@@ -435,7 +407,6 @@
   gap: 10px;
   justify-content: center;
 }
-
 .ph-thumb {
   width: 64px; height: 64px;
   border-radius: 12px;
@@ -447,13 +418,11 @@
   background: none;
   flex-shrink: 0;
 }
-
 .ph-thumb img {
   width: 100%; height: 100%;
   object-fit: cover;
   display: block;
 }
-
 .ph-thumb:hover,
 .ph-thumb--active {
   border-color: #00c9c8;
@@ -476,7 +445,6 @@
   gap: 10px;
   margin-bottom: 18px;
 }
-
 .ph-label {
   display: inline-flex;
   align-items: center;
@@ -487,13 +455,11 @@
   font-weight: 700;
   letter-spacing: 0.5px;
 }
-
 .ph-label--new {
   background: rgba(0,201,200,0.12);
   border: 1px solid rgba(0,201,200,0.3);
   color: #00c9c8;
 }
-
 .ph-label--stock {
   background: rgba(34,197,94,0.12);
   border: 1px solid rgba(34,197,94,0.3);
@@ -509,7 +475,6 @@
   margin-bottom: 16px;
   letter-spacing: -1px;
 }
-
 .ph-title-highlight {
   display: block;
   background: linear-gradient(135deg, #00c9c8, #0099cc, #6633ff);
@@ -525,20 +490,17 @@
   gap: 8px;
   margin-bottom: 24px;
 }
-
 .ph-stars-icons {
   display: flex;
   gap: 2px;
   color: #f0c040;
   font-size: 14px;
 }
-
 .ph-stars-count {
   font-size: 15px;
   font-weight: 800;
   color: #ffffff;
 }
-
 .ph-stars-reviews {
   font-size: 13px;
   color: rgba(255,255,255,0.5);
@@ -548,29 +510,27 @@
 .ph-price-block {
   margin-bottom: 24px;
 }
-
 .ph-price-wrap {
   display: flex;
   align-items: baseline;
   gap: 14px;
   margin-bottom: 6px;
 }
-
 .ph-price-old {
   font-size: 20px;
   color: rgba(255,255,255,0.35);
   text-decoration: line-through;
   font-weight: 500;
+  transition: opacity 0.15s ease;
 }
-
 .ph-price-current {
   font-size: 48px;
   font-weight: 900;
   color: #ffffff;
   letter-spacing: -2px;
   line-height: 1;
+  transition: opacity 0.15s ease;
 }
-
 .ph-price-save {
   font-size: 13px;
   color: #22c55e;
@@ -599,7 +559,6 @@
   align-items: center;
   gap: 8px;
 }
-
 .ph-sizes-hint {
   font-size: 11px;
   font-weight: 400;
@@ -607,14 +566,12 @@
   text-transform: none;
   letter-spacing: 0;
 }
-
 .ph-sizes-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
-
 .ph-size-card {
   position: relative;
   background: rgba(255,255,255,0.04);
@@ -626,7 +583,6 @@
   transition: all 0.25s ease;
   overflow: hidden;
 }
-
 .ph-size-card::before {
   content: '';
   position: absolute;
@@ -636,7 +592,6 @@
   transition: opacity 0.25s ease;
   border-radius: 14px;
 }
-
 .ph-size-card:hover,
 .ph-size-card--selected {
   border-color: #00c9c8;
@@ -644,16 +599,13 @@
   transform: translateY(-4px);
   box-shadow: 0 8px 24px rgba(0,201,200,0.2);
 }
-
 .ph-size-card:hover::before,
 .ph-size-card--selected::before {
   opacity: 1;
 }
-
 .ph-size-card--popular {
   border-color: rgba(0,201,200,0.4);
 }
-
 .ph-size-ribbon {
   position: absolute;
   top: 0; right: 0;
@@ -665,19 +617,16 @@
   border-radius: 0 14px 0 10px;
   letter-spacing: 0.3px;
 }
-
 .ph-size-icon {
   font-size: 18px;
   color: rgba(255,255,255,0.3);
   margin-bottom: 6px;
   transition: color 0.25s;
 }
-
 .ph-size-card:hover .ph-size-icon,
 .ph-size-card--selected .ph-size-icon {
   color: #00c9c8;
 }
-
 .ph-size-name {
   font-size: 12px;
   font-weight: 700;
@@ -685,14 +634,12 @@
   margin-bottom: 4px;
   line-height: 1.3;
 }
-
 .ph-size-price {
   font-size: 14px;
   font-weight: 800;
   color: #ffffff;
   margin-bottom: 6px;
 }
-
 .ph-size-gift {
   font-size: 9px;
   font-weight: 700;
@@ -704,6 +651,37 @@
   display: inline-flex;
   align-items: center;
   gap: 3px;
+}
+
+/* ── Dynamic Gift Message ── */
+.ph-gift-dynamic {
+  margin-bottom: 12px;
+  min-height: 40px;
+  transition: all 0.3s ease;
+}
+.ph-gift-dynamic-msg {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  animation: phFadeIn 0.3s ease;
+}
+.ph-gift-dynamic-msg--good {
+  background: rgba(34,197,94,0.1);
+  border: 1px solid rgba(34,197,94,0.3);
+  color: #22c55e;
+}
+.ph-gift-dynamic-msg--warn {
+  background: rgba(255,165,0,0.1);
+  border: 1px solid rgba(255,165,0,0.35);
+  color: #ffaa00;
+}
+@keyframes phFadeIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* ── Gift Banner ── */
@@ -718,8 +696,12 @@
   margin-bottom: 28px;
   position: relative;
   overflow: hidden;
+  transition: all 0.4s ease;
 }
-
+.ph-gift-banner.ph-gift-banner--hidden {
+  opacity: 0.35;
+  filter: grayscale(0.6);
+}
 .ph-gift-banner::before {
   content: '';
   position: absolute;
@@ -727,7 +709,6 @@
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(240,192,64,0.5), transparent);
 }
-
 .ph-gift-icon {
   width: 44px; height: 44px;
   border-radius: 12px;
@@ -740,32 +721,27 @@
   color: #f0c040;
   flex-shrink: 0;
 }
-
 .ph-gift-text {
   font-size: 13px;
   color: rgba(255,255,255,0.75);
   line-height: 1.5;
   flex: 1;
 }
-
 .ph-gift-text strong {
   color: #f0c040;
   display: block;
   font-size: 14px;
   margin-bottom: 2px;
 }
-
 .ph-gift-value {
   color: #f0c040;
   font-weight: 700;
 }
-
 .ph-gift-ribbon {
   font-size: 28px;
   flex-shrink: 0;
   animation: phSwing 3s ease-in-out infinite;
 }
-
 @keyframes phSwing {
   0%, 100% { transform: rotate(-10deg); }
   50%       { transform: rotate(10deg); }
@@ -777,7 +753,6 @@
   gap: 12px;
   margin-bottom: 24px;
 }
-
 .ph-btn-main {
   flex: 1;
   display: flex;
@@ -790,13 +765,14 @@
   font-weight: 800;
   padding: 18px 24px;
   border-radius: 16px;
+  border: none;
+  cursor: pointer;
   text-decoration: none;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
   box-shadow: 0 8px 32px rgba(0,201,200,0.35);
 }
-
 .ph-btn-main::before {
   content: '';
   position: absolute;
@@ -805,38 +781,29 @@
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
   transition: left 0.5s ease;
 }
-
-.ph-btn-main:hover::before {
-  left: 100%;
-}
-
+.ph-btn-main:hover::before { left: 100%; }
 .ph-btn-main:hover {
   transform: translateY(-3px);
   box-shadow: 0 16px 48px rgba(0,201,200,0.5);
   color: white;
 }
-
 .ph-btn-icon {
   font-size: 18px;
   animation: phBolt 2s ease-in-out infinite;
 }
-
 @keyframes phBolt {
   0%, 100% { transform: scale(1); }
   50%       { transform: scale(1.2); }
 }
-
 .ph-btn-arrow {
   margin-left: auto;
   opacity: 0.7;
   transition: transform 0.3s;
 }
-
 .ph-btn-main:hover .ph-btn-arrow {
   transform: translateX(4px);
   opacity: 1;
 }
-
 .ph-btn-cart {
   display: flex;
   align-items: center;
@@ -848,16 +815,22 @@
   font-weight: 700;
   padding: 18px 22px;
   border-radius: 16px;
+  cursor: pointer;
   text-decoration: none;
   transition: all 0.3s ease;
   white-space: nowrap;
 }
-
 .ph-btn-cart:hover {
   background: rgba(255,255,255,0.1);
   border-color: rgba(255,255,255,0.3);
   color: white;
   transform: translateY(-3px);
+}
+.ph-btn-cart:disabled,
+.ph-btn-main:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
 }
 
 /* ── Trust Row ── */
@@ -866,7 +839,6 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 8px;
 }
-
 .ph-trust-item {
   display: flex;
   flex-direction: column;
@@ -879,17 +851,14 @@
   text-align: center;
   transition: all 0.3s;
 }
-
 .ph-trust-item:hover {
   background: rgba(0,201,200,0.06);
   border-color: rgba(0,201,200,0.2);
 }
-
 .ph-trust-item i {
   font-size: 18px;
   color: #00c9c8;
 }
-
 .ph-trust-item span {
   font-size: 10px;
   font-weight: 600;
@@ -911,67 +880,158 @@
   .ph-visual { max-width: 500px; margin: 0 auto; width: 100%; }
   .ph-section { padding: 60px 0 80px; min-height: auto; }
 }
-
 @media (max-width: 640px) {
-  .ph-sizes-grid { grid-template-columns: repeat(2, 1fr); }
-  .ph-trust-row  { grid-template-columns: repeat(2, 1fr); }
-  .ph-ctas       { flex-direction: column; }
-  .ph-title      { font-size: 36px; }
+  .ph-sizes-grid    { grid-template-columns: repeat(2, 1fr); }
+  .ph-trust-row     { grid-template-columns: repeat(2, 1fr); }
+  .ph-ctas          { flex-direction: column; }
+  .ph-title         { font-size: 36px; }
   .ph-price-current { font-size: 38px; }
-  .ph-thumbs     { gap: 6px; }
-  .ph-thumb      { width: 52px; height: 52px; }
+  .ph-thumbs        { gap: 6px; }
+  .ph-thumb         { width: 52px; height: 52px; }
 }
-
 </style>
 
 <!-- ═══════════════════════════════════════
      SCRIPTS
 ═══════════════════════════════════════ -->
 <script>
+// ── State ──
+var phSelectedVariantId = null;
+var phProductUrl = {{ p.url | json }};
+
 // ── Switch Main Image ──
 function phSwitchImg(src, btn) {
-  const img = document.getElementById('ph-main-img');
+  var img = document.getElementById('ph-main-img');
   if (!img) return;
   img.style.opacity = '0';
   img.style.transform = 'scale(0.97)';
-  setTimeout(() => {
+  setTimeout(function() {
     img.src = src;
     img.style.opacity = '1';
     img.style.transform = 'scale(1)';
   }, 200);
-  document.querySelectorAll('.ph-thumb').forEach(t => t.classList.remove('ph-thumb--active'));
+  document.querySelectorAll('.ph-thumb').forEach(function(t) {
+    t.classList.remove('ph-thumb--active');
+  });
   btn.classList.add('ph-thumb--active');
 }
 
 // ── Select Size ──
 function phSelectSize(card) {
-  document.querySelectorAll('.ph-size-card').forEach(c => c.classList.remove('ph-size-card--selected'));
+  document.querySelectorAll('.ph-size-card').forEach(function(c) {
+    c.classList.remove('ph-size-card--selected');
+  });
   card.classList.add('ph-size-card--selected');
 
-  const variantId = card.dataset.variantId;
-  const price     = card.dataset.price;
-  const compare   = card.dataset.compare;
+  phSelectedVariantId = card.dataset.variantId;
+  var price   = card.dataset.price;
+  var compare = card.dataset.compare;
+  var hasGift = card.dataset.hasGift === 'true';
 
   // Update price display
-  const priceEl   = document.getElementById('ph-price-current');
-  const compareEl = document.getElementById('ph-price-old');
-  if (priceEl)   { priceEl.style.opacity='0'; setTimeout(()=>{ priceEl.textContent=price;   priceEl.style.opacity='1'; },150); }
-  if (compareEl) { compareEl.style.opacity='0'; setTimeout(()=>{ compareEl.textContent=compare; compareEl.style.opacity='1'; },150); }
+  var priceEl   = document.getElementById('ph-price-current');
+  var compareEl = document.getElementById('ph-price-old');
+  if (priceEl) {
+    priceEl.style.opacity = '0';
+    setTimeout(function() { priceEl.textContent = price;   priceEl.style.opacity = '1'; }, 150);
+  }
+  if (compareEl) {
+    compareEl.style.opacity = '0';
+    setTimeout(function() { compareEl.textContent = compare; compareEl.style.opacity = '1'; }, 150);
+  }
 
-  // Update CTA links
-  const productUrl = {{ p.url | json }};
-  const btnMain = document.getElementById('ph-btn-main');
-  const btnCart = document.getElementById('ph-btn-cart');
-  if (btnMain) btnMain.href = productUrl + '?variant=' + variantId;
-  if (btnCart) btnCart.href = productUrl + '?variant=' + variantId;
+  // ── Dynamic Gift Message ──
+  var dynamicEl = document.getElementById('ph-gift-dynamic');
+  var bannerEl  = document.getElementById('ph-gift-banner');
+
+  if (hasGift) {
+    // Large size selected → celebrate
+    dynamicEl.innerHTML =
+      '<div class="ph-gift-dynamic-msg ph-gift-dynamic-msg--good">' +
+        '<i class="fas fa-gift"></i>' +
+        '🎉 Great choice! You\'ll receive a <strong>&nbsp;FREE Bluetooth Lamp</strong>&nbsp;($60 value) with your order!' +
+      '</div>';
+    if (bannerEl) bannerEl.classList.remove('ph-gift-banner--hidden');
+  } else {
+    // Small size selected → soft warning
+    dynamicEl.innerHTML =
+      '<div class="ph-gift-dynamic-msg ph-gift-dynamic-msg--warn">' +
+        '<i class="fas fa-exclamation-circle"></i>' +
+        '⚠️ Upgrade to <strong>&nbsp;48" or 60"&nbsp;</strong> to unlock your <strong>FREE Bluetooth Lamp</strong>!' +
+      '</div>';
+    if (bannerEl) bannerEl.classList.add('ph-gift-banner--hidden');
+  }
 }
 
-// ── Smooth price transitions ──
-['ph-price-current','ph-price-old'].forEach(id => {
-  const el = document.getElementById(id);
-  if (el) el.style.transition = 'opacity 0.15s ease';
-});
+// ── Buy Now → Direct Checkout ──
+function phBuyNow() {
+  if (!phSelectedVariantId) {
+    phShakeGrid();
+    return;
+  }
+  window.location.href = '/checkout?variant=' + phSelectedVariantId + '&quantity=1';
+}
+
+// ── Add to Cart → AJAX → Redirect to Checkout ──
+function phAddToCart() {
+  if (!phSelectedVariantId) {
+    phShakeGrid();
+    return;
+  }
+  var btn      = document.getElementById('ph-btn-cart');
+  var btnText  = document.getElementById('ph-cart-btn-text');
+  var btnMain  = document.getElementById('ph-btn-main');
+
+  btn.disabled    = true;
+  btnMain.disabled = true;
+  btnText.textContent = 'Adding...';
+
+  fetch('/cart/add.js', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id: phSelectedVariantId, quantity: 1 })
+  })
+  .then(function(res) { return res.json(); })
+  .then(function() {
+    btnText.textContent = 'Added! Redirecting...';
+    setTimeout(function() {
+      window.location.href = '/checkout';
+    }, 600);
+  })
+  .catch(function() {
+    btnText.textContent = 'Error — Try Again';
+    btn.disabled     = false;
+    btnMain.disabled = false;
+    setTimeout(function() { btnText.textContent = 'Add to Cart'; }, 2000);
+  });
+}
+
+// ── Shake grid if no size selected ──
+function phShakeGrid() {
+  var grid = document.querySelector('.ph-sizes-grid');
+  if (!grid) return;
+  grid.style.animation = 'none';
+  grid.offsetHeight; // reflow
+  grid.style.animation = 'phShake 0.4s ease';
+  var hint = document.getElementById('ph-gift-dynamic');
+  if (hint) {
+    hint.innerHTML =
+      '<div class="ph-gift-dynamic-msg ph-gift-dynamic-msg--warn">' +
+        '<i class="fas fa-hand-pointer"></i> Please select a size first!' +
+      '</div>';
+  }
+}
 </script>
+
+<style>
+@keyframes phShake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-8px); }
+  40%       { transform: translateX(8px); }
+  60%       { transform: translateX(-5px); }
+  80%       { transform: translateX(5px); }
+}
+</style>
 
 {% schema %}
 {
