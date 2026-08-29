@@ -6,6 +6,12 @@
 <meta name="description" content="{{ page_description | default: 'Kova Goods - Bring the Ocean Home. Premium Sensory Bubble Fish Lamps for your home.' }}">
 <title>{{ page_title | default: 'Kova Goods — Bring the Ocean Home' }}</title>
 {{ content_for_header }}
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="{{ 'Favicon' | asset_url }}">
+<link rel="shortcut icon" type="image/png" href="{{ 'Favicon' | asset_url }}">
+<link rel="apple-touch-icon" href="{{ 'Favicon' | asset_url }}">
+
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 {{ 'theme.css' | asset_url | stylesheet_tag }}
