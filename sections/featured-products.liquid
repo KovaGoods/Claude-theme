@@ -1,337 +1,772 @@
-<section class="featured-section" id="size-grid">
-  <div class="container">
+{% assign main_product = all_products['sensory-bubble-tube-lamp-5-ft-bubble-fish-tube-sensory-aquarium-lamp-with-10-floating-fish-16-color-effects-remote-control-stress-relief-calming-light-for-bedroom-living-room-home-decor'] %}
 
-    <div class="featured-header">
-      <div class="featured-badge">
-        <i class="fas fa-th-large"></i> All Sizes
+<!-- ═══════════════════════════════════════════════
+     FEATURED PRODUCTS — CREATIVE REDESIGN
+═══════════════════════════════════════════════ -->
+<section class="fp-section" id="size-grid">
+  <div class="fp-container">
+
+    <!-- ── Section Header ── -->
+    <div class="fp-header">
+      <div class="fp-header-badge">
+        <span class="fp-badge-dot"></span>
+        <i class="fas fa-layer-group"></i>
+        Choose Your Size
       </div>
-      <h2 class="section-title">
-        Choose Your <span class="highlight">Perfect Size</span>
+      <h2 class="fp-title">
+        Find Your <span class="fp-title-gradient">Perfect Match</span>
       </h2>
-      <p class="section-subtitle">
-        From cozy desk lamps to stunning statement pieces —
-        find the perfect Kova Goods lamp for your space.
+      <p class="fp-subtitle">
+        Every size delivers the same mesmerizing experience — bubbles, floating fish,
+        and 16 color modes. Pick the one that fits your space perfectly.
       </p>
+
+      <!-- Feature Pills -->
+      <div class="fp-pills">
+        <div class="fp-pill">
+          <i class="fas fa-fish"></i> 10 Floating Fish
+        </div>
+        <div class="fp-pill">
+          <i class="fas fa-palette"></i> 16 Color Modes
+        </div>
+        <div class="fp-pill">
+          <i class="fas fa-remote"></i> Remote Control
+        </div>
+        <div class="fp-pill">
+          <i class="fas fa-truck"></i> Free Shipping
+        </div>
+      </div>
     </div>
 
-    <div class="featured-grid">
-      {% assign main_product = all_products['sensory-bubble-tube-lamp-5-ft-bubble-fish-tube-sensory-aquarium-lamp-with-10-floating-fish-16-color-effects-remote-control-stress-relief-calming-light-for-bedroom-living-room-home-decor'] %}
+    <!-- ── Cards Grid ── -->
+    <div class="fp-grid">
 
       {% for variant in main_product.variants %}
         {% unless variant.title contains '15' or variant.title contains 'Bluetooth' %}
 
           {% assign is_popular = false %}
-          {% assign has_gift = false %}
+          {% assign has_gift   = false %}
 
           {% if variant.title contains '48' or variant.title contains '4 ft' or variant.title contains '4ft' %}
             {% assign is_popular = true %}
-            {% assign has_gift = true %}
+            {% assign has_gift   = true %}
           {% endif %}
-
           {% if variant.title contains '60' or variant.title contains '5 ft' or variant.title contains '5ft' %}
             {% assign has_gift = true %}
           {% endif %}
 
-          <div class="featured-card {% if is_popular %}featured-card--popular{% endif %}">
+          <!-- ── Single Card ── -->
+          <div class="fp-card {% if is_popular %}fp-card--popular{% endif %}"
+               data-variant-id="{{ variant.id }}"
+               data-has-gift="{{ has_gift }}">
 
             {% if is_popular %}
-              <div class="featured-popular-ribbon">Most Popular</div>
+              <div class="fp-ribbon">
+                <i class="fas fa-crown"></i> Most Popular
+              </div>
             {% endif %}
 
-            <!-- Image -->
-            <div class="featured-img-wrap">
+            <!-- ── Image Block ── -->
+            <div class="fp-img-block">
+
+              <!-- Ambient Glow -->
+              <div class="fp-img-glow"></div>
+
               {% if main_product.featured_image %}
                 <img
                   src="{{ main_product.featured_image | img_url: '600x600' }}"
-                  alt="{{ variant.title }}"
-                  class="featured-img"
+                  alt="Sensory Bubble Fish Lamp — {{ variant.title }}"
+                  class="fp-img"
                   loading="lazy"
                 >
-              {% endif %}
-
-              {% if has_gift %}
-                <div class="featured-gift-overlay">
-                  <i class="fas fa-gift"></i> Free Bluetooth Speaker Included!
+              {% else %}
+                <div class="fp-img-fallback">
+                  <div class="fp-tube-anim">
+                    <span>🐠</span><span>🐡</span>
+                  </div>
                 </div>
               {% endif %}
 
-              <div class="featured-img-hover">
-                <a href="{{ main_product.url }}?variant={{ variant.id }}" class="btn-primary" style="padding: 12px 28px; font-size: 14px;">
-                  <i class="fas fa-eye"></i> View Details
+              <!-- Size Badge on Image -->
+              <div class="fp-img-size-badge">
+                <i class="fas fa-ruler-vertical"></i>
+                {{ variant.title }}
+              </div>
+
+              <!-- Gift Overlay — only for big sizes -->
+              {% if has_gift %}
+                <div class="fp-gift-overlay">
+                  <img
+                    src="https://cdn.shopify.com/s/files/1/1026/4831/6287/files/free.png?v=1788269990"
+                    alt="Free Bonus Lamp"
+                    class="fp-gift-overlay-img"
+                  >
+                  <span>+ Free Bonus Lamp!</span>
+                </div>
+              {% endif %}
+
+              <!-- Hover Overlay -->
+              <div class="fp-hover-overlay">
+                <a href="/pages/shop#size-selector" class="fp-hover-btn">
+                  <i class="fas fa-eye"></i> View Full Details
                 </a>
               </div>
-            </div>
 
-            <!-- Info -->
-            <div class="featured-info">
-              <h3 class="featured-title">
-                Sensory Bubble Fish Lamp
-              </h3>
-              <p class="featured-size-tag">
-                <i class="fas fa-ruler-vertical"></i> {{ variant.title }}
+            </div><!-- /fp-img-block -->
+
+            <!-- ── Info Block ── -->
+            <div class="fp-info">
+
+              <!-- Title + Size -->
+              <div class="fp-info-top">
+                <h3 class="fp-card-title">Sensory Bubble Fish Lamp</h3>
+                <div class="fp-size-chip">
+                  <i class="fas fa-ruler"></i> {{ variant.title }}
+                </div>
+              </div>
+
+              <!-- Description (unique per size range) -->
+              <p class="fp-card-desc">
+                {% if variant.title contains '32' or variant.title contains '2.67' %}
+                  Perfect for desks, shelves &amp; small corners. Compact glow that transforms any nook into a calming sanctuary.
+                {% elsif variant.title contains '39' or variant.title contains '3.3' %}
+                  Ideal for bedrooms &amp; reading nooks. Mid-size presence with full color impact and floating fish effect.
+                {% elsif variant.title contains '48' or variant.title contains '4 ft' or variant.title contains '4ft' %}
+                  The crowd favorite. Floor-standing statement piece that fills the room with mesmerizing aquatic light.
+                {% elsif variant.title contains '60' or variant.title contains '5 ft' or variant.title contains '5ft' %}
+                  Maximum impact. Our tallest lamp dominates any space — living rooms, therapy offices &amp; studios.
+                {% else %}
+                  A stunning sensory lamp with floating fish, rising bubbles and 16 color effects.
+                {% endif %}
               </p>
 
+              <!-- Gift Badge -->
               {% if has_gift %}
-                <div class="featured-gift-badge">
-                  <i class="fas fa-gift"></i> Free Bluetooth Speaker Gift ($60 Value)
+                <div class="fp-gift-badge">
+                  <img
+                    src="https://cdn.shopify.com/s/files/1/1026/4831/6287/files/free.png?v=1788269990"
+                    alt="Free Lamp"
+                    class="fp-gift-badge-img"
+                  >
+                  <div class="fp-gift-badge-text">
+                    <span class="fp-gift-badge-title">🎁 Free Sensory Lamp Included</span>
+                    <span class="fp-gift-badge-sub">A $60+ bonus — yours free!</span>
+                  </div>
                 </div>
               {% endif %}
 
-              <div class="featured-footer">
-                <div class="featured-price">
-                  {% assign compare = variant.price | plus: 2000 %}
-                  <span class="featured-compare">
-                    {{ compare | money }}
-                  </span>
-                  <span class="featured-current">{{ variant.price | money }}</span>
-                </div>
-                <a href="{{ main_product.url }}?variant={{ variant.id }}" class="featured-cta">
-                  <i class="fas fa-cart-plus"></i> Add to Cart
-                </a>
+              <!-- Stars -->
+              <div class="fp-stars">
+                <span class="fp-stars-icons">★★★★</span><span class="fp-stars-half">★</span>
+                <span class="fp-stars-num">4.8</span>
+                <span class="fp-stars-count">(247)</span>
               </div>
-            </div>
 
-          </div>
+              <!-- Price + CTA -->
+              <div class="fp-footer">
+                <div class="fp-price-block">
+                  {% assign compare_price = variant.price | plus: 2000 %}
+                  <span class="fp-price-compare">{{ compare_price | money }}</span>
+                  <span class="fp-price-current">{{ variant.price | money }}</span>
+                  <span class="fp-price-save">Save $20</span>
+                </div>
+
+                <button
+                  class="fp-add-btn"
+                  onclick="fpAddToCart('{{ variant.id }}', this)"
+                  aria-label="Add {{ variant.title }} to cart"
+                >
+                  <i class="fas fa-cart-plus"></i>
+                  <span class="fp-btn-label">Add to Cart</span>
+                  <span class="fp-btn-loading" style="display:none">
+                    <i class="fas fa-spinner fa-spin"></i>
+                  </span>
+                </button>
+              </div>
+
+            </div><!-- /fp-info -->
+          </div><!-- /fp-card -->
 
         {% endunless %}
       {% endfor %}
 
+    </div><!-- /fp-grid -->
+
+    <!-- ── Bottom CTA ── -->
+    <div class="fp-bottom-cta">
+      <div class="fp-bottom-text">
+        <i class="fas fa-shield-alt"></i> 30-Day Returns &nbsp;·&nbsp;
+        <i class="fas fa-truck"></i> Free Shipping &nbsp;·&nbsp;
+        <i class="fas fa-lock"></i> Secure Checkout
+      </div>
+      <a href="/pages/shop" class="fp-explore-btn">
+        <i class="fas fa-th-large"></i>
+        Explore Full Shop
+        <i class="fas fa-arrow-right"></i>
+      </a>
     </div>
-  </div>
+
+  </div><!-- /fp-container -->
 </section>
 
+
+<!-- ═══════════════════════════════════════════════
+     STYLES
+═══════════════════════════════════════════════ -->
 <style>
-/* ===== FEATURED SECTION ===== */
-.featured-section {
-  padding: 100px 0;
-  background: linear-gradient(180deg, #ffffff 0%, #f8faff 100%);
+
+/* ── Base ── */
+.fp-section {
+  padding: 100px 0 120px;
+  background: linear-gradient(180deg, #f4f8ff 0%, #eaf3ff 50%, #f0f7ff 100%);
+  position: relative;
+  overflow: hidden;
+}
+.fp-section::before {
+  content: '';
+  position: absolute;
+  top: -200px; left: 50%;
+  transform: translateX(-50%);
+  width: 800px; height: 400px;
+  background: radial-gradient(ellipse, rgba(0,201,200,0.06), transparent 70%);
+  pointer-events: none;
+}
+.fp-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 40px;
 }
 
-.featured-header {
+/* ── Header ── */
+.fp-header {
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 70px;
 }
-
-.featured-badge {
+.fp-header-badge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(0,201,200,0.1);
-  border: 1px solid rgba(0,201,200,0.3);
-  color: var(--color-aqua);
+  background: rgba(0,201,200,0.08);
+  border: 1px solid rgba(0,201,200,0.25);
+  color: #00a8a8;
   padding: 8px 20px;
   border-radius: 50px;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
+.fp-badge-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #00c9c8;
+  animation: fpBlink 1.5s ease-in-out infinite;
+}
+@keyframes fpBlink {
+  0%,100%{opacity:1} 50%{opacity:.2}
+}
+.fp-title {
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 900;
+  color: #0D1B2A;
+  line-height: 1.15;
+  margin-bottom: 16px;
+  letter-spacing: -1px;
+}
+.fp-title-gradient {
+  background: linear-gradient(135deg, #00c9c8, #0099cc, #6633ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.fp-subtitle {
+  font-size: 16px;
+  color: #5a7a99;
+  line-height: 1.7;
+  max-width: 580px;
+  margin: 0 auto 28px;
+}
+.fp-pills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+.fp-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: white;
+  border: 1px solid rgba(0,201,200,0.2);
+  color: #0D1B2A;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 7px 16px;
+  border-radius: 50px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.fp-pill i { color: #00c9c8; }
 
-/* ===== GRID ===== */
-.featured-grid {
+/* ── Grid ── */
+.fp-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 28px;
+  gap: 24px;
+  margin-bottom: 60px;
 }
 
-/* ===== CARD ===== */
-.featured-card {
-  background: var(--color-white);
-  border-radius: 20px;
+/* ── Card ── */
+.fp-card {
+  background: white;
+  border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
-  transition: all 0.3s ease;
+  border: 2px solid rgba(0,0,0,0.06);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
   position: relative;
-  border: 2px solid transparent;
+  display: flex;
+  flex-direction: column;
 }
-
-.featured-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 50px rgba(0,201,200,0.15);
-  border-color: rgba(0,201,200,0.2);
+.fp-card:hover {
+  transform: translateY(-12px) scale(1.01);
+  box-shadow: 0 24px 60px rgba(0,153,204,0.18);
+  border-color: rgba(0,201,200,0.35);
 }
-
-.featured-card--popular {
-  border-color: var(--color-aqua);
+.fp-card--popular {
+  border-color: #00c9c8;
   box-shadow: 0 8px 32px rgba(0,201,200,0.2);
 }
+.fp-card--popular:hover {
+  box-shadow: 0 28px 70px rgba(0,201,200,0.3);
+}
 
-/* Popular Ribbon */
-.featured-popular-ribbon {
+/* Ribbon */
+.fp-ribbon {
   position: absolute;
-  top: 20px;
-  left: -8px;
-  background: linear-gradient(135deg, var(--color-aqua), #0099CC);
+  top: 18px; left: -2px;
+  background: linear-gradient(135deg, #00c9c8, #0099cc);
   color: white;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 6px 16px 6px 12px;
-  letter-spacing: 0.5px;
-  z-index: 3;
-  border-radius: 0 4px 4px 0;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 5px 14px 5px 10px;
+  border-radius: 0 50px 50px 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  letter-spacing: 0.3px;
+  box-shadow: 0 4px 12px rgba(0,201,200,0.4);
 }
 
-.featured-popular-ribbon::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -8px;
-  border-left: 8px solid transparent;
-  border-top: 8px solid #007a99;
-}
-
-/* ===== IMAGE ===== */
-.featured-img-wrap {
+/* ── Image Block ── */
+.fp-img-block {
   position: relative;
   aspect-ratio: 1;
   overflow: hidden;
-  background: linear-gradient(135deg, #0D1B2A, #1A2B4A);
+  background: linear-gradient(135deg, #0D1B2A 0%, #1A3050 100%);
+  flex-shrink: 0;
 }
-
-.featured-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-.featured-card:hover .featured-img {
-  transform: scale(1.08);
-}
-
-.featured-gift-overlay {
+.fp-img-glow {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(transparent, rgba(240,192,64,0.9));
-  color: white;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 20px 12px 10px;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 110%, rgba(0,201,200,0.15), transparent 60%);
+  z-index: 1;
+  pointer-events: none;
 }
-
-.featured-img-hover {
-  position: absolute;
-  top: 0; left: 0;
+.fp-img {
   width: 100%; height: 100%;
-  background: rgba(13,27,42,0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: all 0.3s ease;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative; z-index: 2;
+}
+.fp-card:hover .fp-img { transform: scale(1.1); }
+
+.fp-img-fallback {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+}
+.fp-tube-anim {
+  display: flex; flex-direction: column; gap: 12px;
+  font-size: 32px;
+  animation: fpFloat 3s ease-in-out infinite;
+}
+@keyframes fpFloat {
+  0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)}
 }
 
-.featured-card:hover .featured-img-hover { opacity: 1; }
-
-/* ===== INFO ===== */
-.featured-info { padding: 20px; }
-
-.featured-title {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--color-primary);
-  margin-bottom: 6px;
-  line-height: 1.3;
-}
-
-.featured-size-tag {
-  font-size: 13px;
-  color: var(--color-aqua);
-  font-weight: 600;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.featured-gift-badge {
-  background: linear-gradient(135deg, rgba(240,192,64,0.12), rgba(240,192,64,0.06));
-  border: 1px solid rgba(240,192,64,0.3);
-  color: #b8860b;
+/* Size Badge on Image */
+.fp-img-size-badge {
+  position: absolute;
+  bottom: 12px; left: 12px;
+  z-index: 5;
+  background: rgba(13,27,42,0.85);
+  backdrop-filter: blur(8px);
+  color: #00c9c8;
   font-size: 11px;
   font-weight: 700;
-  padding: 6px 10px;
-  border-radius: 8px;
-  margin-bottom: 14px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 50px;
+  border: 1px solid rgba(0,201,200,0.3);
+  display: flex; align-items: center; gap: 5px;
 }
 
-.featured-footer {
+/* Gift Overlay */
+.fp-gift-overlay {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  z-index: 6;
+  background: linear-gradient(transparent, rgba(13,27,42,0.92));
+  padding: 24px 12px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #f0c040;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}
+.fp-gift-overlay-img {
+  width: 28px; height: 28px;
+  object-fit: contain;
+  border-radius: 6px;
+  border: 1px solid rgba(240,192,64,0.4);
+  background: rgba(240,192,64,0.1);
+}
+
+/* Hover Overlay */
+.fp-hover-overlay {
+  position: absolute;
+  inset: 0; z-index: 8;
+  background: rgba(13,27,42,0.55);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.fp-card:hover .fp-hover-overlay { opacity: 1; }
+.fp-hover-btn {
+  background: white;
+  color: #0D1B2A;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 12px 24px;
+  border-radius: 50px;
+  text-decoration: none;
+  display: flex; align-items: center; gap: 8px;
+  transform: translateY(8px);
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+.fp-card:hover .fp-hover-btn { transform: translateY(0); }
+.fp-hover-btn:hover {
+  background: #00c9c8; color: white; text-decoration: none;
+}
+
+/* ── Info Block ── */
+.fp-info {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.fp-info-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.fp-card-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: #0D1B2A;
+  line-height: 1.3;
+  flex: 1;
+}
+.fp-size-chip {
+  background: rgba(0,201,200,0.08);
+  border: 1px solid rgba(0,201,200,0.25);
+  color: #00a8a8;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 50px;
+  white-space: nowrap;
+  display: flex; align-items: center; gap: 4px;
+  flex-shrink: 0;
+}
+
+.fp-card-desc {
+  font-size: 12px;
+  color: #6b8fa8;
+  line-height: 1.6;
+  margin-bottom: 12px;
+  flex: 1;
+}
+
+/* Gift Badge */
+.fp-gift-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, rgba(240,192,64,0.08), rgba(240,192,64,0.03));
+  border: 1px solid rgba(240,192,64,0.3);
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+}
+.fp-gift-badge-img {
+  width: 36px; height: 36px;
+  object-fit: contain;
+  border-radius: 8px;
+  border: 1px solid rgba(240,192,64,0.3);
+  background: rgba(240,192,64,0.05);
+  flex-shrink: 0;
+}
+.fp-gift-badge-text {
+  display: flex; flex-direction: column; gap: 2px;
+}
+.fp-gift-badge-title {
+  font-size: 11px;
+  font-weight: 800;
+  color: #b8860b;
+}
+.fp-gift-badge-sub {
+  font-size: 10px;
+  color: #c9a227;
+  font-weight: 600;
+}
+
+/* Stars */
+.fp-stars {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 14px;
+}
+.fp-stars-icons { color: #f0c040; font-size: 13px; letter-spacing: 1px; }
+.fp-stars-half  { color: #f0c040; font-size: 13px; }
+.fp-stars-num   { font-size: 13px; font-weight: 800; color: #0D1B2A; margin-left: 2px; }
+.fp-stars-count { font-size: 11px; color: #8aabb8; }
+
+/* Footer */
+.fp-footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  margin-top: 14px;
   padding-top: 14px;
-  border-top: 1px solid #f0f0f0;
+  border-top: 1px solid #f0f4f8;
+  margin-top: auto;
 }
-
-.featured-price {
+.fp-price-block {
   display: flex;
   flex-direction: column;
+  gap: 1px;
 }
-
-.featured-compare {
-  font-size: 12px;
-  color: var(--color-gray);
+.fp-price-compare {
+  font-size: 11px;
+  color: #aab8c2;
   text-decoration: line-through;
+  font-weight: 500;
 }
-
-.featured-current {
+.fp-price-current {
   font-size: 22px;
-  font-weight: 800;
-  color: var(--color-primary);
+  font-weight: 900;
+  color: #0D1B2A;
+  line-height: 1;
+}
+.fp-price-save {
+  font-size: 10px;
+  font-weight: 700;
+  color: #22c55e;
+  background: rgba(34,197,94,0.1);
+  border-radius: 50px;
+  padding: 1px 7px;
+  width: fit-content;
 }
 
-.featured-cta {
-  background: linear-gradient(135deg, var(--color-aqua), #0099CC);
+/* Add to Cart Button */
+.fp-add-btn {
+  background: linear-gradient(135deg, #00c9c8, #0099cc);
   color: white;
-  padding: 10px 16px;
+  border: none;
+  padding: 11px 16px;
   border-radius: 50px;
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
   transition: all 0.3s ease;
   white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(0,201,200,0.3);
+  position: relative;
+  overflow: hidden;
+}
+.fp-add-btn::before {
+  content: '';
+  position: absolute; top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.4s ease;
+}
+.fp-add-btn:hover::before { left: 100%; }
+.fp-add-btn:hover {
+  transform: scale(1.06);
+  box-shadow: 0 8px 24px rgba(0,201,200,0.45);
+}
+.fp-add-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none !important;
+}
+.fp-add-btn.fp-added {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  box-shadow: 0 4px 14px rgba(34,197,94,0.35);
+}
+
+/* ── Bottom CTA ── */
+.fp-bottom-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 24px 36px;
+  background: white;
+  border-radius: 20px;
+  border: 1px solid rgba(0,201,200,0.15);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+.fp-bottom-text {
+  font-size: 13px;
+  color: #5a7a99;
+  font-weight: 600;
   display: flex;
   align-items: center;
   gap: 6px;
 }
-
-.featured-cta:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 16px rgba(0,201,200,0.4);
+.fp-bottom-text i { color: #00c9c8; }
+.fp-explore-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #0D1B2A, #1A3050);
   color: white;
+  font-size: 14px;
+  font-weight: 800;
+  padding: 14px 28px;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  box-shadow: 0 6px 20px rgba(13,27,42,0.25);
+}
+.fp-explore-btn:hover {
+  background: linear-gradient(135deg, #00c9c8, #0099cc);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0,201,200,0.4);
+  color: white; text-decoration: none;
 }
 
-/* ===== RESPONSIVE ===== */
-@media (max-width: 1024px) {
-  .featured-grid { grid-template-columns: repeat(2, 1fr); }
+/* ═══════════ RESPONSIVE ═══════════ */
+@media (max-width: 1200px) {
+  .fp-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
 }
-
+@media (max-width: 768px) {
+  .fp-section { padding: 70px 0 90px; }
+  .fp-container { padding: 0 20px; }
+  .fp-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .fp-bottom-cta { flex-direction: column; text-align: center; }
+  .fp-bottom-text { justify-content: center; flex-wrap: wrap; }
+  .fp-title { font-size: 28px; }
+}
 @media (max-width: 480px) {
-  .featured-grid { grid-template-columns: 1fr; }
-  .featured-section { padding: 60px 0; }
+  .fp-grid { grid-template-columns: 1fr; }
+  .fp-card-title { font-size: 15px; }
 }
 </style>
+
+
+<!-- ═══════════════════════════════════════════════
+     SCRIPTS — Real Add to Cart
+═══════════════════════════════════════════════ -->
+<script>
+function fpAddToCart(variantId, btn) {
+  if (!variantId) return;
+
+  var label   = btn.querySelector('.fp-btn-label');
+  var spinner = btn.querySelector('.fp-btn-loading');
+  var icon    = btn.querySelector('.fa-cart-plus');
+
+  // Loading state
+  btn.disabled = true;
+  if (icon)    icon.style.display    = 'none';
+  if (label)   label.textContent     = 'Adding…';
+  if (spinner) spinner.style.display = 'inline-block';
+
+  fetch('/cart/add.js', {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body:    JSON.stringify({ id: parseInt(variantId), quantity: 1 })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function() {
+    // Success state
+    if (spinner) spinner.style.display = 'none';
+    if (icon) {
+      icon.className = 'fas fa-check';
+      icon.style.display = 'inline-block';
+    }
+    if (label) label.textContent = 'Added!';
+    btn.classList.add('fp-added');
+
+    // Update cart count in header if exists
+    fetch('/cart.js')
+      .then(function(r) { return r.json(); })
+      .then(function(cart) {
+        var counters = document.querySelectorAll('.cart-count, .cart-item-count, [data-cart-count]');
+        counters.forEach(function(el) {
+          el.textContent = cart.item_count;
+        });
+      });
+
+    // Reset after 2 seconds
+    setTimeout(function() {
+      btn.disabled = false;
+      btn.classList.remove('fp-added');
+      if (icon) {
+        icon.className = 'fas fa-cart-plus';
+        icon.style.display = 'inline-block';
+      }
+      if (label) label.textContent = 'Add to Cart';
+    }, 2000);
+  })
+  .catch(function(err) {
+    console.error('Cart error:', err);
+    if (spinner) spinner.style.display = 'none';
+    if (icon) {
+      icon.className = 'fas fa-exclamation-circle';
+      icon.style.display = 'inline-block';
+    }
+    if (label) label.textContent = 'Try Again';
+    btn.disabled = false;
+
+    setTimeout(function() {
+      if (icon) icon.className = 'fas fa-cart-plus';
+      if (label) label.textContent = 'Add to Cart';
+    }, 2000);
+  });
+}
+</script>
+
 
 {% schema %}
 {
   "name": "Featured Products",
   "settings": [],
-  "presets": [
-    {
-      "name": "Featured Products"
-    }
-  ]
+  "presets": [{ "name": "Featured Products" }]
 }
 {% endschema %}
