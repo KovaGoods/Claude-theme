@@ -46,8 +46,8 @@
           <span class="sp-disc-num">20%</span>
           <span class="sp-disc-txt">OFF</span>
         </div>
-      </div>
-    </div>
+      </div><!-- /sp-frame -->
+    </div><!-- /sp-visual -->
 
     <!-- RIGHT: Info -->
     <div class="sp-info">
@@ -72,13 +72,11 @@
       </p>
 
       <!-- Stars → scroll to reviews -->
-      <a href="#sp-reviews-section" class="sp-stars-link">
+      <a href="#sp-reviews-section" class="sp-stars-link" id="sp-stars-link">
         <div class="sp-stars-row">
           <span class="sp-stars-icons">
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i><i class="fas fa-star"></i>
+            <i class="fas fa-star"></i><i class="fas fa-star"></i>
             <i class="fas fa-star-half-alt"></i>
           </span>
           <span class="sp-stars-num">4.8</span>
@@ -95,18 +93,21 @@
         Select Your Size
       </div>
 
-      <div class="sp-sizes-grid">
+      <div class="sp-sizes-grid" id="sp-sizes-grid">
         {% for variant in p.variants %}
           {% unless variant.title contains '15' or variant.title contains 'Bluetooth' %}
+
             {% assign has_gift = false %}
             {% if variant.title contains '48' or variant.title contains '4 ft' or variant.title contains '4ft'
                or variant.title contains '60' or variant.title contains '5 ft' or variant.title contains '5ft' %}
               {% assign has_gift = true %}
             {% endif %}
+
             {% assign is_popular = false %}
             {% if variant.title contains '48' or variant.title contains '4 ft' or variant.title contains '4ft' %}
               {% assign is_popular = true %}
             {% endif %}
+
             <div
               class="sp-size-card {% if is_popular %}sp-size-card--popular{% endif %}"
               data-variant-id="{{ variant.id }}"
@@ -126,22 +127,31 @@
                 </div>
               {% endif %}
             </div>
+
           {% endunless %}
         {% endfor %}
-      </div>
+      </div><!-- /sp-sizes-grid -->
 
       <!-- Dynamic Gift Message -->
       <div class="sp-gift-dynamic" id="sp-gift-dynamic"></div>
 
-      <!-- Gift Banner -->
+      <!-- ✅ Gift Banner المعدّل مع صورة المنتج -->
       <div class="sp-gift-banner" id="sp-gift-banner">
-        <div class="sp-gift-icon"><i class="fas fa-gift"></i></div>
+        <div class="sp-gift-img-wrap">
+          <img
+            src="https://cdn.shopify.com/s/files/1/1026/4831/6287/files/free.png?v=1788269990"
+            alt="Free Sensory Bubble Lamp"
+            class="sp-gift-img"
+          >
+          <div class="sp-gift-img-badge">FREE</div>
+        </div>
         <div class="sp-gift-text">
-          <strong>FREE Bluetooth Lamp</strong> included with every 48" &amp; 60" order
-          <span class="sp-gift-value">— a $60 value, yours free!</span>
+          <strong>🎁 Free Sensory Bubble Lamp Included!</strong>
+          <span>Order the 48" or 60" size and get a bonus lamp — yours free with every order!</span>
+          <span class="sp-gift-value">— a $60+ value, absolutely FREE 🎉</span>
         </div>
         <div class="sp-gift-ribbon">🎁</div>
-      </div>
+      </div><!-- /sp-gift-banner -->
 
       <!-- CTA Buttons -->
       <div class="sp-ctas">
@@ -177,8 +187,10 @@
       </div>
 
     </div><!-- /sp-info -->
+
   </div><!-- /sp-hero-grid -->
-</section>
+</section><!-- /sp-hero -->
+
 
 <!-- ═══════════════════════════════════
      REVIEWS SECTION
@@ -191,10 +203,8 @@
       <div class="sp-reviews-score">
         <div class="sp-score-num">4.8</div>
         <div class="sp-score-stars">
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i><i class="fas fa-star"></i>
+          <i class="fas fa-star"></i><i class="fas fa-star"></i>
           <i class="fas fa-star-half-alt"></i>
         </div>
         <div class="sp-score-total">Based on 247 reviews</div>
@@ -203,23 +213,23 @@
       <div class="sp-score-bars">
         <div class="sp-bar-row">
           <span class="sp-bar-label">5 ★</span>
-          <div class="sp-bar-track"><div class="sp-bar-fill" style="width:72%"></div></div>
-          <span class="sp-bar-pct">72%</span>
+          <div class="sp-bar-track"><div class="sp-bar-fill" style="width:78%"></div></div>
+          <span class="sp-bar-pct">78%</span>
         </div>
         <div class="sp-bar-row">
           <span class="sp-bar-label">4 ★</span>
-          <div class="sp-bar-track"><div class="sp-bar-fill" style="width:18%"></div></div>
-          <span class="sp-bar-pct">18%</span>
+          <div class="sp-bar-track"><div class="sp-bar-fill" style="width:14%"></div></div>
+          <span class="sp-bar-pct">14%</span>
         </div>
         <div class="sp-bar-row">
           <span class="sp-bar-label">3 ★</span>
-          <div class="sp-bar-track"><div class="sp-bar-fill" style="width:6%"></div></div>
-          <span class="sp-bar-pct">6%</span>
+          <div class="sp-bar-track"><div class="sp-bar-fill" style="width:5%"></div></div>
+          <span class="sp-bar-pct">5%</span>
         </div>
         <div class="sp-bar-row">
           <span class="sp-bar-label">2 ★</span>
-          <div class="sp-bar-track"><div class="sp-bar-fill" style="width:3%"></div></div>
-          <span class="sp-bar-pct">3%</span>
+          <div class="sp-bar-track"><div class="sp-bar-fill" style="width:2%"></div></div>
+          <span class="sp-bar-pct">2%</span>
         </div>
         <div class="sp-bar-row">
           <span class="sp-bar-label">1 ★</span>
@@ -227,7 +237,7 @@
           <span class="sp-bar-pct">1%</span>
         </div>
       </div>
-    </div>
+    </div><!-- /sp-reviews-header -->
 
     <!-- Reviews Grid -->
     <div class="sp-reviews-grid">
@@ -241,7 +251,7 @@
           </div>
           <div class="sp-rv-stars">★★★★★</div>
         </div>
-        <div class="sp-rv-badge">Verified Purchase</div>
+        <div class="sp-rv-badge">✔ Verified Purchase</div>
         <p class="sp-rv-text">
           "Absolutely stunning! My autistic son is completely mesmerized by it. The bubbles and fish create
           such a calming effect. Worth every penny — the 5ft version fills the whole room with color."
@@ -258,10 +268,10 @@
           </div>
           <div class="sp-rv-stars">★★★★★</div>
         </div>
-        <div class="sp-rv-badge">Verified Purchase</div>
+        <div class="sp-rv-badge">✔ Verified Purchase</div>
         <p class="sp-rv-text">
           "Perfect for my meditation room. The 16 color effects are beautiful and the remote makes it easy
-          to switch moods. The free Bluetooth lamp was a nice bonus too!"
+          to switch moods. The free bonus lamp was a great surprise!"
         </p>
         <div class="sp-rv-size">Size: 4 ft · 🎁 Got Free Lamp</div>
       </div>
@@ -275,7 +285,7 @@
           </div>
           <div class="sp-rv-stars">★★★★☆</div>
         </div>
-        <div class="sp-rv-badge">Verified Purchase</div>
+        <div class="sp-rv-badge">✔ Verified Purchase</div>
         <p class="sp-rv-text">
           "Great product overall. Setup was straightforward and it looks amazing in my living room.
           Took one star off only because shipping took a bit longer than expected."
@@ -292,7 +302,7 @@
           </div>
           <div class="sp-rv-stars">★★★★★</div>
         </div>
-        <div class="sp-rv-badge">Verified Purchase</div>
+        <div class="sp-rv-badge">✔ Verified Purchase</div>
         <p class="sp-rv-text">
           "Bought this for my therapy practice and clients absolutely love it. Very soothing and
           the build quality is solid. The fish are so realistic — everyone asks about it!"
@@ -309,7 +319,7 @@
           </div>
           <div class="sp-rv-stars">★★★★★</div>
         </div>
-        <div class="sp-rv-badge">Verified Purchase</div>
+        <div class="sp-rv-badge">✔ Verified Purchase</div>
         <p class="sp-rv-text">
           "My bedroom feels like an aquarium now — in the best way possible! The colors are vivid
           and the bubbles are so relaxing to watch before bed. 10/10 recommend."
@@ -326,7 +336,7 @@
           </div>
           <div class="sp-rv-stars">★★★★☆</div>
         </div>
-        <div class="sp-rv-badge">Verified Purchase</div>
+        <div class="sp-rv-badge">✔ Verified Purchase</div>
         <p class="sp-rv-text">
           "Great lamp for the price. The remote control is intuitive and the color cycling mode
           is my favorite. Compact size fits perfectly in my home office corner."
@@ -334,7 +344,7 @@
         <div class="sp-rv-size">Size: 2.67 ft</div>
       </div>
 
-    </div><!-- /reviews-grid -->
+    </div><!-- /sp-reviews-grid -->
 
     <!-- See All Button -->
     <div class="sp-reviews-footer">
@@ -346,18 +356,20 @@
     </div>
 
   </div><!-- /sp-container -->
-</section>
+</section><!-- /sp-reviews -->
 
 </div><!-- /sp-page -->
 
+
 <!-- ═══════════════════════════════════
      STYLES
-═══════════════════════════════════════ -->
+═══════════════════════════════════ -->
 <style>
+/* ── Base ── */
 .sp-page { background:#060d18; min-height:100vh; }
 .sp-container { max-width:1280px; margin:0 auto; padding:0 40px; }
 
-/* Hero */
+/* ════════ HERO ════════ */
 .sp-hero {
   position:relative;
   background:linear-gradient(135deg,#060d18 0%,#0d1b2a 50%,#091520 100%);
@@ -388,13 +400,15 @@
   0%,100%{transform:translateY(0) scale(1);opacity:.6}
   50%{transform:translateY(-40px) scale(1.05);opacity:1}
 }
+
+/* Grid */
 .sp-hero-grid {
   position:relative; z-index:1;
   display:grid; grid-template-columns:1fr 1fr;
   gap:80px; align-items:center;
 }
 
-/* Visual */
+/* ── Visual ── */
 .sp-visual { display:flex; flex-direction:column; gap:20px; }
 .sp-frame {
   position:relative; border-radius:28px; overflow:hidden;
@@ -410,7 +424,6 @@
   width:100%; display:block;
   animation:spImgFloat 6s ease-in-out infinite;
 }
-.sp-frame:hover .sp-main-img { transform:scale(1.04); }
 @keyframes spImgFloat {
   0%,100%{transform:translateY(0)}
   50%{transform:translateY(-12px)}
@@ -480,7 +493,7 @@
 .sp-disc-num { display:block; font-size:20px; font-weight:900; line-height:1; }
 .sp-disc-txt { display:block; font-size:10px; font-weight:700; letter-spacing:1px; }
 
-/* Info */
+/* ── Info ── */
 .sp-info { display:flex; flex-direction:column; gap:0; }
 .sp-labels { display:flex; gap:10px; margin-bottom:18px; }
 .sp-label {
@@ -509,6 +522,8 @@
   font-size:15px; color:rgba(255,255,255,0.6);
   line-height:1.7; margin-bottom:16px;
 }
+
+/* Stars */
 .sp-stars-link { text-decoration:none; display:inline-block; margin-bottom:20px; }
 .sp-stars-row {
   display:flex; align-items:center; gap:8px;
@@ -527,13 +542,14 @@
 .sp-stars-num { font-size:15px; font-weight:800; color:#fff; }
 .sp-stars-count { font-size:13px; color:rgba(255,255,255,0.5); }
 .sp-stars-cta { font-size:12px; font-weight:700; color:#00c9c8; margin-left:4px; }
+
 .sp-divider {
   height:1px;
   background:linear-gradient(90deg,transparent,rgba(0,201,200,0.2),transparent);
   margin:4px 0 20px;
 }
 
-/* Sizes */
+/* ── Size Cards ── */
 .sp-sizes-label {
   font-size:13px; font-weight:700; color:rgba(255,255,255,0.7);
   text-transform:uppercase; letter-spacing:1px;
@@ -588,8 +604,8 @@
   display:inline-flex; align-items:center; gap:3px;
 }
 
-/* Gift Dynamic */
-.sp-gift-dynamic { margin-bottom:12px; min-height:40px; transition:all .3s ease; }
+/* ── Gift Dynamic ── */
+.sp-gift-dynamic { margin-bottom:12px; min-height:48px; transition:all .3s ease; }
 .sp-gift-dynamic-msg {
   display:flex; align-items:center; gap:10px;
   padding:10px 16px; border-radius:12px;
@@ -609,31 +625,50 @@
   to{opacity:1;transform:translateY(0)}
 }
 
-/* Gift Banner */
+/* ✅ Gift Banner مع صورة المنتج */
 .sp-gift-banner {
-  display:flex; align-items:center; gap:14px;
+  display:flex; align-items:center; gap:16px;
   background:linear-gradient(135deg,rgba(240,192,64,0.08),rgba(240,192,64,0.03));
-  border:1px solid rgba(240,192,64,0.25);
-  border-radius:16px; padding:16px 20px; margin-bottom:24px;
+  border:1px solid rgba(240,192,64,0.3);
+  border-radius:20px; padding:16px 20px; margin-bottom:24px;
   position:relative; overflow:hidden; transition:all .4s ease;
 }
-.sp-gift-banner.sp-gift-banner--hidden { opacity:.35; filter:grayscale(.6); }
+.sp-gift-banner.sp-gift-banner--hidden { opacity:.3; filter:grayscale(.8); pointer-events:none; }
 .sp-gift-banner::before {
   content:''; position:absolute; top:0; left:0; right:0; height:1px;
   background:linear-gradient(90deg,transparent,rgba(240,192,64,0.5),transparent);
 }
-.sp-gift-icon {
-  width:44px; height:44px; border-radius:12px;
-  background:linear-gradient(135deg,rgba(240,192,64,0.2),rgba(240,192,64,0.05));
+
+/* ✅ صورة الهدية */
+.sp-gift-img-wrap {
+  position:relative; flex-shrink:0;
+  width:72px; height:72px;
+}
+.sp-gift-img {
+  width:72px; height:72px;
+  object-fit:contain; border-radius:12px;
   border:1px solid rgba(240,192,64,0.3);
-  display:flex; align-items:center; justify-content:center;
-  font-size:20px; color:#f0c040; flex-shrink:0;
+  background:rgba(240,192,64,0.05);
+  animation:spImgFloat 4s ease-in-out infinite;
 }
+.sp-gift-img-badge {
+  position:absolute; bottom:-6px; left:50%; transform:translateX(-50%);
+  background:linear-gradient(135deg,#f0c040,#f59e0b);
+  color:#060d18; font-size:8px; font-weight:900;
+  padding:2px 8px; border-radius:50px; letter-spacing:.5px;
+  white-space:nowrap;
+}
+
 .sp-gift-text {
-  font-size:13px; color:rgba(255,255,255,0.75); line-height:1.5; flex:1;
+  flex:1; display:flex; flex-direction:column; gap:3px;
 }
-.sp-gift-text strong { color:#f0c040; display:block; font-size:14px; margin-bottom:2px; }
-.sp-gift-value { color:#f0c040; font-weight:700; }
+.sp-gift-text strong {
+  color:#f0c040; font-size:14px; font-weight:800;
+}
+.sp-gift-text span {
+  font-size:12px; color:rgba(255,255,255,0.65); line-height:1.5;
+}
+.sp-gift-value { color:#f0c040 !important; font-weight:700 !important; }
 .sp-gift-ribbon {
   font-size:28px; flex-shrink:0;
   animation:spSwing 3s ease-in-out infinite;
@@ -643,7 +678,7 @@
   50%{transform:rotate(10deg)}
 }
 
-/* CTA Buttons */
+/* ── CTA Buttons ── */
 .sp-ctas { display:flex; gap:12px; margin-bottom:24px; }
 .sp-btn-main {
   flex:1; display:flex; align-items:center; justify-content:center; gap:10px;
@@ -688,7 +723,7 @@
 .sp-btn-cart:disabled,
 .sp-btn-main:disabled { opacity:.6; cursor:not-allowed; transform:none !important; }
 
-/* Trust Row */
+/* ── Trust Row ── */
 .sp-trust-row {
   display:grid; grid-template-columns:repeat(4,1fr); gap:8px;
 }
@@ -710,7 +745,7 @@
   text-transform:uppercase; letter-spacing:.5px; line-height:1.3;
 }
 
-/* Reviews */
+/* ════════ REVIEWS ════════ */
 .sp-reviews {
   background:linear-gradient(180deg,#060d18,#0a1520,#060d18);
   padding:80px 0 100px;
@@ -747,7 +782,7 @@
 }
 .sp-bar-fill {
   height:100%;
-  background:linear-gradient(90deg,#00c9c8,#0099cc);
+  background:linear-gradient(90deg,#f0c040,#f59e0b);
   border-radius:50px;
 }
 .sp-bar-pct {
@@ -818,10 +853,10 @@
 .sp-reviews-btn:hover {
   transform:translateY(-3px);
   box-shadow:0 16px 48px rgba(0,201,200,0.5);
-  color:white;
+  color:white; text-decoration:none;
 }
 
-/* Shake */
+/* ── Shake ── */
 @keyframes spShake {
   0%,100%{transform:translateX(0)}
   20%{transform:translateX(-8px)}
@@ -830,7 +865,7 @@
   80%{transform:translateX(5px)}
 }
 
-/* Responsive */
+/* ════════ RESPONSIVE ════════ */
 @media(max-width:1024px){
   .sp-hero-grid { grid-template-columns:1fr; gap:48px; text-align:center; }
   .sp-visual { max-width:500px; margin:0 auto; width:100%; }
@@ -842,6 +877,7 @@
   .sp-reviews-grid { grid-template-columns:1fr 1fr; }
   .sp-reviews-header { grid-template-columns:1fr; gap:30px; text-align:center; }
   .sp-score-num { font-size:60px; }
+  .sp-gift-banner { flex-wrap:wrap; }
 }
 @media(max-width:640px){
   .sp-sizes-grid { grid-template-columns:repeat(2,1fr); }
@@ -849,15 +885,19 @@
   .sp-reviews-grid { grid-template-columns:1fr; }
   .sp-container { padding:0 20px; }
   .sp-reviews { padding:60px 0 80px; }
+  .sp-gift-img-wrap { width:56px; height:56px; }
+  .sp-gift-img { width:56px; height:56px; }
 }
 </style>
 
+
 <!-- ═══════════════════════════════════
      SCRIPTS
-═══════════════════════════════════════ -->
+═══════════════════════════════════ -->
 <script>
 var spSelectedVariantId = null;
 
+// ── Select Size ──
 function spSelectSize(card) {
   document.querySelectorAll('.sp-size-card').forEach(function(c) {
     c.classList.remove('sp-size-card--selected');
@@ -865,27 +905,28 @@ function spSelectSize(card) {
   card.classList.add('sp-size-card--selected');
   spSelectedVariantId = card.dataset.variantId;
 
-  var hasGift = card.dataset.hasGift === 'true';
-  var dynEl   = document.getElementById('sp-gift-dynamic');
+  var hasGift  = card.dataset.hasGift === 'true';
+  var dynEl    = document.getElementById('sp-gift-dynamic');
   var bannerEl = document.getElementById('sp-gift-banner');
 
   if (hasGift) {
     dynEl.innerHTML =
       '<div class="sp-gift-dynamic-msg sp-gift-dynamic-msg--good">' +
-      '<i class="fas fa-gift"></i>' +
-      '&nbsp;🎉 Great choice! You\'ll receive a <strong>&nbsp;FREE Bluetooth Lamp</strong>&nbsp;($60 value)!' +
+        '<i class="fas fa-gift"></i>' +
+        '&nbsp;🎉 Great choice! You\'ll receive a <strong>&nbsp;FREE Sensory Bubble Lamp</strong>&nbsp;(a $60+ value)!' +
       '</div>';
     if (bannerEl) bannerEl.classList.remove('sp-gift-banner--hidden');
   } else {
     dynEl.innerHTML =
       '<div class="sp-gift-dynamic-msg sp-gift-dynamic-msg--warn">' +
-      '<i class="fas fa-exclamation-circle"></i>' +
-      '&nbsp;⚠️ Upgrade to <strong>&nbsp;48" or 60"&nbsp;</strong> to unlock your <strong>FREE Bluetooth Lamp</strong>!' +
+        '<i class="fas fa-exclamation-circle"></i>' +
+        '&nbsp;⚠️ Upgrade to <strong>&nbsp;48" or 60"&nbsp;</strong> to unlock your <strong>FREE Bonus Lamp</strong>!' +
       '</div>';
     if (bannerEl) bannerEl.classList.add('sp-gift-banner--hidden');
   }
 }
 
+// ── Buy Now ──
 function spBuyNow() {
   if (!spSelectedVariantId) { spShakeGrid(); return; }
   var btn     = document.getElementById('sp-btn-main');
@@ -899,17 +940,18 @@ function spBuyNow() {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ id: parseInt(spSelectedVariantId), quantity: 1 })
   })
-  .then(function(r){ return r.json(); })
-  .then(function(){
+  .then(function(r) { return r.json(); })
+  .then(function() {
     window.location.href = '/checkout';
   })
-  .catch(function(){
+  .catch(function() {
     btnText.textContent = 'Error — Try Again';
     btn.disabled = cartBtn.disabled = false;
-    setTimeout(function(){ btnText.textContent = 'Buy Now — Get Yours Today'; }, 2000);
+    setTimeout(function() { btnText.textContent = 'Buy Now — Get Yours Today'; }, 2000);
   });
 }
 
+// ── Add to Cart ──
 function spAddToCart() {
   if (!spSelectedVariantId) { spShakeGrid(); return; }
   var btn     = document.getElementById('sp-btn-cart');
@@ -923,48 +965,49 @@ function spAddToCart() {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ id: parseInt(spSelectedVariantId), quantity: 1 })
   })
-  .then(function(r){ return r.json(); })
-  .then(function(){
+  .then(function(r) { return r.json(); })
+  .then(function() {
     btnText.textContent = 'Added! ✓';
-    setTimeout(function(){
-      window.location.href = '/cart';
-    }, 600);
+    setTimeout(function() { window.location.href = '/cart'; }, 600);
   })
-  .catch(function(){
+  .catch(function() {
     btnText.textContent = 'Error — Try Again';
     btn.disabled = mainBtn.disabled = false;
-    setTimeout(function(){ btnText.textContent = 'Add to Cart'; }, 2000);
+    setTimeout(function() { btnText.textContent = 'Add to Cart'; }, 2000);
   });
 }
 
+// ── Shake Grid ──
 function spShakeGrid() {
-  var grid = document.querySelector('.sp-sizes-grid');
+  var grid = document.getElementById('sp-sizes-grid');
   if (!grid) return;
   grid.style.animation = 'none';
-  grid.offsetHeight;
+  grid.offsetHeight; /* reflow */
   grid.style.animation = 'spShake 0.4s ease';
   var dynEl = document.getElementById('sp-gift-dynamic');
   if (dynEl) {
     dynEl.innerHTML =
       '<div class="sp-gift-dynamic-msg sp-gift-dynamic-msg--warn">' +
-      '<i class="fas fa-hand-pointer"></i>&nbsp; Please select a size first!' +
+        '<i class="fas fa-hand-pointer"></i>&nbsp; Please select a size first!' +
       '</div>';
   }
 }
 
+// ── Smooth Scroll to Reviews ──
 document.addEventListener('DOMContentLoaded', function() {
-  var starsLink = document.querySelector('.sp-stars-link');
+  var starsLink = document.getElementById('sp-stars-link');
   if (starsLink) {
     starsLink.addEventListener('click', function(e) {
       e.preventDefault();
       var target = document.getElementById('sp-reviews-section');
       if (target) {
-        target.scrollIntoView({ behavior:'smooth', block:'start' });
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     });
   }
 });
 </script>
+
 
 {% schema %}
 {
