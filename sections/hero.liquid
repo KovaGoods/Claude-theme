@@ -1,198 +1,236 @@
 {% assign p = all_products['sensory-bubble-tube-lamp-5-ft-bubble-fish-tube-sensory-aquarium-lamp-with-10-floating-fish-16-color-effects-remote-control-stress-relief-calming-light-for-bedroom-living-room-home-decor'] %}
+
 <section class="ph-section">
-<!-- Ambient Background Particles -->
-<div class="ph-bg">
-  <div class="ph-bubble ph-bubble--1"></div>
-  <div class="ph-bubble ph-bubble--2"></div>
-  <div class="ph-bubble ph-bubble--3"></div>
-  <div class="ph-bubble ph-bubble--4"></div>
-  <div class="ph-bubble ph-bubble--5"></div>
-  <div class="ph-glow ph-glow--left"></div>
-  <div class="ph-glow ph-glow--right"></div>
-</div>
 
-<div class="ph-container">
-  <!-- ═══ LEFT: IMAGE SIDE ═══ -->
-  <div class="ph-visual">
-    <div class="ph-frame">
-      <div class="ph-frame-glow"></div>
-      <div class="ph-img-wrap" id="ph-main-img-wrap">
-        {% if p.featured_image %}
-        <img
-          src="{{ p.featured_image | img_url: '800x800' }}"
-          alt="{{ p.title }}"
-          class="ph-main-img"
-          id="ph-main-img"
-        >
-        {% endif %}
-        <div class="ph-orb ph-orb--1"></div>
-        <div class="ph-orb ph-orb--2"></div>
-      </div>
-      <div class="ph-live-badge">
-        <span class="ph-live-dot"></span>
-        Live Preview
-      </div>
-      <div class="ph-discount-tag">
-        <span class="ph-discount-num">20%</span>
-        <span class="ph-discount-txt">OFF</span>
-      </div>
-    </div>
-
-    <div class="ph-thumbs">
-      {% for image in p.images limit: 5 %}
-      <button
-        class="ph-thumb {% if forloop.first %}ph-thumb--active{% endif %}"
-        onclick="phSwitchImg('{{ image | img_url: '800x800' }}', this)"
-        aria-label="View image {{ forloop.index }}"
-      >
-        <img src="{{ image | img_url: '120x120' }}" alt="View {{ forloop.index }}" loading="lazy">
-      </button>
-      {% endfor %}
-    </div>
+  <!-- Ambient Background Particles -->
+  <div class="ph-bg">
+    <div class="ph-bubble ph-bubble--1"></div>
+    <div class="ph-bubble ph-bubble--2"></div>
+    <div class="ph-bubble ph-bubble--3"></div>
+    <div class="ph-bubble ph-bubble--4"></div>
+    <div class="ph-bubble ph-bubble--5"></div>
+    <div class="ph-glow ph-glow--left"></div>
+    <div class="ph-glow ph-glow--right"></div>
   </div>
 
-  <!-- ═══ RIGHT: INFO SIDE ═══ -->
-  <div class="ph-info">
-    <div class="ph-labels">
-      <span class="ph-label ph-label--new">
-        <i class="fas fa-star"></i> New Arrival
-      </span>
-      <span class="ph-label ph-label--stock">
-        <i class="fas fa-check-circle"></i> In Stock
-      </span>
-    </div>
+  <div class="ph-container">
 
-    <h1 class="ph-title">
-      Sensory Bubble
-      <span class="ph-title-highlight">Fish Lamp</span>
-    </h1>
-
-    <div class="ph-stars">
-      <div class="ph-stars-icons">
-        <i class="fas fa-star"></i>
-        <i class="fas fa-star"></i>
-        <i class="fas fa-star"></i>
-        <i class="fas fa-star"></i>
-        <i class="fas fa-star-half-alt"></i>
-      </div>
-      <span class="ph-stars-count">4.8</span>
-      <span class="ph-stars-reviews">(247 reviews)</span>
-    </div>
-
-    <div class="ph-price-block">
-      <div class="ph-price-wrap">
-        <span class="ph-price-old" id="ph-price-old">$179.99</span>
-        <span class="ph-price-current" id="ph-price-current">$149.99</span>
-      </div>
-      <div class="ph-price-save">
-        You save <strong>$30.00</strong> today!
-      </div>
-    </div>
-
-    <div class="ph-divider"></div>
-
-    <div class="ph-sizes">
-      <div class="ph-sizes-label">
-        <i class="fas fa-ruler-vertical"></i>
-        Select Your Size
-        <span class="ph-sizes-hint">— hover to preview</span>
+    <!-- ═══ LEFT: IMAGE SIDE ═══ -->
+    <div class="ph-visual">
+      <div class="ph-frame">
+        <div class="ph-frame-glow"></div>
+        <div class="ph-img-wrap" id="ph-main-img-wrap">
+          {% if p.featured_image %}
+          <img
+            src="{{ p.featured_image | img_url: '800x800' }}"
+            alt="{{ p.title }}"
+            class="ph-main-img"
+            id="ph-main-img"
+          >
+          {% endif %}
+          <div class="ph-orb ph-orb--1"></div>
+          <div class="ph-orb ph-orb--2"></div>
+        </div>
+        <div class="ph-live-badge">
+          <span class="ph-live-dot"></span>
+          Live Preview
+        </div>
+        <div class="ph-discount-tag">
+          <span class="ph-discount-num">20%</span>
+          <span class="ph-discount-txt">OFF</span>
+        </div>
       </div>
 
-      <div class="ph-sizes-grid">
-        {% for variant in p.variants %}
-          {% unless variant.title contains '15' or variant.title contains 'Bluetooth' %}
-            {% assign has_gift = false %}
-            {% if variant.title contains '48' or variant.title contains '4 ft' or variant.title contains '4ft'
-               or variant.title contains '60' or variant.title contains '5 ft' or variant.title contains '5ft' %}
-              {% assign has_gift = true %}
-            {% endif %}
-
-            {% assign is_popular = false %}
-            {% if variant.title contains '48' or variant.title contains '4 ft' or variant.title contains '4ft' %}
-              {% assign is_popular = true %}
-            {% endif %}
-
-            <div
-              class="ph-size-card {% if is_popular %}ph-size-card--popular{% endif %}"
-              data-variant-id="{{ variant.id }}"
-              data-price="{{ variant.price | money }}"
-              data-compare="{{ variant.price | plus: 2000 | money }}"
-              data-has-gift="{{ has_gift }}"
-              onclick="phSelectSize(this)"
-            >
-              {% if is_popular %}
-              <div class="ph-size-ribbon">⭐ Best</div>
-              {% endif %}
-              <div class="ph-size-icon"><i class="fas fa-ruler"></i></div>
-              <div class="ph-size-name">{{ variant.title }}</div>
-              <div class="ph-size-price">{{ variant.price | money }}</div>
-              {% if has_gift %}
-              <div class="ph-size-gift">
-                <i class="fas fa-gift"></i> +Free Lamp
-              </div>
-              {% endif %}
-            </div>
-          {% endunless %}
+      <div class="ph-thumbs">
+        {% for image in p.images limit: 5 %}
+        <button
+          class="ph-thumb {% if forloop.first %}ph-thumb--active{% endif %}"
+          onclick="phSwitchImg('{{ image | img_url: '800x800' }}', this)"
+          aria-label="View image {{ forloop.index }}"
+        >
+          <img src="{{ image | img_url: '120x120' }}" alt="View {{ forloop.index }}" loading="lazy">
+        </button>
         {% endfor %}
       </div>
+    </div><!-- /ph-visual -->
 
-      <!-- Dynamic Message -->
-      <div class="ph-gift-dynamic" id="ph-gift-dynamic"></div>
+    <!-- ═══ RIGHT: INFO SIDE ═══ -->
+    <div class="ph-info">
 
-      <!-- Gift Banner -->
-      <div class="ph-gift-banner" id="ph-gift-banner">
-        <div class="ph-gift-icon"><i class="fas fa-gift"></i></div>
-        <div class="ph-gift-text">
-          <strong>FREE Bluetooth Lamp</strong> included with every 48" &amp; 60" order
-          <span class="ph-gift-value">— a $60 value, yours free!</span>
-        </div>
-        <div class="ph-gift-ribbon">🎁</div>
+      <div class="ph-labels">
+        <span class="ph-label ph-label--new">
+          <i class="fas fa-star"></i> New Arrival
+        </span>
+        <span class="ph-label ph-label--stock">
+          <i class="fas fa-check-circle"></i> In Stock
+        </span>
       </div>
 
-      <!-- CTA Buttons -->
-      <div class="ph-ctas">
-        <!-- BUY NOW: يضيف للسلة ويروح checkout مباشرة -->
-        <button class="ph-btn-main" id="ph-btn-main" onclick="phBuyNow()">
-          <span class="ph-btn-icon"><i class="fas fa-bolt"></i></span>
-          <span class="ph-btn-text" id="ph-buy-btn-text">Buy Now — Get Yours Today</span>
-          <span class="ph-btn-arrow"><i class="fas fa-arrow-right"></i></span>
-        </button>
+      <h1 class="ph-title">
+        Sensory Bubble
+        <span class="ph-title-highlight">Fish Lamp</span>
+      </h1>
 
-        <!-- ADD TO CART: يضيف للسلة ويروح صفحة السلة فقط -->
-        <button class="ph-btn-cart" id="ph-btn-cart" onclick="phAddToCart()">
-          <i class="fas fa-shopping-cart"></i>
-          <span id="ph-cart-btn-text">Add to Cart</span>
-        </button>
+      <!-- ★ REVIEWS — قابلة للضغط وتعمل scroll للريفيوهات -->
+      <div class="ph-stars">
+        <a href="#reviews-section" class="ph-stars-link" onclick="phScrollToReviews(event)">
+          <div class="ph-stars-icons">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+          </div>
+          <span class="ph-stars-count">4.8</span>
+          <span class="ph-stars-reviews">(247 reviews)</span>
+          <span class="ph-stars-arrow">↓ Read reviews</span>
+        </a>
       </div>
 
-      <!-- Trust Row -->
-      <div class="ph-trust-row">
-        <div class="ph-trust-item">
-          <i class="fas fa-shield-alt"></i>
-          <span>Secure Checkout</span>
+      <div class="ph-price-block">
+        <div class="ph-price-wrap">
+          <span class="ph-price-old" id="ph-price-old">$179.99</span>
+          <span class="ph-price-current" id="ph-price-current">$149.99</span>
         </div>
-        <div class="ph-trust-item">
-          <i class="fas fa-truck"></i>
-          <span>Free Shipping</span>
-        </div>
-        <div class="ph-trust-item">
-          <i class="fas fa-undo"></i>
-          <span>30-Day Returns</span>
-        </div>
-        <div class="ph-trust-item">
-          <i class="fas fa-headset"></i>
-          <span>24/7 Support</span>
+        <div class="ph-price-save">
+          You save <strong>$30.00</strong> today!
         </div>
       </div>
-    </div>
-  </div>
-</div>
+
+      <div class="ph-divider"></div>
+
+      <!-- SIZE SELECTOR -->
+      <div class="ph-sizes">
+        <div class="ph-sizes-label">
+          <i class="fas fa-ruler-vertical"></i>
+          Select Your Size
+          <span class="ph-sizes-hint">— hover to preview</span>
+        </div>
+
+        <div class="ph-sizes-grid">
+          {% for variant in p.variants %}
+            {% unless variant.title contains '15' or variant.title contains 'Bluetooth' %}
+              {% assign has_gift = false %}
+              {% if variant.title contains '48' or variant.title contains '4 ft' or variant.title contains '4ft'
+                 or variant.title contains '60' or variant.title contains '5 ft' or variant.title contains '5ft' %}
+                {% assign has_gift = true %}
+              {% endif %}
+              {% assign is_popular = false %}
+              {% if variant.title contains '48' or variant.title contains '4 ft' or variant.title contains '4ft' %}
+                {% assign is_popular = true %}
+              {% endif %}
+              <div
+                class="ph-size-card {% if is_popular %}ph-size-card--popular{% endif %}"
+                data-variant-id="{{ variant.id }}"
+                data-price="{{ variant.price | money }}"
+                data-compare="{{ variant.price | plus: 2000 | money }}"
+                data-has-gift="{{ has_gift }}"
+                onclick="phSelectSize(this)"
+              >
+                {% if is_popular %}
+                <div class="ph-size-ribbon">⭐ Best</div>
+                {% endif %}
+                <div class="ph-size-icon"><i class="fas fa-ruler"></i></div>
+                <div class="ph-size-name">{{ variant.title }}</div>
+                <div class="ph-size-price">{{ variant.price | money }}</div>
+                {% if has_gift %}
+                <div class="ph-size-gift">
+                  <i class="fas fa-gift"></i> +Free Lamp
+                </div>
+                {% endif %}
+              </div>
+            {% endunless %}
+          {% endfor %}
+        </div>
+
+        <!-- Dynamic Gift Message -->
+        <div class="ph-gift-dynamic" id="ph-gift-dynamic"></div>
+
+        <!-- ★ GIFT BANNER المعدّل — مع صورة اللمبة الفعلية -->
+        <div class="ph-gift-banner" id="ph-gift-banner">
+          <div class="ph-gift-banner-inner">
+            <div class="ph-gift-badge-top">🎁 FREE GIFT INCLUDED</div>
+            <div class="ph-gift-content">
+              <div class="ph-gift-img-wrap">
+                <img
+                  src="https://cdn.shopify.com/s/files/1/0685/7619/3055/files/bubble-lamp-gift.jpg"
+                  alt="Free Mini Sensory Bubble Lamp"
+                  class="ph-gift-img"
+                  onerror="this.src='{{ p.featured_image | img_url: '200x200' }}'"
+                >
+                <div class="ph-gift-img-glow"></div>
+              </div>
+              <div class="ph-gift-details">
+                <div class="ph-gift-title">
+                  <i class="fas fa-gift"></i>
+                  FREE Mini Sensory Bubble Lamp
+                </div>
+                <div class="ph-gift-desc">
+                  🐠 The same calming fish lamp — in a compact size!<br>
+                  Perfect as a <strong>night light</strong>, desk accent, or a gift for someone you love.
+                </div>
+                <div class="ph-gift-features">
+                  <span class="ph-gift-feat"><i class="fas fa-check"></i> 16 Color Modes</span>
+                  <span class="ph-gift-feat"><i class="fas fa-check"></i> Remote Control</span>
+                  <span class="ph-gift-feat"><i class="fas fa-check"></i> Floating Fish</span>
+                </div>
+                <div class="ph-gift-value-tag">
+                  <span class="ph-gift-value-old">$59.99 value</span>
+                  <span class="ph-gift-value-free">FREE with 48" or 60"</span>
+                </div>
+              </div>
+            </div>
+            <div class="ph-gift-note">
+              <i class="fas fa-box"></i>
+              Already packed in your box — no extra steps needed!
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA Buttons -->
+        <div class="ph-ctas">
+          <button class="ph-btn-main" id="ph-btn-main" onclick="phBuyNow()">
+            <span class="ph-btn-icon"><i class="fas fa-bolt"></i></span>
+            <span class="ph-btn-text" id="ph-buy-btn-text">Buy Now — Get Yours Today</span>
+            <span class="ph-btn-arrow"><i class="fas fa-arrow-right"></i></span>
+          </button>
+          <button class="ph-btn-cart" id="ph-btn-cart" onclick="phAddToCart()">
+            <i class="fas fa-shopping-cart"></i>
+            <span id="ph-cart-btn-text">Add to Cart</span>
+          </button>
+        </div>
+
+        <!-- Trust Row -->
+        <div class="ph-trust-row">
+          <div class="ph-trust-item">
+            <i class="fas fa-shield-alt"></i>
+            <span>Secure Checkout</span>
+          </div>
+          <div class="ph-trust-item">
+            <i class="fas fa-truck"></i>
+            <span>Free Shipping</span>
+          </div>
+          <div class="ph-trust-item">
+            <i class="fas fa-undo"></i>
+            <span>30-Day Returns</span>
+          </div>
+          <div class="ph-trust-item">
+            <i class="fas fa-headset"></i>
+            <span>24/7 Support</span>
+          </div>
+        </div>
+
+      </div><!-- /ph-sizes -->
+    </div><!-- /ph-info -->
+  </div><!-- /ph-container -->
 </section>
+
 
 <!-- ═══════════════════════════════════════
      STYLES
 ═══════════════════════════════════════ -->
 <style>
+/* ── BASE ── */
 .ph-section {
   position: relative;
   background: linear-gradient(135deg, #060d18 0%, #0d1b2a 50%, #091520 100%);
@@ -214,756 +252,532 @@
   background: radial-gradient(circle, rgba(0,201,200,0.15), transparent 70%);
   animation: phFloat linear infinite;
 }
-.ph-bubble--1 { width:300px; height:300px; left:5%;  top:10%; animation-duration:12s; animation-delay:0s; }
+.ph-bubble--1 { width:300px; height:300px; left:5%;  top:10%; animation-duration:12s; }
 .ph-bubble--2 { width:200px; height:200px; left:20%; top:60%; animation-duration:15s; animation-delay:2s; }
 .ph-bubble--3 { width:150px; height:150px; left:70%; top:20%; animation-duration:10s; animation-delay:1s; }
 .ph-bubble--4 { width:250px; height:250px; left:80%; top:65%; animation-duration:18s; animation-delay:3s; }
-.ph-bubble--5 { width:100px; height:100px; left:50%; top:80%; animation-duration:8s;  animation-delay:0.5s; }
+.ph-bubble--5 { width:100px; height:100px; left:50%; top:80%; animation-duration:8s;  animation-delay:.5s; }
 .ph-glow--left {
-  position: absolute;
-  left: -200px; top: 50%;
-  transform: translateY(-50%);
-  width: 600px; height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(0,201,200,0.08), transparent 70%);
+  position:absolute; left:-200px; top:50%; transform:translateY(-50%);
+  width:600px; height:600px; border-radius:50%;
+  background:radial-gradient(circle,rgba(0,201,200,.08),transparent 70%);
 }
 .ph-glow--right {
-  position: absolute;
-  right: -200px; top: 30%;
-  width: 500px; height: 500px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(102,51,255,0.08), transparent 70%);
+  position:absolute; right:-200px; top:30%;
+  width:500px; height:500px; border-radius:50%;
+  background:radial-gradient(circle,rgba(102,51,255,.08),transparent 70%);
 }
 @keyframes phFloat {
-  0%   { transform: translateY(0) scale(1);    opacity: 0.6; }
-  50%  { transform: translateY(-40px) scale(1.05); opacity: 1; }
-  100% { transform: translateY(0) scale(1);    opacity: 0.6; }
+  0%   { transform:translateY(0)     scale(1);    opacity:.6; }
+  50%  { transform:translateY(-40px) scale(1.05); opacity:1;  }
+  100% { transform:translateY(0)     scale(1);    opacity:.6; }
 }
+
+/* ── LAYOUT ── */
 .ph-container {
-  position: relative;
-  z-index: 1;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 40px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: center;
+  position:relative; z-index:1;
+  max-width:1280px; margin:0 auto; padding:0 40px;
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:80px; align-items:center;
 }
-.ph-visual {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
+.ph-visual { display:flex; flex-direction:column; gap:20px; }
+
+/* ── FRAME ── */
 .ph-frame {
-  position: relative;
-  border-radius: 28px;
-  overflow: hidden;
-  background: linear-gradient(135deg, #0f2030, #1a3050);
-  border: 1px solid rgba(0,201,200,0.2);
-  box-shadow:
-    0 0 0 1px rgba(0,201,200,0.1),
-    0 30px 80px rgba(0,0,0,0.5),
-    inset 0 1px 0 rgba(255,255,255,0.05);
+  position:relative; border-radius:28px; overflow:hidden;
+  background:linear-gradient(135deg,#0f2030,#1a3050);
+  border:1px solid rgba(0,201,200,.2);
+  box-shadow:0 0 0 1px rgba(0,201,200,.1),0 30px 80px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.05);
 }
 .ph-frame-glow {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at 50% 120%, rgba(0,201,200,0.12), transparent 60%);
-  pointer-events: none;
-  z-index: 2;
+  position:absolute; inset:0;
+  background:radial-gradient(ellipse at 50% 120%,rgba(0,201,200,.12),transparent 60%);
+  pointer-events:none; z-index:2;
 }
-.ph-img-wrap {
-  position: relative;
-  aspect-ratio: 1;
-  overflow: hidden;
-}
+.ph-img-wrap { position:relative; aspect-ratio:1; overflow:hidden; }
 .ph-main-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.6s ease, opacity 0.2s ease;
+  width:100%; height:100%; object-fit:cover; display:block;
+  transition:transform .6s ease, opacity .2s ease;
 }
-.ph-frame:hover .ph-main-img { transform: scale(1.04); }
-.ph-orb {
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-}
+.ph-frame:hover .ph-main-img { transform:scale(1.04); }
+.ph-orb { position:absolute; border-radius:50%; pointer-events:none; }
 .ph-orb--1 {
-  width: 120px; height: 120px;
-  bottom: -30px; left: -30px;
-  background: radial-gradient(circle, rgba(0,201,200,0.2), transparent 70%);
-  animation: phPulse 4s ease-in-out infinite;
+  width:120px; height:120px; bottom:-30px; left:-30px;
+  background:radial-gradient(circle,rgba(0,201,200,.2),transparent 70%);
+  animation:phPulse 4s ease-in-out infinite;
 }
 .ph-orb--2 {
-  width: 80px; height: 80px;
-  top: 20px; right: -20px;
-  background: radial-gradient(circle, rgba(102,51,255,0.2), transparent 70%);
-  animation: phPulse 6s ease-in-out infinite reverse;
+  width:80px; height:80px; top:20px; right:-20px;
+  background:radial-gradient(circle,rgba(102,51,255,.2),transparent 70%);
+  animation:phPulse 6s ease-in-out infinite reverse;
 }
 @keyframes phPulse {
-  0%, 100% { transform: scale(1);   opacity: 0.6; }
-  50%       { transform: scale(1.3); opacity: 1; }
+  0%,100% { transform:scale(1);   opacity:.6; }
+  50%      { transform:scale(1.3); opacity:1;  }
 }
 .ph-live-badge {
-  position: absolute;
-  top: 16px; left: 16px;
-  z-index: 5;
-  background: rgba(13,27,42,0.85);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(0,201,200,0.3);
-  color: #00c9c8;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  padding: 6px 12px;
-  border-radius: 50px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  position:absolute; top:16px; left:16px; z-index:5;
+  background:rgba(13,27,42,.85); backdrop-filter:blur(8px);
+  border:1px solid rgba(0,201,200,.3); color:#00c9c8;
+  font-size:11px; font-weight:700; letter-spacing:1px;
+  padding:6px 12px; border-radius:50px;
+  display:flex; align-items:center; gap:6px;
 }
 .ph-live-dot {
-  width: 7px; height: 7px;
-  border-radius: 50%;
-  background: #00c9c8;
-  animation: phBlink 1.5s ease-in-out infinite;
+  width:7px; height:7px; border-radius:50%; background:#00c9c8;
+  animation:phBlink 1.5s ease-in-out infinite;
 }
-@keyframes phBlink {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.2; }
-}
+@keyframes phBlink { 0%,100%{opacity:1;} 50%{opacity:.2;} }
 .ph-discount-tag {
-  position: absolute;
-  top: 16px; right: 16px;
-  z-index: 5;
-  background: linear-gradient(135deg, #ff4d6d, #c9184a);
-  color: white;
-  border-radius: 12px;
-  padding: 8px 12px;
-  text-align: center;
-  box-shadow: 0 4px 16px rgba(255,77,109,0.4);
+  position:absolute; top:16px; right:16px; z-index:5;
+  background:linear-gradient(135deg,#ff4d6d,#c9184a);
+  color:white; border-radius:12px; padding:8px 12px; text-align:center;
+  box-shadow:0 4px 16px rgba(255,77,109,.4);
 }
-.ph-discount-num {
-  display: block;
-  font-size: 20px;
-  font-weight: 900;
-  line-height: 1;
-}
-.ph-discount-txt {
-  display: block;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 1px;
-}
-.ph-thumbs {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-}
+.ph-discount-num { display:block; font-size:20px; font-weight:900; line-height:1; }
+.ph-discount-txt { display:block; font-size:10px; font-weight:700; letter-spacing:1px; }
+
+/* ── THUMBS ── */
+.ph-thumbs { display:flex; gap:10px; justify-content:center; }
 .ph-thumb {
-  width: 64px; height: 64px;
-  border-radius: 12px;
-  overflow: hidden;
-  border: 2px solid rgba(255,255,255,0.08);
-  cursor: pointer;
-  transition: all 0.3s ease;
-  padding: 0;
-  background: none;
-  flex-shrink: 0;
+  width:64px; height:64px; border-radius:12px; overflow:hidden;
+  border:2px solid rgba(255,255,255,.08); cursor:pointer;
+  transition:all .3s ease; padding:0; background:none; flex-shrink:0;
 }
-.ph-thumb img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  display: block;
+.ph-thumb img { width:100%; height:100%; object-fit:cover; display:block; }
+.ph-thumb:hover, .ph-thumb--active {
+  border-color:#00c9c8;
+  box-shadow:0 0 12px rgba(0,201,200,.4);
+  transform:translateY(-3px);
 }
-.ph-thumb:hover,
-.ph-thumb--active {
-  border-color: #00c9c8;
-  box-shadow: 0 0 12px rgba(0,201,200,0.4);
-  transform: translateY(-3px);
-}
-.ph-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-.ph-labels {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 18px;
-}
+
+/* ── INFO ── */
+.ph-info { display:flex; flex-direction:column; gap:0; }
+.ph-labels { display:flex; gap:10px; margin-bottom:18px; }
 .ph-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 5px 14px;
-  border-radius: 50px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
+  display:inline-flex; align-items:center; gap:6px;
+  padding:5px 14px; border-radius:50px;
+  font-size:11px; font-weight:700; letter-spacing:.5px;
 }
-.ph-label--new {
-  background: rgba(0,201,200,0.12);
-  border: 1px solid rgba(0,201,200,0.3);
-  color: #00c9c8;
-}
-.ph-label--stock {
-  background: rgba(34,197,94,0.12);
-  border: 1px solid rgba(34,197,94,0.3);
-  color: #22c55e;
-}
+.ph-label--new  { background:rgba(0,201,200,.12); border:1px solid rgba(0,201,200,.3); color:#00c9c8; }
+.ph-label--stock{ background:rgba(34,197,94,.12);  border:1px solid rgba(34,197,94,.3);  color:#22c55e; }
 .ph-title {
-  font-size: clamp(32px, 4vw, 52px);
-  font-weight: 900;
-  color: #ffffff;
-  line-height: 1.1;
-  margin-bottom: 16px;
-  letter-spacing: -1px;
+  font-size:clamp(32px,4vw,52px); font-weight:900; color:#fff;
+  line-height:1.1; margin-bottom:16px; letter-spacing:-1px;
 }
 .ph-title-highlight {
-  display: block;
-  background: linear-gradient(135deg, #00c9c8, #0099cc, #6633ff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  display:block;
+  background:linear-gradient(135deg,#00c9c8,#0099cc,#6633ff);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
 }
-.ph-stars {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 24px;
+
+/* ── ★ STARS — CLICKABLE ── */
+.ph-stars { display:flex; align-items:center; gap:8px; margin-bottom:24px; }
+.ph-stars-link {
+  display:inline-flex; align-items:center; gap:8px;
+  text-decoration:none; cursor:pointer;
+  padding:6px 12px; border-radius:50px;
+  border:1px solid transparent;
+  transition:all .3s ease;
 }
-.ph-stars-icons {
-  display: flex;
-  gap: 2px;
-  color: #f0c040;
-  font-size: 14px;
+.ph-stars-link:hover {
+  background:rgba(240,192,64,.08);
+  border-color:rgba(240,192,64,.3);
+  transform:translateY(-2px);
 }
-.ph-stars-count {
-  font-size: 15px;
-  font-weight: 800;
-  color: #ffffff;
+.ph-stars-icons { display:flex; gap:2px; color:#f0c040; font-size:14px; }
+.ph-stars-count  { font-size:15px; font-weight:800; color:#fff; }
+.ph-stars-reviews{ font-size:13px; color:rgba(255,255,255,.5); }
+.ph-stars-arrow  {
+  font-size:11px; color:#00c9c8; font-weight:700;
+  letter-spacing:.5px; opacity:0;
+  transition:opacity .3s ease, transform .3s ease;
+  transform:translateX(-4px);
 }
-.ph-stars-reviews {
-  font-size: 13px;
-  color: rgba(255,255,255,0.5);
+.ph-stars-link:hover .ph-stars-arrow {
+  opacity:1; transform:translateX(0);
 }
-.ph-price-block { margin-bottom: 24px; }
-.ph-price-wrap {
-  display: flex;
-  align-items: baseline;
-  gap: 14px;
-  margin-bottom: 6px;
-}
-.ph-price-old {
-  font-size: 20px;
-  color: rgba(255,255,255,0.35);
-  text-decoration: line-through;
-  font-weight: 500;
-  transition: opacity 0.15s ease;
-}
-.ph-price-current {
-  font-size: 48px;
-  font-weight: 900;
-  color: #ffffff;
-  letter-spacing: -2px;
-  line-height: 1;
-  transition: opacity 0.15s ease;
-}
-.ph-price-save {
-  font-size: 13px;
-  color: #22c55e;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-.ph-divider {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(0,201,200,0.2), transparent);
-  margin: 8px 0 24px;
-}
+
+/* ── PRICE ── */
+.ph-price-block { margin-bottom:24px; }
+.ph-price-wrap  { display:flex; align-items:baseline; gap:14px; margin-bottom:6px; }
+.ph-price-old   { font-size:20px; color:rgba(255,255,255,.35); text-decoration:line-through; font-weight:500; transition:opacity .15s; }
+.ph-price-current { font-size:48px; font-weight:900; color:#fff; letter-spacing:-2px; line-height:1; transition:opacity .15s; }
+.ph-price-save  { font-size:13px; color:#22c55e; font-weight:600; }
+.ph-divider     { height:1px; background:linear-gradient(90deg,transparent,rgba(0,201,200,.2),transparent); margin:8px 0 24px; }
+
+/* ── SIZES ── */
 .ph-sizes-label {
-  font-size: 13px;
-  font-weight: 700;
-  color: rgba(255,255,255,0.7);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 14px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  font-size:13px; font-weight:700; color:rgba(255,255,255,.7);
+  text-transform:uppercase; letter-spacing:1px;
+  margin-bottom:14px; display:flex; align-items:center; gap:8px;
 }
-.ph-sizes-hint {
-  font-size: 11px;
-  font-weight: 400;
-  color: rgba(255,255,255,0.3);
-  text-transform: none;
-  letter-spacing: 0;
-}
-.ph-sizes-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  margin-bottom: 16px;
-}
+.ph-sizes-hint { font-size:11px; font-weight:400; color:rgba(255,255,255,.3); text-transform:none; letter-spacing:0; }
+.ph-sizes-grid  { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:16px; }
 .ph-size-card {
-  position: relative;
-  background: rgba(255,255,255,0.04);
-  border: 1.5px solid rgba(255,255,255,0.08);
-  border-radius: 16px;
-  padding: 14px 10px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  overflow: hidden;
+  position:relative; background:rgba(255,255,255,.04);
+  border:1.5px solid rgba(255,255,255,.08); border-radius:16px;
+  padding:14px 10px; text-align:center; cursor:pointer;
+  transition:all .25s ease; overflow:hidden;
 }
 .ph-size-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(0,201,200,0.08), transparent);
-  opacity: 0;
-  transition: opacity 0.25s ease;
-  border-radius: 14px;
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(135deg,rgba(0,201,200,.08),transparent);
+  opacity:0; transition:opacity .25s; border-radius:14px;
 }
-.ph-size-card:hover,
-.ph-size-card--selected {
-  border-color: #00c9c8;
-  background: rgba(0,201,200,0.08);
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0,201,200,0.2);
+.ph-size-card:hover, .ph-size-card--selected {
+  border-color:#00c9c8; background:rgba(0,201,200,.08);
+  transform:translateY(-4px); box-shadow:0 8px 24px rgba(0,201,200,.2);
 }
-.ph-size-card:hover::before,
-.ph-size-card--selected::before { opacity: 1; }
-.ph-size-card--popular { border-color: rgba(0,201,200,0.4); }
+.ph-size-card:hover::before, .ph-size-card--selected::before { opacity:1; }
+.ph-size-card--popular { border-color:rgba(0,201,200,.4); }
 .ph-size-ribbon {
-  position: absolute;
-  top: 0; right: 0;
-  background: linear-gradient(135deg, #00c9c8, #0099cc);
-  color: white;
-  font-size: 9px;
-  font-weight: 700;
-  padding: 3px 8px;
-  border-radius: 0 14px 0 10px;
-  letter-spacing: 0.3px;
+  position:absolute; top:0; right:0;
+  background:linear-gradient(135deg,#00c9c8,#0099cc);
+  color:white; font-size:9px; font-weight:700;
+  padding:3px 8px; border-radius:0 14px 0 10px; letter-spacing:.3px;
 }
-.ph-size-icon {
-  font-size: 18px;
-  color: rgba(255,255,255,0.3);
-  margin-bottom: 6px;
-  transition: color 0.25s;
+.ph-size-icon  { font-size:18px; color:rgba(255,255,255,.3); margin-bottom:6px; transition:color .25s; }
+.ph-size-card:hover .ph-size-icon, .ph-size-card--selected .ph-size-icon { color:#00c9c8; }
+.ph-size-name  { font-size:12px; font-weight:700; color:rgba(255,255,255,.85); margin-bottom:4px; line-height:1.3; }
+.ph-size-price { font-size:14px; font-weight:800; color:#fff; margin-bottom:6px; }
+.ph-size-gift  {
+  font-size:9px; font-weight:700; color:#f0c040;
+  background:rgba(240,192,64,.1); border:1px solid rgba(240,192,64,.25);
+  border-radius:50px; padding:2px 6px;
+  display:inline-flex; align-items:center; gap:3px;
 }
-.ph-size-card:hover .ph-size-icon,
-.ph-size-card--selected .ph-size-icon { color: #00c9c8; }
-.ph-size-name {
-  font-size: 12px;
-  font-weight: 700;
-  color: rgba(255,255,255,0.85);
-  margin-bottom: 4px;
-  line-height: 1.3;
-}
-.ph-size-price {
-  font-size: 14px;
-  font-weight: 800;
-  color: #ffffff;
-  margin-bottom: 6px;
-}
-.ph-size-gift {
-  font-size: 9px;
-  font-weight: 700;
-  color: #f0c040;
-  background: rgba(240,192,64,0.1);
-  border: 1px solid rgba(240,192,64,0.25);
-  border-radius: 50px;
-  padding: 2px 6px;
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-}
-.ph-gift-dynamic {
-  margin-bottom: 12px;
-  min-height: 40px;
-  transition: all 0.3s ease;
-}
+
+/* ── DYNAMIC MSG ── */
+.ph-gift-dynamic { margin-bottom:12px; min-height:40px; transition:all .3s; }
 .ph-gift-dynamic-msg {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 16px;
-  border-radius: 12px;
-  font-size: 13px;
-  font-weight: 600;
-  animation: phFadeIn 0.3s ease;
+  display:flex; align-items:center; gap:10px;
+  padding:10px 16px; border-radius:12px;
+  font-size:13px; font-weight:600;
+  animation:phFadeIn .3s ease;
 }
-.ph-gift-dynamic-msg--good {
-  background: rgba(34,197,94,0.1);
-  border: 1px solid rgba(34,197,94,0.3);
-  color: #22c55e;
-}
-.ph-gift-dynamic-msg--warn {
-  background: rgba(255,165,0,0.1);
-  border: 1px solid rgba(255,165,0,0.35);
-  color: #ffaa00;
-}
-@keyframes phFadeIn {
-  from { opacity: 0; transform: translateY(-6px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
+.ph-gift-dynamic-msg--good { background:rgba(34,197,94,.1);  border:1px solid rgba(34,197,94,.3);  color:#22c55e; }
+.ph-gift-dynamic-msg--warn { background:rgba(255,165,0,.1);  border:1px solid rgba(255,165,0,.35); color:#ffaa00; }
+@keyframes phFadeIn { from{opacity:0;transform:translateY(-6px);} to{opacity:1;transform:translateY(0);} }
+
+/* ══════════════════════════════════════
+   ★ GIFT BANNER — REDESIGNED
+══════════════════════════════════════ */
 .ph-gift-banner {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  background: linear-gradient(135deg, rgba(240,192,64,0.08), rgba(240,192,64,0.03));
-  border: 1px solid rgba(240,192,64,0.25);
-  border-radius: 16px;
-  padding: 16px 20px;
-  margin-bottom: 28px;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.4s ease;
-}
-.ph-gift-banner.ph-gift-banner--hidden {
-  opacity: 0.35;
-  filter: grayscale(0.6);
+  background:linear-gradient(135deg,rgba(240,192,64,.06),rgba(240,130,0,.04));
+  border:1.5px solid rgba(240,192,64,.35);
+  border-radius:20px; padding:20px;
+  margin-bottom:28px; position:relative; overflow:hidden;
+  transition:all .4s ease;
 }
 .ph-gift-banner::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(240,192,64,0.5), transparent);
+  content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg,transparent,rgba(240,192,64,.6),transparent);
 }
-.ph-gift-icon {
-  width: 44px; height: 44px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, rgba(240,192,64,0.2), rgba(240,192,64,0.05));
-  border: 1px solid rgba(240,192,64,0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  color: #f0c040;
-  flex-shrink: 0;
+.ph-gift-banner::after {
+  content:'🎁'; position:absolute; right:-10px; top:-10px;
+  font-size:80px; opacity:.06; pointer-events:none;
+  transform:rotate(15deg);
 }
-.ph-gift-text {
-  font-size: 13px;
-  color: rgba(255,255,255,0.75);
-  line-height: 1.5;
-  flex: 1;
+.ph-gift-banner.ph-gift-banner--hidden { opacity:.3; filter:grayscale(.7); }
+
+.ph-gift-badge-top {
+  display:inline-flex; align-items:center; gap:6px;
+  background:linear-gradient(135deg,#f0c040,#ff9500);
+  color:#0a0a1a; font-size:11px; font-weight:900;
+  letter-spacing:1px; padding:4px 14px; border-radius:50px;
+  margin-bottom:14px;
+  box-shadow:0 4px 14px rgba(240,192,64,.4);
 }
-.ph-gift-text strong {
-  color: #f0c040;
-  display: block;
-  font-size: 14px;
-  margin-bottom: 2px;
+
+.ph-gift-content {
+  display:flex; gap:16px; align-items:flex-start;
 }
-.ph-gift-value {
-  color: #f0c040;
-  font-weight: 700;
+
+.ph-gift-img-wrap {
+  position:relative; flex-shrink:0;
+  width:100px; height:100px; border-radius:14px; overflow:hidden;
+  border:2px solid rgba(240,192,64,.3);
+  background:linear-gradient(135deg,#0f2030,#1a3050);
 }
-.ph-gift-ribbon {
-  font-size: 28px;
-  flex-shrink: 0;
-  animation: phSwing 3s ease-in-out infinite;
+.ph-gift-img {
+  width:100%; height:100%; object-fit:cover; display:block;
+  transition:transform .4s ease;
 }
-@keyframes phSwing {
-  0%, 100% { transform: rotate(-10deg); }
-  50%       { transform: rotate(10deg); }
+.ph-gift-banner:hover .ph-gift-img { transform:scale(1.08); }
+.ph-gift-img-glow {
+  position:absolute; inset:0;
+  background:radial-gradient(circle at 50% 120%,rgba(240,192,64,.15),transparent 60%);
+  pointer-events:none;
 }
-.ph-ctas {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 24px;
+
+.ph-gift-details { flex:1; }
+.ph-gift-title {
+  font-size:14px; font-weight:800; color:#f0c040;
+  margin-bottom:6px; display:flex; align-items:center; gap:6px;
 }
+.ph-gift-desc {
+  font-size:12px; color:rgba(255,255,255,.65);
+  line-height:1.6; margin-bottom:10px;
+}
+.ph-gift-desc strong { color:rgba(255,255,255,.9); }
+
+.ph-gift-features {
+  display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px;
+}
+.ph-gift-feat {
+  display:inline-flex; align-items:center; gap:4px;
+  background:rgba(0,201,200,.08); border:1px solid rgba(0,201,200,.2);
+  color:#00c9c8; font-size:10px; font-weight:700;
+  padding:3px 8px; border-radius:50px;
+}
+.ph-gift-feat i { font-size:8px; }
+
+.ph-gift-value-tag {
+  display:flex; align-items:center; gap:10px;
+}
+.ph-gift-value-old {
+  font-size:12px; color:rgba(255,255,255,.35);
+  text-decoration:line-through;
+}
+.ph-gift-value-free {
+  font-size:12px; font-weight:800; color:#22c55e;
+  background:rgba(34,197,94,.1); border:1px solid rgba(34,197,94,.25);
+  padding:2px 10px; border-radius:50px;
+}
+
+.ph-gift-note {
+  display:flex; align-items:center; gap:8px;
+  margin-top:14px; padding-top:12px;
+  border-top:1px solid rgba(240,192,64,.15);
+  font-size:11px; color:rgba(255,255,255,.45);
+}
+.ph-gift-note i { color:#f0c040; }
+
+/* ── CTA ── */
+.ph-ctas { display:flex; gap:12px; margin-bottom:24px; }
 .ph-btn-main {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  background: linear-gradient(135deg, #00c9c8, #0099cc);
-  color: white;
-  font-size: 15px;
-  font-weight: 800;
-  padding: 18px 24px;
-  border-radius: 16px;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 8px 32px rgba(0,201,200,0.35);
+  flex:1; display:flex; align-items:center; justify-content:center; gap:10px;
+  background:linear-gradient(135deg,#00c9c8,#0099cc);
+  color:white; font-size:15px; font-weight:800;
+  padding:18px 24px; border-radius:16px; border:none; cursor:pointer;
+  transition:all .3s ease; position:relative; overflow:hidden;
+  box-shadow:0 8px 32px rgba(0,201,200,.35);
 }
 .ph-btn-main::before {
-  content: '';
-  position: absolute;
-  top: 0; left: -100%;
-  width: 100%; height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
-  transition: left 0.5s ease;
+  content:''; position:absolute; top:0; left:-100%; width:100%; height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);
+  transition:left .5s ease;
 }
-.ph-btn-main:hover::before { left: 100%; }
-.ph-btn-main:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 16px 48px rgba(0,201,200,0.5);
-  color: white;
-}
-.ph-btn-icon {
-  font-size: 18px;
-  animation: phBolt 2s ease-in-out infinite;
-}
-@keyframes phBolt {
-  0%, 100% { transform: scale(1); }
-  50%       { transform: scale(1.2); }
-}
-.ph-btn-arrow {
-  margin-left: auto;
-  opacity: 0.7;
-  transition: transform 0.3s;
-}
-.ph-btn-main:hover .ph-btn-arrow {
-  transform: translateX(4px);
-  opacity: 1;
-}
+.ph-btn-main:hover::before { left:100%; }
+.ph-btn-main:hover { transform:translateY(-3px); box-shadow:0 16px 48px rgba(0,201,200,.5); color:white; }
+.ph-btn-icon { font-size:18px; animation:phBolt 2s ease-in-out infinite; }
+@keyframes phBolt { 0%,100%{transform:scale(1);} 50%{transform:scale(1.2);} }
+.ph-btn-arrow { margin-left:auto; opacity:.7; transition:transform .3s; }
+.ph-btn-main:hover .ph-btn-arrow { transform:translateX(4px); opacity:1; }
 .ph-btn-cart {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(255,255,255,0.05);
-  border: 1.5px solid rgba(255,255,255,0.15);
-  color: rgba(255,255,255,0.85);
-  font-size: 14px;
-  font-weight: 700;
-  padding: 18px 22px;
-  border-radius: 16px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  white-space: nowrap;
+  display:flex; align-items:center; gap:8px;
+  background:rgba(255,255,255,.05); border:1.5px solid rgba(255,255,255,.15);
+  color:rgba(255,255,255,.85); font-size:14px; font-weight:700;
+  padding:18px 22px; border-radius:16px; cursor:pointer;
+  transition:all .3s ease; white-space:nowrap;
 }
-.ph-btn-cart:hover {
-  background: rgba(255,255,255,0.1);
-  border-color: rgba(255,255,255,0.3);
-  color: white;
-  transform: translateY(-3px);
-}
-.ph-btn-cart:disabled,
-.ph-btn-main:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none !important;
-}
-.ph-trust-row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-}
+.ph-btn-cart:hover { background:rgba(255,255,255,.1); border-color:rgba(255,255,255,.3); color:white; transform:translateY(-3px); }
+.ph-btn-cart:disabled, .ph-btn-main:disabled { opacity:.6; cursor:not-allowed; transform:none !important; }
+
+/* ── TRUST ROW ── */
+.ph-trust-row { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
 .ph-trust-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  padding: 12px 8px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 12px;
-  text-align: center;
-  transition: all 0.3s;
+  display:flex; flex-direction:column; align-items:center; gap:6px;
+  padding:12px 8px;
+  background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.06);
+  border-radius:12px; text-align:center; transition:all .3s;
 }
-.ph-trust-item:hover {
-  background: rgba(0,201,200,0.06);
-  border-color: rgba(0,201,200,0.2);
-}
-.ph-trust-item i {
-  font-size: 18px;
-  color: #00c9c8;
-}
-.ph-trust-item span {
-  font-size: 10px;
-  font-weight: 600;
-  color: rgba(255,255,255,0.5);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  line-height: 1.3;
-}
+.ph-trust-item:hover { background:rgba(0,201,200,.06); border-color:rgba(0,201,200,.2); }
+.ph-trust-item i    { font-size:18px; color:#00c9c8; }
+.ph-trust-item span { font-size:10px; font-weight:600; color:rgba(255,255,255,.5); text-transform:uppercase; letter-spacing:.5px; line-height:1.3; }
+
+/* ── SHAKE ANIMATION ── */
 @keyframes phShake {
-  0%, 100% { transform: translateX(0); }
-  20%       { transform: translateX(-8px); }
-  40%       { transform: translateX(8px); }
-  60%       { transform: translateX(-5px); }
-  80%       { transform: translateX(5px); }
+  0%,100%{transform:translateX(0);} 20%{transform:translateX(-8px);}
+  40%{transform:translateX(8px);}   60%{transform:translateX(-5px);}
+  80%{transform:translateX(5px);}
 }
-@media (max-width: 1024px) {
-  .ph-container {
-    grid-template-columns: 1fr;
-    gap: 48px;
-    padding: 0 24px;
-  }
-  .ph-visual { max-width: 500px; margin: 0 auto; width: 100%; }
-  .ph-section { padding: 60px 0 80px; min-height: auto; }
+
+/* ── RESPONSIVE ── */
+@media (max-width:1024px) {
+  .ph-container { grid-template-columns:1fr; gap:48px; padding:0 24px; }
+  .ph-visual    { max-width:500px; margin:0 auto; width:100%; }
+  .ph-section   { padding:60px 0 80px; min-height:auto; }
 }
-@media (max-width: 640px) {
-  .ph-sizes-grid    { grid-template-columns: repeat(2, 1fr); }
-  .ph-trust-row     { grid-template-columns: repeat(2, 1fr); }
-  .ph-ctas          { flex-direction: column; }
-  .ph-title         { font-size: 36px; }
-  .ph-price-current { font-size: 38px; }
-  .ph-thumbs        { gap: 6px; }
-  .ph-thumb         { width: 52px; height: 52px; }
+@media (max-width:640px) {
+  .ph-sizes-grid  { grid-template-columns:repeat(2,1fr); }
+  .ph-trust-row   { grid-template-columns:repeat(2,1fr); }
+  .ph-ctas        { flex-direction:column; }
+  .ph-title       { font-size:36px; }
+  .ph-price-current{ font-size:38px; }
+  .ph-thumbs      { gap:6px; }
+  .ph-thumb       { width:52px; height:52px; }
+  .ph-gift-content{ flex-direction:column; align-items:center; text-align:center; }
+  .ph-gift-img-wrap{ width:120px; height:120px; }
+  .ph-gift-features{ justify-content:center; }
+  .ph-gift-value-tag{ justify-content:center; }
 }
 </style>
+
 
 <!-- ═══════════════════════════════════════
      SCRIPTS
 ═══════════════════════════════════════ -->
 <script>
-var phSelectedVariantId = null;
-var phProductUrl = {{ p.url | json }};
+(function(){
+  var phSelectedVariantId = null;
 
-// ── Switch Main Image ──
-function phSwitchImg(src, btn) {
-  var img = document.getElementById('ph-main-img');
-  if (!img) return;
-  img.style.opacity = '0';
-  img.style.transform = 'scale(0.97)';
-  setTimeout(function() {
-    img.src = src;
-    img.style.opacity = '1';
-    img.style.transform = 'scale(1)';
-  }, 200);
-  document.querySelectorAll('.ph-thumb').forEach(function(t) {
-    t.classList.remove('ph-thumb--active');
-  });
-  btn.classList.add('ph-thumb--active');
-}
+  /* ── Switch Main Image ── */
+  window.phSwitchImg = function(src, btn) {
+    var img = document.getElementById('ph-main-img');
+    if (!img) return;
+    img.style.opacity = '0';
+    img.style.transform = 'scale(0.97)';
+    setTimeout(function(){
+      img.src = src;
+      img.style.opacity = '1';
+      img.style.transform = 'scale(1)';
+    }, 200);
+    document.querySelectorAll('.ph-thumb').forEach(function(t){ t.classList.remove('ph-thumb--active'); });
+    btn.classList.add('ph-thumb--active');
+  };
 
-// ── Select Size ──
-function phSelectSize(card) {
-  document.querySelectorAll('.ph-size-card').forEach(function(c) {
-    c.classList.remove('ph-size-card--selected');
-  });
-  card.classList.add('ph-size-card--selected');
+  /* ── ★ SCROLL TO REVIEWS ── */
+  window.phScrollToReviews = function(e) {
+    e.preventDefault();
+    /* البحث عن سيكشن الريفيوهات بأي ID أو class ممكن */
+    var target =
+      document.getElementById('reviews-section') ||
+      document.getElementById('reviews') ||
+      document.querySelector('[data-section-type="reviews"]') ||
+      document.querySelector('.reviews-section') ||
+      document.querySelector('.kova-reviews') ||
+      document.querySelector('[id*="review"]') ||
+      document.querySelector('[class*="review"]');
 
-  phSelectedVariantId = card.dataset.variantId;
-  var price   = card.dataset.price;
-  var compare = card.dataset.compare;
-  var hasGift = card.dataset.hasGift === 'true';
+    if (target) {
+      var offset = 80; /* ارتفاع الهيدر */
+      var top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({ top: top, behavior: 'smooth' });
+    } else {
+      /* fallback — لو مش لاقي السيكشن */
+      window.location.href = '/pages/reviews';
+    }
+  };
 
-  var priceEl   = document.getElementById('ph-price-current');
-  var compareEl = document.getElementById('ph-price-old');
-  if (priceEl) {
-    priceEl.style.opacity = '0';
-    setTimeout(function() { priceEl.textContent = price; priceEl.style.opacity = '1'; }, 150);
-  }
-  if (compareEl) {
-    compareEl.style.opacity = '0';
-    setTimeout(function() { compareEl.textContent = compare; compareEl.style.opacity = '1'; }, 150);
-  }
+  /* ── Select Size ── */
+  window.phSelectSize = function(card) {
+    document.querySelectorAll('.ph-size-card').forEach(function(c){
+      c.classList.remove('ph-size-card--selected');
+    });
+    card.classList.add('ph-size-card--selected');
+    phSelectedVariantId = card.dataset.variantId;
 
-  var dynamicEl = document.getElementById('ph-gift-dynamic');
-  var bannerEl  = document.getElementById('ph-gift-banner');
+    var price   = card.dataset.price;
+    var compare = card.dataset.compare;
+    var hasGift = card.dataset.hasGift === 'true';
 
-  if (hasGift) {
-    dynamicEl.innerHTML =
-      '<div class="ph-gift-dynamic-msg ph-gift-dynamic-msg--good">' +
+    /* Update price */
+    var priceEl   = document.getElementById('ph-price-current');
+    var compareEl = document.getElementById('ph-price-old');
+    if (priceEl) {
+      priceEl.style.opacity = '0';
+      setTimeout(function(){ priceEl.textContent = price;   priceEl.style.opacity = '1'; }, 150);
+    }
+    if (compareEl) {
+      compareEl.style.opacity = '0';
+      setTimeout(function(){ compareEl.textContent = compare; compareEl.style.opacity = '1'; }, 150);
+    }
+
+    /* Dynamic message + banner */
+    var dynamicEl = document.getElementById('ph-gift-dynamic');
+    var bannerEl  = document.getElementById('ph-gift-banner');
+
+    if (hasGift) {
+      if (dynamicEl) dynamicEl.innerHTML =
+        '<div class="ph-gift-dynamic-msg ph-gift-dynamic-msg--good">' +
         '<i class="fas fa-gift"></i>' +
-        '&nbsp;🎉 Great choice! You\'ll receive a <strong>&nbsp;FREE Bluetooth Lamp</strong>&nbsp;($60 value) with your order!' +
-      '</div>';
-    if (bannerEl) bannerEl.classList.remove('ph-gift-banner--hidden');
-  } else {
-    dynamicEl.innerHTML =
-      '<div class="ph-gift-dynamic-msg ph-gift-dynamic-msg--warn">' +
+        '&nbsp;🎉 Great choice! You\'ll receive a <strong>&nbsp;FREE Mini Sensory Lamp</strong>&nbsp;(worth $59.99) — already packed in your box!' +
+        '</div>';
+      if (bannerEl) bannerEl.classList.remove('ph-gift-banner--hidden');
+    } else {
+      if (dynamicEl) dynamicEl.innerHTML =
+        '<div class="ph-gift-dynamic-msg ph-gift-dynamic-msg--warn">' +
         '<i class="fas fa-exclamation-circle"></i>' +
-        '&nbsp;⚠️ Upgrade to <strong>&nbsp;48" or 60"&nbsp;</strong> to unlock your <strong>FREE Bluetooth Lamp</strong>!' +
-      '</div>';
-    if (bannerEl) bannerEl.classList.add('ph-gift-banner--hidden');
-  }
-}
+        '&nbsp;⬆️ Upgrade to <strong>&nbsp;48" or 60"&nbsp;</strong> to unlock your <strong>FREE Mini Sensory Lamp</strong> ($60 value)!' +
+        '</div>';
+      if (bannerEl) bannerEl.classList.add('ph-gift-banner--hidden');
+    }
+  };
 
-// ── BUY NOW: يضيف للسلة ويروح checkout مباشرة ──
-function phBuyNow() {
-  if (!phSelectedVariantId) {
-    phShakeGrid();
-    return;
-  }
-  var btn     = document.getElementById('ph-btn-main');
-  var btnText = document.getElementById('ph-buy-btn-text');
-  var btnCart = document.getElementById('ph-btn-cart');
+  /* ── BUY NOW ── */
+  window.phBuyNow = function() {
+    if (!phSelectedVariantId) { phShakeGrid(); return; }
+    var btn     = document.getElementById('ph-btn-main');
+    var btnText = document.getElementById('ph-buy-btn-text');
+    var btnCart = document.getElementById('ph-btn-cart');
+    btn.disabled = true; btnCart.disabled = true;
+    btnText.textContent = 'Processing...';
+    fetch('/cart/add.js', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({ id: parseInt(phSelectedVariantId), quantity:1 })
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(){ window.location.href = '/checkout'; })
+    .catch(function(){
+      btnText.textContent = 'Error — Try Again';
+      btn.disabled = false; btnCart.disabled = false;
+      setTimeout(function(){ btnText.textContent = 'Buy Now — Get Yours Today'; }, 2000);
+    });
+  };
 
-  btn.disabled     = true;
-  btnCart.disabled = true;
-  btnText.textContent = 'Processing...';
+  /* ── ADD TO CART ── */
+  window.phAddToCart = function() {
+    if (!phSelectedVariantId) { phShakeGrid(); return; }
+    var btn     = document.getElementById('ph-btn-cart');
+    var btnText = document.getElementById('ph-cart-btn-text');
+    var btnMain = document.getElementById('ph-btn-main');
+    btn.disabled = true; btnMain.disabled = true;
+    btnText.textContent = 'Adding...';
+    fetch('/cart/add.js', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({ id: parseInt(phSelectedVariantId), quantity:1 })
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(){
+      btnText.textContent = 'Added! ✓';
+      setTimeout(function(){ window.location.href = '/cart'; }, 600);
+    })
+    .catch(function(){
+      btnText.textContent = 'Error — Try Again';
+      btn.disabled = false; btnMain.disabled = false;
+      setTimeout(function(){ btnText.textContent = 'Add to Cart'; }, 2000);
+    });
+  };
 
-  fetch('/cart/add.js', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ id: parseInt(phSelectedVariantId), quantity: 1 })
-  })
-  .then(function(res) { return res.json(); })
-  .then(function() {
-    // يروح checkout مباشرة
-    window.location.href = '/checkout';
-  })
-  .catch(function() {
-    btnText.textContent = 'Error — Try Again';
-    btn.disabled     = false;
-    btnCart.disabled = false;
-    setTimeout(function() { btnText.textContent = 'Buy Now — Get Yours Today'; }, 2000);
-  });
-}
-
-// ── ADD TO CART: يضيف للسلة ويروح صفحة السلة فقط ──
-function phAddToCart() {
-  if (!phSelectedVariantId) {
-    phShakeGrid();
-    return;
-  }
-  var btn      = document.getElementById('ph-btn-cart');
-  var btnText  = document.getElementById('ph-cart-btn-text');
-  var btnMain  = document.getElementById('ph-btn-main');
-
-  btn.disabled     = true;
-  btnMain.disabled = true;
-  btnText.textContent = 'Adding...';
-
-  fetch('/cart/add.js', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ id: parseInt(phSelectedVariantId), quantity: 1 })
-  })
-  .then(function(res) { return res.json(); })
-  .then(function() {
-    btnText.textContent = 'Added! ✓';
-    setTimeout(function() {
-      // يروح صفحة السلة فقط
-      window.location.href = '/cart';
-    }, 600);
-  })
-  .catch(function() {
-    btnText.textContent = 'Error — Try Again';
-    btn.disabled     = false;
-    btnMain.disabled = false;
-    setTimeout(function() { btnText.textContent = 'Add to Cart'; }, 2000);
-  });
-}
-
-// ── Shake if no size selected ──
-function phShakeGrid() {
-  var grid = document.querySelector('.ph-sizes-grid');
-  if (!grid) return;
-  grid.style.animation = 'none';
-  grid.offsetHeight;
-  grid.style.animation = 'phShake 0.4s ease';
-  var hint = document.getElementById('ph-gift-dynamic');
-  if (hint) {
-    hint.innerHTML =
+  /* ── Shake Grid ── */
+  function phShakeGrid() {
+    var grid = document.querySelector('.ph-sizes-grid');
+    if (!grid) return;
+    grid.style.animation = 'none';
+    grid.offsetHeight; /* reflow */
+    grid.style.animation = 'phShake 0.4s ease';
+    var hint = document.getElementById('ph-gift-dynamic');
+    if (hint) hint.innerHTML =
       '<div class="ph-gift-dynamic-msg ph-gift-dynamic-msg--warn">' +
-        '<i class="fas fa-hand-pointer"></i>&nbsp; Please select a size first!' +
+      '<i class="fas fa-hand-pointer"></i>&nbsp; Please select a size first!' +
       '</div>';
   }
-}
+
+})();
 </script>
 
 {% schema %}
