@@ -1,165 +1,180 @@
 <div class="cart-page">
   <div class="container">
-
     <div class="page-hero" style="margin: 0 -20px 60px; padding: 60px 20px;">
       <h1>Your <span style="color: #00C9C8">Cart</span></h1>
       <p>Review your items and proceed to checkout</p>
     </div>
 
     {% if cart.item_count == 0 %}
-      <!-- Empty Cart -->
-      <div class="cart-empty">
-        <div class="cart-empty-icon">🛒</div>
-        <h2>Your cart is empty</h2>
-        <p>Looks like you haven't added anything yet. Let's fix that!</p>
-        <a href="/collections/all" class="btn-primary">
-          <i class="fas fa-shopping-bag"></i> &nbsp; Shop Now
-        </a>
-      </div>
+    <!-- Empty Cart -->
+    <div class="cart-empty">
+      <div class="cart-empty-icon">🛒</div>
+      <h2>Your cart is empty</h2>
+      <p>Looks like you haven't added anything yet. Let's fix that!</p>
+      <a href="/collections/all" class="btn-primary">
+        <i class="fas fa-shopping-bag"></i> &nbsp; Shop Now
+      </a>
+    </div>
 
     {% else %}
-      <!-- Cart Content -->
-      <div class="cart-layout">
+    <!-- Cart Content -->
+    <div class="cart-layout">
 
-        <!-- Cart Items -->
-        <div class="cart-items">
-          <div class="cart-header-row">
-            <span>Product</span>
-            <span>Price</span>
-            <span>Quantity</span>
-            <span>Total</span>
-          </div>
+      <!-- Cart Items -->
+      <div class="cart-items">
+        <div class="cart-header-row">
+          <span>Product</span>
+          <span>Price</span>
+          <span>Quantity</span>
+          <span>Total</span>
+        </div>
 
-          {% for item in cart.items %}
-          <div class="cart-item" data-key="{{ item.key }}">
-
-            <!-- Image -->
-            <div class="cart-item-image">
-              <a href="{{ item.url }}">
-                <img
-                  src="{{ item.image | img_url: '200x200' }}"
-                  alt="{{ item.title }}"
-                >
-              </a>
-            </div>
-
-            <!-- Info -->
-            <div class="cart-item-info">
-              <a href="{{ item.url }}" class="cart-item-title">
-                {{ item.product.title }}
-              </a>
-              {% if item.variant.title != 'Default Title' %}
-                <span class="cart-item-variant">{{ item.variant.title }}</span>
-              {% endif %}
-              <button
-                class="cart-item-remove"
-                onclick="removeCartItem('{{ item.key }}')"
+        {% for item in cart.items %}
+        <div class="cart-item" data-key="{{ item.key }}">
+          <!-- Image -->
+          <div class="cart-item-image">
+            <a href="{{ item.url }}">
+              <img
+                src="{{ item.image | img_url: '200x200' }}"
+                alt="{{ item.title }}"
               >
-                <i class="fas fa-trash-alt"></i> Remove
+            </a>
+          </div>
+          <!-- Info -->
+          <div class="cart-item-info">
+            <a href="{{ item.url }}" class="cart-item-title">
+              {{ item.product.title }}
+            </a>
+            {% if item.variant.title != 'Default Title' %}
+            <span class="cart-item-variant">{{ item.variant.title }}</span>
+            {% endif %}
+            <button
+              class="cart-item-remove"
+              onclick="removeCartItem('{{ item.key }}')"
+            >
+              <i class="fas fa-trash-alt"></i> Remove
+            </button>
+          </div>
+          <!-- Price -->
+          <div class="cart-item-price">
+            {{ item.price | money }}
+          </div>
+          <!-- Quantity -->
+          <div class="cart-item-qty">
+            <div class="qty-controls">
+              <button type="button"
+                onclick="updateCartItem('{{ item.key }}', {{ item.quantity | minus: 1 }})">
+                −
+              </button>
+              <input
+                type="number"
+                value="{{ item.quantity }}"
+                min="1"
+                onchange="updateCartItem('{{ item.key }}', this.value)"
+              >
+              <button type="button"
+                onclick="updateCartItem('{{ item.key }}', {{ item.quantity | plus: 1 }})">
+                +
               </button>
             </div>
-
-            <!-- Price -->
-            <div class="cart-item-price">
-              {{ item.price | money }}
-            </div>
-
-            <!-- Quantity -->
-            <div class="cart-item-qty">
-              <div class="qty-controls">
-                <button type="button"
-                  onclick="updateCartItem('{{ item.key }}', {{ item.quantity | minus: 1 }})">
-                  −
-                </button>
-                <input
-                  type="number"
-                  value="{{ item.quantity }}"
-                  min="1"
-                  onchange="updateCartItem('{{ item.key }}', this.value)"
-                >
-                <button type="button"
-                  onclick="updateCartItem('{{ item.key }}', {{ item.quantity | plus: 1 }})">
-                  +
-                </button>
-              </div>
-            </div>
-
-            <!-- Line Total -->
-            <div class="cart-item-total">
-              {{ item.line_price | money }}
-            </div>
-
           </div>
-          {% endfor %}
+          <!-- Line Total -->
+          <div class="cart-item-total">
+            {{ item.line_price | money }}
+          </div>
         </div>
-
-        <!-- Cart Summary -->
-        <div class="cart-summary">
-
-          <h3 class="summary-title">Order Summary</h3>
-
-          <div class="summary-row">
-            <span>Subtotal</span>
-            <span id="cart-subtotal">{{ cart.total_price | money }}</span>
-          </div>
-
-          <div class="summary-row shipping-row">
-            <span>Shipping</span>
-            <span class="free-shipping">FREE 🇺🇸</span>
-          </div>
-
-          <div class="summary-divider"></div>
-
-          <div class="summary-row total-row">
-            <span>Total</span>
-            <span id="cart-total">{{ cart.total_price | money }}</span>
-          </div>
-
-          <!-- Promo Note -->
-          {% for item in cart.items %}
-            {% if item.variant.title contains '4ft' or item.variant.title contains '5ft'
-               or item.product.title contains '4ft' or item.product.title contains '5ft' %}
-              <div class="cart-promo-note">
-                🎁 <strong>FREE Bluetooth Lamp</strong> will be included with your order!
-              </div>
-              {% break %}
-            {% endif %}
-          {% endfor %}
-
-          <a href="/checkout" class="btn-primary cart-checkout-btn">
-            <i class="fas fa-lock"></i> &nbsp; Secure Checkout
-          </a>
-
-          <a href="/collections/all" class="cart-continue-link">
-            <i class="fas fa-arrow-left"></i> Continue Shopping
-          </a>
-
-          <!-- Trust Badges -->
-          <div class="cart-trust">
-            <div class="cart-trust-item">
-              <i class="fas fa-shield-alt"></i>
-              <span>Secure Payment</span>
-            </div>
-            <div class="cart-trust-item">
-              <i class="fas fa-shipping-fast"></i>
-              <span>Free Shipping</span>
-            </div>
-            <div class="cart-trust-item">
-              <i class="fas fa-undo"></i>
-              <span>30-Day Returns</span>
-            </div>
-          </div>
-
-          <!-- Payment Icons -->
-          <div class="cart-payment-icons">
-            <i class="fab fa-cc-visa"></i>
-            <i class="fab fa-cc-mastercard"></i>
-            <i class="fab fa-cc-paypal"></i>
-            <i class="fab fa-cc-amex"></i>
-          </div>
-
-        </div>
+        {% endfor %}
       </div>
+
+      <!-- Cart Summary -->
+      <div class="cart-summary">
+        <h3 class="summary-title">Order Summary</h3>
+
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span id="cart-subtotal">{{ cart.total_price | money }}</span>
+        </div>
+        <div class="summary-row shipping-row">
+          <span>Shipping</span>
+          <span class="free-shipping">FREE 🇺🇸</span>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-row total-row">
+          <span>Total</span>
+          <span id="cart-total">{{ cart.total_price | money }}</span>
+        </div>
+
+        <!-- Gift Notification -->
+        {% assign has_gift = false %}
+        {% for item in cart.items %}
+          {% if item.variant.title contains '48"' or item.variant.title contains '60"'
+             or item.variant.title contains '48' or item.variant.title contains '60'
+             or item.variant.title contains '4ft' or item.variant.title contains '5ft'
+             or item.product.title contains '48' or item.product.title contains '60' %}
+            {% assign has_gift = true %}
+          {% endif %}
+        {% endfor %}
+
+        {% if has_gift %}
+        <div class="gift-notification">
+          <div class="gift-inner">
+            <div class="gift-badge">🎉 FREE GIFT UNLOCKED!</div>
+            <div class="gift-content">
+              <div class="gift-image-wrap">
+                <img
+                  src="https://cdn.shopify.com/s/files/1/1026/4831/6287/files/free.png?v=1788269990"
+                  alt="Free Mini Jellyfish Lamp"
+                  class="gift-image"
+                />
+                <div class="gift-tag">FREE</div>
+              </div>
+              <div class="gift-info">
+                <h3 class="gift-title">🪼 Mini Jellyfish Lamp</h3>
+                <p class="gift-desc">A calming mini jellyfish lamp — included FREE with your order!</p>
+                <div class="gift-value">
+                  <span class="gift-original">$60.00</span>
+                  <span class="gift-free">FREE</span>
+                </div>
+                <div class="gift-check">✅ Automatically included in your package</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+
+        <a href="/checkout" class="btn-primary cart-checkout-btn">
+          <i class="fas fa-lock"></i> &nbsp; Secure Checkout
+        </a>
+        <a href="/collections/all" class="cart-continue-link">
+          <i class="fas fa-arrow-left"></i> Continue Shopping
+        </a>
+
+        <!-- Trust Badges -->
+        <div class="cart-trust">
+          <div class="cart-trust-item">
+            <i class="fas fa-shield-alt"></i>
+            <span>Secure Payment</span>
+          </div>
+          <div class="cart-trust-item">
+            <i class="fas fa-shipping-fast"></i>
+            <span>Free Shipping</span>
+          </div>
+          <div class="cart-trust-item">
+            <i class="fas fa-undo"></i>
+            <span>30-Day Returns</span>
+          </div>
+        </div>
+
+        <!-- Payment Icons -->
+        <div class="cart-payment-icons">
+          <i class="fab fa-cc-visa"></i>
+          <i class="fab fa-cc-mastercard"></i>
+          <i class="fab fa-cc-paypal"></i>
+          <i class="fab fa-cc-amex"></i>
+        </div>
+
+      </div>
+    </div>
     {% endif %}
   </div>
 </div>
@@ -372,16 +387,106 @@ function removeCartItem(key) {
   font-weight: 800;
   color: var(--color-primary);
 }
-.cart-promo-note {
-  background: linear-gradient(135deg, rgba(240,192,64,0.1), rgba(240,192,64,0.05));
-  border: 1px solid rgba(240,192,64,0.3);
-  border-radius: 12px;
-  padding: 14px 16px;
+
+/* Gift Notification */
+.gift-notification {
+  margin: 20px 0;
+  padding: 3px;
+  background: linear-gradient(135deg, #00b4d8, #0077b6, #48cae4);
+  border-radius: 16px;
+  animation: giftPulse 2s ease-in-out infinite;
+}
+@keyframes giftPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 180, 216, 0.5); }
+  50% { box-shadow: 0 0 0 8px rgba(0, 180, 216, 0); }
+}
+.gift-inner {
+  background: linear-gradient(135deg, #f0f9ff, #e0f7fa);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.gift-badge {
+  background: linear-gradient(135deg, #0077b6, #00b4d8);
+  color: white;
+  text-align: center;
+  padding: 10px;
   font-size: 13px;
-  color: var(--color-primary);
-  margin-bottom: 20px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.gift-content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+}
+.gift-image-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+.gift-image {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  border-radius: 12px;
+  background: white;
+  padding: 6px;
+  box-shadow: 0 4px 15px rgba(0,119,182,0.15);
+}
+.gift-tag {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #ff6b35;
+  color: white;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 7px;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(255,107,53,0.4);
+}
+.gift-info {
+  flex: 1;
+}
+.gift-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: #0077b6;
+  margin: 0 0 5px 0;
+}
+.gift-desc {
+  font-size: 12px;
+  color: #555;
+  margin: 0 0 10px 0;
   line-height: 1.5;
 }
+.gift-value {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.gift-original {
+  font-size: 14px;
+  color: #999;
+  text-decoration: line-through;
+}
+.gift-free {
+  font-size: 18px;
+  font-weight: 900;
+  color: #00b894;
+  background: #e8fff5;
+  padding: 2px 10px;
+  border-radius: 20px;
+}
+.gift-check {
+  font-size: 12px;
+  color: #00b894;
+  font-weight: 600;
+}
+
+/* Checkout Button */
 .cart-checkout-btn {
   display: block;
   width: 100%;
@@ -389,6 +494,7 @@ function removeCartItem(key) {
   padding: 18px;
   font-size: 16px;
   margin-bottom: 12px;
+  margin-top: 20px;
 }
 .cart-continue-link {
   display: block;
@@ -403,6 +509,8 @@ function removeCartItem(key) {
 .cart-continue-link:hover {
   color: var(--color-aqua);
 }
+
+/* Trust Badges */
 .cart-trust {
   display: flex;
   justify-content: space-between;
@@ -425,6 +533,8 @@ function removeCartItem(key) {
   color: var(--color-aqua);
   font-size: 18px;
 }
+
+/* Payment Icons */
 .cart-payment-icons {
   display: flex;
   justify-content: center;
@@ -442,6 +552,7 @@ function removeCartItem(key) {
     position: static;
   }
 }
+
 @media (max-width: 768px) {
   .cart-header-row {
     display: none;
@@ -449,6 +560,7 @@ function removeCartItem(key) {
   .cart-item {
     grid-template-columns: 80px 1fr;
     grid-template-rows: auto auto auto;
+    gap: 12px;
   }
   .cart-item-image {
     grid-row: 1 / 3;
@@ -457,6 +569,13 @@ function removeCartItem(key) {
   .cart-item-qty,
   .cart-item-total {
     grid-column: 2;
+  }
+  .gift-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  .gift-value {
+    justify-content: center;
   }
 }
 </style>
