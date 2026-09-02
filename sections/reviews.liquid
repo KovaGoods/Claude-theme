@@ -11,10 +11,9 @@
       <i class="fas fa-star"></i> Verified Reviews
     </div>
     <h1 class="rv-hero-title">What Our Customers Say</h1>
-
     <div class="rv-hero-stats">
       <div class="rv-stat">
-        <span class="rv-stat-num">247</span>
+        <span class="rv-stat-num" id="rv-total-count">247</span>
         <span class="rv-stat-lbl">Total Reviews</span>
       </div>
       <div class="rv-stat-divider"></div>
@@ -63,12 +62,10 @@
       </div>
     </div>
 
-    <!-- ✅ زر الـ Scroll للريفيوهات -->
     <a href="#rv-grid-anchor" class="rv-scroll-btn" onclick="rvScrollToGrid(event)">
       <i class="fas fa-chevron-down"></i>
-      Read All 247 Reviews
+      Read All Reviews
     </a>
-
   </div>
 </div>
 
@@ -79,19 +76,13 @@
   <div class="rv-controls">
     <div class="rv-search-wrap">
       <i class="fas fa-search rv-search-icon"></i>
-      <input
-        type="text"
-        class="rv-search"
-        id="rv-search"
-        placeholder="Search reviews..."
-        oninput="rvFilter()"
-      >
+      <input type="text" class="rv-search" id="rv-search" placeholder="Search reviews..." oninput="rvFilter()">
     </div>
     <div class="rv-filters">
-      <button class="rv-filter-btn rv-filter-btn--active" onclick="rvSetFilter('all', this)">All (247)</button>
-      <button class="rv-filter-btn" onclick="rvSetFilter('5', this)">⭐⭐⭐⭐⭐ (193)</button>
-      <button class="rv-filter-btn" onclick="rvSetFilter('4', this)">⭐⭐⭐⭐ (35)</button>
-      <button class="rv-filter-btn" onclick="rvSetFilter('3', this)">⭐⭐⭐ (12)</button>
+      <button class="rv-filter-btn rv-filter-btn--active" onclick="rvSetFilter('all', this)">All</button>
+      <button class="rv-filter-btn" onclick="rvSetFilter('5', this)">⭐⭐⭐⭐⭐</button>
+      <button class="rv-filter-btn" onclick="rvSetFilter('4', this)">⭐⭐⭐⭐</button>
+      <button class="rv-filter-btn" onclick="rvSetFilter('3', this)">⭐⭐⭐</button>
     </div>
     <div class="rv-sort-wrap">
       <select class="rv-sort" id="rv-sort" onchange="rvSort()">
@@ -103,8 +94,17 @@
     </div>
   </div>
 
-  <!-- ✅ Anchor target للـ scroll -->
+  <!-- Anchor -->
   <div id="rv-grid-anchor" style="scroll-margin-top: 80px;"></div>
+
+  <!-- ══ NEW REVIEWS BANNER ══ -->
+  <div class="rv-new-banner" id="rv-new-banner" style="display:none">
+    <i class="fas fa-sparkles"></i>
+    <span id="rv-new-banner-text">Your review has been added!</span>
+    <button onclick="document.getElementById('rv-new-banner').style.display='none'">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
 
   <!-- ══ REVIEWS GRID ══ -->
   <div class="rv-grid" id="rv-grid"></div>
@@ -121,6 +121,7 @@
       <p class="rv-write-sub">Share your experience with the Sensory Bubble Fish Lamp</p>
     </div>
 
+    <!-- ✅ FORM -->
     <form class="rv-form" id="rv-form" onsubmit="rvSubmit(event)">
       <div class="rv-form-row">
         <div class="rv-form-group">
@@ -168,17 +169,25 @@
         </select>
       </div>
 
+      <!-- Rating Error -->
+      <div class="rv-rating-error" id="rv-rating-error" style="display:none">
+        <i class="fas fa-exclamation-circle"></i> Please select a star rating before submitting.
+      </div>
+
       <button type="submit" class="rv-submit-btn">
         <i class="fas fa-paper-plane"></i>
         Submit My Review
       </button>
     </form>
 
-    <!-- Success Message -->
+    <!-- ✅ Success Message -->
     <div class="rv-success" id="rv-success" style="display:none">
       <div class="rv-success-icon"><i class="fas fa-check-circle"></i></div>
       <h3>Thank You for Your Review!</h3>
-      <p>Your review has been submitted and will appear after verification (24–48 hrs).</p>
+      <p>Your review is now live and visible to other customers.</p>
+      <button class="rv-submit-btn" onclick="rvWriteAnother()" style="margin-top:16px">
+        <i class="fas fa-pen"></i> Write Another Review
+      </button>
     </div>
   </div>
 
@@ -190,52 +199,54 @@
      REVIEWS DATA + LOGIC
 ════════════════════════════════════ -->
 <script>
+// ════════════════════════════════
+// DATA
+// ════════════════════════════════
 const RV_DATA = [
-  { id:1,  name:"Sarah M.",     loc:"New York, NY",       rating:5, title:"Absolutely magical!",           body:"This lamp transformed my bedroom. The colors are stunning and the bubbles are so calming. My kids love it too! The Bluetooth speaker was a great bonus.", size:"48 inch", date:"2025-05-12", helpful:42, verified:true },
-  { id:2,  name:"James T.",     loc:"Los Angeles, CA",    rating:5, title:"Best purchase of the year",     body:"I bought the 60 inch version and it's incredible. Takes up the perfect amount of space in my living room. The remote makes it easy to change colors.", size:"60 inch", date:"2025-05-08", helpful:38, verified:true },
-  { id:3,  name:"Emily R.",     loc:"Chicago, IL",        rating:4, title:"Beautiful lamp, minor issue",   body:"Love the look and feel. The only thing is setup took a bit longer than expected. Once set up though, it's perfect. Great stress relief after work.", size:"39 inch", date:"2025-05-03", helpful:27, verified:true },
-  { id:4,  name:"Michael K.",   loc:"Houston, TX",        rating:5, title:"My son is obsessed",            body:"Bought this for my son who has sensory processing needs. It's been incredible for calming him down. The fish are adorable and the light is gentle.", size:"48 inch", date:"2025-04-28", helpful:55, verified:true },
-  { id:5,  name:"Jessica L.",   loc:"Phoenix, AZ",        rating:5, title:"Office centerpiece",            body:"Put this in my home office and clients always comment on it. It creates such a relaxing atmosphere for video calls. Highly recommend the 5ft version.", size:"60 inch", date:"2025-04-22", helpful:31, verified:true },
-  { id:6,  name:"David W.",     loc:"Philadelphia, PA",   rating:5, title:"Exceeded expectations",         body:"The quality is way better than I expected for the price. The colors are vibrant and the fish look realistic. Free Bluetooth lamp was a nice surprise!", size:"48 inch", date:"2025-04-18", helpful:29, verified:true },
-  { id:7,  name:"Ashley N.",    loc:"San Antonio, TX",    rating:4, title:"Great for relaxation",          body:"Use it every evening to wind down. The 16 color options mean I can always find the perfect mood. Would give 5 stars but shipping took a little longer.", size:"32 inch", date:"2025-04-14", helpful:19, verified:true },
-  { id:8,  name:"Chris P.",     loc:"San Diego, CA",      rating:5, title:"Perfect bedroom lamp",          body:"Replaced my boring bedside lamp with this and my room looks like an aquarium! Sleep so much better now with the calming colors.", size:"39 inch", date:"2025-04-10", helpful:33, verified:true },
-  { id:9,  name:"Amanda F.",    loc:"Dallas, TX",         rating:5, title:"Gift idea of the year",         body:"Bought as a birthday gift for my sister. She was absolutely blown away. The packaging was also really nice. Will definitely buy again.", size:"48 inch", date:"2025-04-06", helpful:44, verified:true },
-  { id:10, name:"Robert H.",    loc:"San Jose, CA",       rating:3, title:"Nice but instructions unclear", body:"The lamp itself is beautiful but the assembly instructions could be clearer. Took me about an hour to figure it out. End result is worth it though.", size:"60 inch", date:"2025-04-02", helpful:12, verified:true },
-  { id:11, name:"Melissa C.",   loc:"Austin, TX",         rating:5, title:"Therapy lamp for my anxiety",   body:"I have anxiety and this lamp has genuinely helped me. The slow bubbles and changing colors are meditative. My therapist even asked about it!", size:"48 inch", date:"2025-03-28", helpful:67, verified:true },
-  { id:12, name:"Daniel B.",    loc:"Jacksonville, FL",   rating:5, title:"Kids absolutely love it",       body:"My 3 kids all wanted it in their rooms after seeing it. Ended up buying 3! The fish are so cute and the remote is easy enough for kids to use.", size:"32 inch", date:"2025-03-24", helpful:38, verified:true },
-  { id:13, name:"Laura G.",     loc:"Fort Worth, TX",     rating:5, title:"Stunning visual effect",        body:"The photos don't do it justice. In person, the colors are absolutely gorgeous. My guests always stop and stare at it. Worth every penny.", size:"60 inch", date:"2025-03-20", helpful:52, verified:true },
-  { id:14, name:"Kevin M.",     loc:"Columbus, OH",       rating:4, title:"Great quality for the price",   body:"Compared to similar products online, this is much better quality. The tube is sturdy and the fish move naturally. Happy with my purchase.", size:"39 inch", date:"2025-03-16", helpful:22, verified:true },
-  { id:15, name:"Rachel S.",    loc:"Charlotte, NC",      rating:5, title:"My meditation corner is complete", body:"Set this up in my meditation corner and it's perfect. The gentle bubbling sound and colors help me focus during meditation sessions.", size:"48 inch", date:"2025-03-12", helpful:41, verified:true },
-  { id:16, name:"Brian O.",     loc:"Indianapolis, IN",   rating:5, title:"Better than expected",          body:"Was skeptical at first but this lamp is genuinely impressive. The build quality is solid and the colors are exactly as advertised. Love it.", size:"60 inch", date:"2025-03-08", helpful:28, verified:true },
-  { id:17, name:"Stephanie V.", loc:"Seattle, WA",        rating:5, title:"Perfect for my spa room",       body:"I have a home spa room and this is the perfect addition. Creates such a serene atmosphere. My friends always comment on how relaxing my space feels.", size:"60 inch", date:"2025-03-04", helpful:36, verified:true },
-  { id:18, name:"Anthony J.",   loc:"Denver, CO",         rating:4, title:"Solid product, great colors",   body:"The 16 color modes are all beautiful. I especially love the slow color transition mode. My only wish is that the remote had a few more features.", size:"48 inch", date:"2025-02-28", helpful:17, verified:true },
-  { id:19, name:"Megan T.",     loc:"Nashville, TN",      rating:5, title:"Calming and beautiful",         body:"Bought this for my home office to reduce stress during work. It's incredible how much calmer I feel just having it on. Highly recommend!", size:"39 inch", date:"2025-02-24", helpful:45, verified:true },
-  { id:20, name:"Patrick R.",   loc:"Louisville, KY",     rating:5, title:"My teenager loves it",          body:"My 15-year-old was going through a tough time and this lamp has genuinely helped create a calming environment in his room. Great product.", size:"48 inch", date:"2025-02-20", helpful:39, verified:true },
-  { id:21, name:"Nicole A.",    loc:"Portland, OR",       rating:5, title:"Absolutely stunning",           body:"I've been looking for something unique for my living room and this is it. The fish are adorable and the colors create such a magical atmosphere.", size:"60 inch", date:"2025-02-16", helpful:31, verified:true },
-  { id:22, name:"Steven E.",    loc:"Oklahoma City, OK",  rating:4, title:"Good product, easy setup",      body:"Setup was straightforward and took about 20 minutes. The lamp looks great and the Bluetooth speaker that came with it was a nice bonus gift.", size:"48 inch", date:"2025-02-12", helpful:20, verified:true },
-  { id:23, name:"Brittany H.",  loc:"Las Vegas, NV",      rating:5, title:"My living room is transformed", body:"This lamp completely changed the vibe of my living room. It's the first thing people notice when they walk in. The colors are absolutely beautiful.", size:"60 inch", date:"2025-02-08", helpful:47, verified:true },
-  { id:24, name:"Timothy W.",   loc:"Memphis, TN",        rating:5, title:"Great for autism therapy",      body:"My daughter has autism and this lamp has been incredible for sensory therapy. The slow bubbles and gentle colors help her regulate. Thank you!", size:"48 inch", date:"2025-02-04", helpful:89, verified:true },
-  { id:25, name:"Samantha K.",  loc:"Baltimore, MD",      rating:3, title:"Beautiful but pricey",          body:"The lamp is genuinely beautiful and works as described. I just wish it was a bit more affordable. That said, the quality does justify the price.", size:"32 inch", date:"2025-01-31", helpful:14, verified:true },
-  { id:26, name:"Gregory L.",   loc:"Milwaukee, WI",      rating:5, title:"Perfect night light",           body:"Use this as a night light in my bedroom. The soft glow is perfect — not too bright, not too dim. The color options mean I can always find the right mood.", size:"39 inch", date:"2025-01-27", helpful:26, verified:true },
-  { id:27, name:"Hannah M.",    loc:"Albuquerque, NM",    rating:5, title:"Exceeded all expectations",     body:"I've bought several decorative lamps over the years and this is by far my favorite. The quality, the colors, the fish — everything is perfect.", size:"48 inch", date:"2025-01-23", helpful:33, verified:true },
-  { id:28, name:"Joshua C.",    loc:"Tucson, AZ",         rating:5, title:"My whole family loves it",      body:"Bought the 5ft version for our family room. Everyone from my 5-year-old to my 70-year-old mother loves watching the fish. Great family piece.", size:"60 inch", date:"2025-01-19", helpful:42, verified:true },
-  { id:29, name:"Kimberly P.",  loc:"Fresno, CA",         rating:4, title:"Beautiful addition to my home", body:"Really happy with this purchase. The lamp is exactly as described and looks even better in person. The remote is intuitive and easy to use.", size:"48 inch", date:"2025-01-15", helpful:18, verified:true },
-  { id:30, name:"Raymond B.",   loc:"Sacramento, CA",     rating:5, title:"Therapeutic and beautiful",     body:"As someone with PTSD, having this lamp in my bedroom has made a real difference. The calming colors and bubbles help me relax before sleep.", size:"60 inch", date:"2025-01-11", helpful:76, verified:true }
+  { id:1,  name:"Sarah M.",     loc:"New York, NY",       rating:5, title:"Absolutely magical!",          body:"This lamp transformed my bedroom. The colors are stunning and the bubbles are so calming. My kids love it too!",                                                                  size:"48 inch", date:"2025-05-12", helpful:42, verified:true, isNew:false },
+  { id:2,  name:"James T.",     loc:"Los Angeles, CA",    rating:5, title:"Best purchase of the year",    body:"I bought the 60 inch version and it's incredible. Takes up the perfect amount of space in my living room. The remote makes it easy to change colors.",                          size:"60 inch", date:"2025-05-08", helpful:38, verified:true, isNew:false },
+  { id:3,  name:"Emily R.",     loc:"Chicago, IL",        rating:4, title:"Beautiful lamp, minor issue",  body:"Love the look and feel. The only thing is setup took a bit longer than expected. Once set up though, it's perfect. Great stress relief after work.",                             size:"39 inch", date:"2025-05-03", helpful:27, verified:true, isNew:false },
+  { id:4,  name:"Michael K.",   loc:"Houston, TX",        rating:5, title:"My son is obsessed",           body:"Bought this for my son who has sensory processing needs. It's been incredible for calming him down. The fish are adorable and the light is gentle.",                            size:"48 inch", date:"2025-04-28", helpful:55, verified:true, isNew:false },
+  { id:5,  name:"Jessica L.",   loc:"Phoenix, AZ",        rating:5, title:"Office centerpiece",           body:"Put this in my home office and clients always comment on it. It creates such a relaxing atmosphere for video calls. Highly recommend the 5ft version.",                        size:"60 inch", date:"2025-04-22", helpful:31, verified:true, isNew:false },
+  { id:6,  name:"David W.",     loc:"Philadelphia, PA",   rating:5, title:"Exceeded expectations",        body:"The quality is way better than I expected for the price. The colors are vibrant and the fish look realistic.",                                                                  size:"48 inch", date:"2025-04-18", helpful:29, verified:true, isNew:false },
+  { id:7,  name:"Ashley N.",    loc:"San Antonio, TX",    rating:4, title:"Great for relaxation",         body:"Use it every evening to wind down. The 16 color options mean I can always find the perfect mood. Would give 5 stars but shipping took a little longer.",                        size:"32 inch", date:"2025-04-14", helpful:19, verified:true, isNew:false },
+  { id:8,  name:"Chris P.",     loc:"San Diego, CA",      rating:5, title:"Perfect bedroom lamp",         body:"Replaced my boring bedside lamp with this and my room looks like an aquarium! Sleep so much better now with the calming colors.",                                               size:"39 inch", date:"2025-04-10", helpful:33, verified:true, isNew:false },
+  { id:9,  name:"Amanda F.",    loc:"Dallas, TX",         rating:5, title:"Gift idea of the year",        body:"Bought as a birthday gift for my sister. She was absolutely blown away. The packaging was also really nice. Will definitely buy again.",                                         size:"48 inch", date:"2025-04-06", helpful:44, verified:true, isNew:false },
+  { id:10, name:"Robert H.",    loc:"San Jose, CA",       rating:3, title:"Nice but instructions unclear",body:"The lamp itself is beautiful but the assembly instructions could be clearer. Took me about an hour to figure it out. End result is worth it though.",                           size:"60 inch", date:"2025-04-02", helpful:12, verified:true, isNew:false },
+  { id:11, name:"Melissa C.",   loc:"Austin, TX",         rating:5, title:"Therapy lamp for my anxiety",  body:"I have anxiety and this lamp has genuinely helped me. The slow bubbles and changing colors are meditative. My therapist even asked about it!",                                  size:"48 inch", date:"2025-03-28", helpful:67, verified:true, isNew:false },
+  { id:12, name:"Daniel B.",    loc:"Jacksonville, FL",   rating:5, title:"Kids absolutely love it",      body:"My 3 kids all wanted it in their rooms after seeing it. Ended up buying 3! The fish are so cute and the remote is easy enough for kids to use.",                               size:"32 inch", date:"2025-03-24", helpful:38, verified:true, isNew:false },
+  { id:13, name:"Laura G.",     loc:"Fort Worth, TX",     rating:5, title:"Stunning visual effect",       body:"The photos don't do it justice. In person, the colors are absolutely gorgeous. My guests always stop and stare at it. Worth every penny.",                                      size:"60 inch", date:"2025-03-20", helpful:52, verified:true, isNew:false },
+  { id:14, name:"Kevin M.",     loc:"Columbus, OH",       rating:4, title:"Great quality for the price",  body:"Compared to similar products online, this is much better quality. The tube is sturdy and the fish move naturally. Happy with my purchase.",                                     size:"39 inch", date:"2025-03-16", helpful:22, verified:true, isNew:false },
+  { id:15, name:"Rachel S.",    loc:"Charlotte, NC",      rating:5, title:"My meditation corner is complete", body:"Set this up in my meditation corner and it's perfect. The gentle bubbling sound and colors help me focus during meditation sessions.",                                    size:"48 inch", date:"2025-03-12", helpful:41, verified:true, isNew:false },
+  { id:16, name:"Brian O.",     loc:"Indianapolis, IN",   rating:5, title:"Better than expected",         body:"Was skeptical at first but this lamp is genuinely impressive. The build quality is solid and the colors are exactly as advertised. Love it.",                                   size:"60 inch", date:"2025-03-08", helpful:28, verified:true, isNew:false },
+  { id:17, name:"Stephanie V.", loc:"Seattle, WA",        rating:5, title:"Perfect for my spa room",      body:"I have a home spa room and this is the perfect addition. Creates such a serene atmosphere. My friends always comment on how relaxing my space feels.",                          size:"60 inch", date:"2025-03-04", helpful:36, verified:true, isNew:false },
+  { id:18, name:"Anthony J.",   loc:"Denver, CO",         rating:4, title:"Solid product, great colors",  body:"The 16 color modes are all beautiful. I especially love the slow color transition mode. My only wish is that the remote had a few more features.",                              size:"48 inch", date:"2025-02-28", helpful:17, verified:true, isNew:false },
+  { id:19, name:"Megan T.",     loc:"Nashville, TN",      rating:5, title:"Calming and beautiful",        body:"Bought this for my home office to reduce stress during work. It's incredible how much calmer I feel just having it on. Highly recommend!",                                      size:"39 inch", date:"2025-02-24", helpful:45, verified:true, isNew:false },
+  { id:20, name:"Patrick R.",   loc:"Louisville, KY",     rating:5, title:"My teenager loves it",         body:"My 15-year-old was going through a tough time and this lamp has genuinely helped create a calming environment in his room. Great product.",                                     size:"48 inch", date:"2025-02-20", helpful:39, verified:true, isNew:false },
+  { id:21, name:"Nicole A.",    loc:"Portland, OR",       rating:5, title:"Absolutely stunning",          body:"I've been looking for something unique for my living room and this is it. The fish are adorable and the colors create such a magical atmosphere.",                               size:"60 inch", date:"2025-02-16", helpful:31, verified:true, isNew:false },
+  { id:22, name:"Steven E.",    loc:"Oklahoma City, OK",  rating:4, title:"Good product, easy setup",     body:"Setup was straightforward and took about 20 minutes. The lamp looks great and the gift lamp that came with it was a nice bonus.",                                               size:"48 inch", date:"2025-02-12", helpful:20, verified:true, isNew:false },
+  { id:23, name:"Brittany H.",  loc:"Las Vegas, NV",      rating:5, title:"My living room is transformed",body:"This lamp completely changed the vibe of my living room. It's the first thing people notice when they walk in. The colors are absolutely beautiful.",                          size:"60 inch", date:"2025-02-08", helpful:47, verified:true, isNew:false },
+  { id:24, name:"Timothy W.",   loc:"Memphis, TN",        rating:5, title:"Great for autism therapy",     body:"My daughter has autism and this lamp has been incredible for sensory therapy. The slow bubbles and gentle colors help her regulate. Thank you!",                                size:"48 inch", date:"2025-02-04", helpful:89, verified:true, isNew:false },
+  { id:25, name:"Samantha K.",  loc:"Baltimore, MD",      rating:3, title:"Beautiful but pricey",         body:"The lamp is genuinely beautiful and works as described. I just wish it was a bit more affordable. That said, the quality does justify the price.",                              size:"32 inch", date:"2025-01-31", helpful:14, verified:true, isNew:false },
+  { id:26, name:"Gregory L.",   loc:"Milwaukee, WI",      rating:5, title:"Perfect night light",          body:"Use this as a night light in my bedroom. The soft glow is perfect — not too bright, not too dim. The color options mean I can always find the right mood.",                    size:"39 inch", date:"2025-01-27", helpful:26, verified:true, isNew:false },
+  { id:27, name:"Hannah M.",    loc:"Albuquerque, NM",    rating:5, title:"Exceeded all expectations",    body:"I've bought several decorative lamps over the years and this is by far my favorite. The quality, the colors, the fish — everything is perfect.",                               size:"48 inch", date:"2025-01-23", helpful:33, verified:true, isNew:false },
+  { id:28, name:"Joshua C.",    loc:"Tucson, AZ",         rating:5, title:"My whole family loves it",     body:"Bought the 5ft version for our family room. Everyone from my 5-year-old to my 70-year-old mother loves watching the fish. Great family piece.",                                size:"60 inch", date:"2025-01-19", helpful:42, verified:true, isNew:false },
+  { id:29, name:"Kimberly P.",  loc:"Fresno, CA",         rating:4, title:"Beautiful addition to my home",body:"Really happy with this purchase. The lamp is exactly as described and looks even better in person. The remote is intuitive and easy to use.",                                  size:"48 inch", date:"2025-01-15", helpful:18, verified:true, isNew:false },
+  { id:30, name:"Raymond B.",   loc:"Sacramento, CA",     rating:5, title:"Therapeutic and beautiful",    body:"As someone with PTSD, having this lamp in my bedroom has made a real difference. The calming colors and bubbles help me relax before sleep.",                                  size:"60 inch", date:"2025-01-11", helpful:76, verified:true, isNew:false }
 ];
 
-// ── Generate reviews 31–247 ──
-const extraNames   = ["Alex J.","Morgan S.","Taylor R.","Jordan B.","Casey W.","Riley M.","Quinn T.","Avery L.","Blake C.","Cameron D.","Drew H.","Evan K.","Finley N.","Harper O.","Hayden P.","Hunter Q.","Indigo R.","Jamie S.","Jesse T.","Jessie U.","Jordan V.","Kai W.","Kelly X.","Kennedy Y.","Lane Z.","Lee A.","Logan B.","Mackenzie C.","Madison D.","Mason E.","Micah F.","Morgan G.","Noah H.","Oakley I.","Parker J.","Peyton K.","Phoenix L.","Presley M.","Quinn N.","Reagan O.","Reese P.","Riley Q.","River R.","Robin S.","Rowan T.","Ryan U.","Sage V.","Sam W.","Sawyer X.","Shawn Y.","Skylar Z.","Spencer A.","Sterling B.","Sydney C.","Taylor D."];
-const extraLocs    = ["Boston, MA","Miami, FL","Atlanta, GA","Minneapolis, MN","Cleveland, OH","Pittsburgh, PA","St. Louis, MO","Tampa, FL","Orlando, FL","Kansas City, MO","Cincinnati, OH","Raleigh, NC","Virginia Beach, VA","Omaha, NE","Colorado Springs, CO","Arlington, TX","Bakersfield, CA","Honolulu, HI","Anchorage, AK","Corpus Christi, TX"];
-const extraTitles  = ["Love this lamp!","Perfect for my room","Great quality","Beautiful colors","Highly recommend","Amazing product","So calming","My favorite purchase","Worth every penny","Absolutely stunning","Great gift idea","Perfect size","Exceeded expectations","Very happy","Wonderful lamp","Looks amazing","Great for relaxation","Perfect night light","Love the fish","Beautiful glow"];
-const extraBodies  = ["This lamp is absolutely beautiful. The colors are vibrant and the fish are adorable. Perfect addition to any room.","I bought this as a gift and the recipient loved it. The quality is excellent and it looks stunning.","The calming effect of this lamp is real. I use it every night before bed and sleep so much better.","Setup was easy and the lamp looks exactly as pictured. Very happy with my purchase.","The 16 color options are all beautiful. I love switching between them depending on my mood.","My kids are obsessed with the fish. It keeps them entertained and calm at bedtime.","The build quality is solid and the colors are exactly as advertised. Great product.","I was skeptical but this lamp genuinely helps with my anxiety. The bubbles are so soothing.","Perfect for my bedroom. The soft glow is just right and the colors are gorgeous.","Bought the 48 inch version and it's the perfect size for my living room. Love it!"];
-const extraSizes   = ["32 inch","39 inch","48 inch","60 inch"];
-const extraRatings = [5,5,5,5,5,5,4,5,5,5,5,4,5,5,3,5,5,5,4,5];
+// Generate reviews 31–247
+const extraNames  = ["Alex J.","Morgan S.","Taylor R.","Jordan B.","Casey W.","Riley M.","Quinn T.","Avery L.","Blake C.","Cameron D.","Drew H.","Evan K.","Finley N.","Harper O.","Hayden P.","Hunter Q.","Indigo R.","Jamie S.","Jesse T.","Jessie U.","Jordan V.","Kai W.","Kelly X.","Kennedy Y.","Lane Z.","Lee A.","Logan B.","Mackenzie C.","Madison D.","Mason E.","Micah F.","Morgan G.","Noah H.","Oakley I.","Parker J.","Peyton K.","Phoenix L.","Presley M.","Quinn N.","Reagan O.","Reese P.","Riley Q.","River R.","Robin S.","Rowan T.","Ryan U.","Sage V.","Sam W.","Sawyer X.","Shawn Y.","Skylar Z.","Spencer A.","Sterling B.","Sydney C.","Taylor D."];
+const extraLocs   = ["Boston, MA","Miami, FL","Atlanta, GA","Minneapolis, MN","Cleveland, OH","Pittsburgh, PA","St. Louis, MO","Tampa, FL","Orlando, FL","Kansas City, MO","Cincinnati, OH","Raleigh, NC","Virginia Beach, VA","Omaha, NE","Colorado Springs, CO","Arlington, TX","Bakersfield, CA","Honolulu, HI","Anchorage, AK","Corpus Christi, TX"];
+const extraTitles = ["Love this lamp!","Perfect for my room","Great quality","Beautiful colors","Highly recommend","Amazing product","So calming","My favorite purchase","Worth every penny","Absolutely stunning","Great gift idea","Perfect size","Exceeded expectations","Very happy","Wonderful lamp","Looks amazing","Great for relaxation","Perfect night light","Love the fish","Beautiful glow"];
+const extraBodies = ["This lamp is absolutely beautiful. The colors are vibrant and the fish are adorable. Perfect addition to any room.","I bought this as a gift and the recipient loved it. The quality is excellent and it looks stunning.","The calming effect of this lamp is real. I use it every night before bed and sleep so much better.","Setup was easy and the lamp looks exactly as pictured. Very happy with my purchase.","The 16 color options are all beautiful. I love switching between them depending on my mood.","My kids are obsessed with the fish. It keeps them entertained and calm at bedtime.","The build quality is solid and the colors are exactly as advertised. Great product.","I was skeptical but this lamp genuinely helps with my anxiety. The bubbles are so soothing.","Perfect for my bedroom. The soft glow is just right and the colors are gorgeous.","Bought the 48 inch version and it's the perfect size for my living room. Love it!"];
+const extraSizes  = ["32 inch","39 inch","48 inch","60 inch"];
+const extraRatings= [5,5,5,5,5,5,4,5,5,5,5,4,5,5,3,5,5,5,4,5];
 
 function randomDate(start, end) {
-  const d = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+  const d = new Date(start.getTime() + Math.random()*(end.getTime()-start.getTime()));
   return d.toISOString().split('T')[0];
 }
-
 for (let i = 31; i <= 247; i++) {
   const n = i - 31;
   RV_DATA.push({
@@ -247,28 +258,34 @@ for (let i = 31; i <= 247; i++) {
     body:    extraBodies[n % extraBodies.length],
     size:    extraSizes[n % extraSizes.length],
     date:    randomDate(new Date('2024-06-01'), new Date('2025-05-01')),
-    helpful: Math.floor(Math.random() * 50) + 1,
-    verified: true
+    helpful: Math.floor(Math.random()*50)+1,
+    verified: true,
+    isNew:   false
   });
 }
 
-// ── STATE ──
-let rvFiltered     = [...RV_DATA];
-let rvPage         = 1;
-const RV_PER_PAGE  = 12;
-let rvStarSelected = 0;
-let rvActiveFilter = 'all';
+// ════════════════════════════════
+// STATE
+// ════════════════════════════════
+let rvFiltered    = [...RV_DATA];
+let rvPage        = 1;
+const RV_PER_PAGE = 12;
+let rvStarSelected= 0;
+let rvActiveFilter= 'all';
+let rvNextId      = RV_DATA.length + 1;
 
-// ── SCROLL TO GRID ──
+// ════════════════════════════════
+// SCROLL
+// ════════════════════════════════
 function rvScrollToGrid(e) {
   e.preventDefault();
   const target = document.getElementById('rv-grid-anchor');
-  if (target) {
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
+  if (target) target.scrollIntoView({ behavior:'smooth', block:'start' });
 }
 
-// ── RENDER ──
+// ════════════════════════════════
+// RENDER
+// ════════════════════════════════
 function rvRender() {
   const grid = document.getElementById('rv-grid');
   if (!grid) return;
@@ -282,13 +299,15 @@ function rvRender() {
   }
 
   grid.innerHTML = page.map(r => `
-    <div class="rv-card" data-rating="${r.rating}">
+    <div class="rv-card ${r.isNew ? 'rv-card--new' : ''}" data-rating="${r.rating}">
+      ${r.isNew ? '<div class="rv-card-new-badge"><i class="fas fa-sparkles"></i> Just Added</div>' : ''}
       <div class="rv-card-top">
-        <div class="rv-card-avatar">${r.name.charAt(0)}</div>
+        <div class="rv-card-avatar" style="${r.isNew ? 'background:linear-gradient(135deg,#f0c040,#f59e0b)' : ''}">${r.name.charAt(0)}</div>
         <div class="rv-card-meta">
           <div class="rv-card-name">
             ${r.name}
             ${r.verified ? '<span class="rv-verified"><i class="fas fa-check-circle"></i> Verified</span>' : ''}
+            ${r.isNew ? '<span class="rv-new-tag">New</span>' : ''}
           </div>
           <div class="rv-card-loc"><i class="fas fa-map-marker-alt"></i> ${r.loc}</div>
         </div>
@@ -312,47 +331,48 @@ function rvRender() {
 function rvStars(n) {
   let s = '';
   for (let i = 1; i <= 5; i++) {
-    if (i <= n)          s += '<i class="fas fa-star"></i>';
-    else if (i-0.5 <= n) s += '<i class="fas fa-star-half-alt"></i>';
-    else                 s += '<i class="far fa-star"></i>';
+    if (i <= n)       s += '<i class="fas fa-star"></i>';
+    else if (i-0.5<=n)s += '<i class="fas fa-star-half-alt"></i>';
+    else              s += '<i class="far fa-star"></i>';
   }
   return s;
 }
 
 function rvFormatDate(d) {
-  return new Date(d).toLocaleDateString('en-US', { year:'numeric', month:'short', day:'numeric' });
+  return new Date(d).toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'});
 }
 
+// ════════════════════════════════
+// PAGINATION
+// ════════════════════════════════
 function rvRenderPagination() {
   const total = Math.ceil(rvFiltered.length / RV_PER_PAGE);
-  const pg    = document.getElementById('rv-pagination');
-  if (!pg || total <= 1) { if (pg) pg.innerHTML = ''; return; }
+  const pg = document.getElementById('rv-pagination');
+  if (!pg || total <= 1) { if (pg) pg.innerHTML=''; return; }
 
   let html = '';
   if (rvPage > 1) html += `<button class="rv-pg-btn" onclick="rvGoPage(${rvPage-1})"><i class="fas fa-chevron-left"></i></button>`;
-
-  const start = Math.max(1, rvPage - 2);
-  const end   = Math.min(total, rvPage + 2);
-
-  if (start > 1)       html += `<button class="rv-pg-btn" onclick="rvGoPage(1)">1</button>${start > 2 ? '<span class="rv-pg-dots">…</span>' : ''}`;
+  const start = Math.max(1, rvPage-2);
+  const end   = Math.min(total, rvPage+2);
+  if (start > 1) html += `<button class="rv-pg-btn" onclick="rvGoPage(1)">1</button>${start>2?'<span class="rv-pg-dots">…</span>':''}`;
   for (let i = start; i <= end; i++) {
-    html += `<button class="rv-pg-btn ${i===rvPage ? 'rv-pg-btn--active' : ''}" onclick="rvGoPage(${i})">${i}</button>`;
+    html += `<button class="rv-pg-btn ${i===rvPage?'rv-pg-btn--active':''}" onclick="rvGoPage(${i})">${i}</button>`;
   }
-  if (end < total)     html += `${end < total-1 ? '<span class="rv-pg-dots">…</span>' : ''}<button class="rv-pg-btn" onclick="rvGoPage(${total})">${total}</button>`;
-  if (rvPage < total)  html += `<button class="rv-pg-btn" onclick="rvGoPage(${rvPage+1})"><i class="fas fa-chevron-right"></i></button>`;
-
+  if (end < total) html += `${end<total-1?'<span class="rv-pg-dots">…</span>':''}<button class="rv-pg-btn" onclick="rvGoPage(${total})">${total}</button>`;
+  if (rvPage < total) html += `<button class="rv-pg-btn" onclick="rvGoPage(${rvPage+1})"><i class="fas fa-chevron-right"></i></button>`;
   pg.innerHTML = html;
 }
 
 function rvGoPage(n) {
   rvPage = n;
   rvRender();
-  // ✅ Scroll للـ grid لما تتغير الصفحة
   const anchor = document.getElementById('rv-grid-anchor');
-  if (anchor) anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (anchor) anchor.scrollIntoView({ behavior:'smooth', block:'start' });
 }
 
-// ── FILTER & SORT ──
+// ════════════════════════════════
+// FILTER & SORT
+// ════════════════════════════════
 function rvApply() {
   const q    = (document.getElementById('rv-search')?.value || '').toLowerCase();
   const sort = document.getElementById('rv-sort')?.value || 'newest';
@@ -363,17 +383,38 @@ function rvApply() {
     return matchFilter && matchSearch;
   });
 
-  if (sort === 'newest')  rvFiltered.sort((a,b) => new Date(b.date) - new Date(a.date));
+  if (sort === 'newest')  rvFiltered.sort((a,b) => {
+    // New reviews always first
+    if (a.isNew && !b.isNew) return -1;
+    if (!a.isNew && b.isNew) return 1;
+    return new Date(b.date) - new Date(a.date);
+  });
   if (sort === 'highest') rvFiltered.sort((a,b) => b.rating - a.rating);
   if (sort === 'lowest')  rvFiltered.sort((a,b) => a.rating - b.rating);
   if (sort === 'helpful') rvFiltered.sort((a,b) => b.helpful - a.helpful);
 
   rvPage = 1;
   rvRender();
+
+  // Update filter buttons count
+  rvUpdateFilterCounts();
 }
 
-function rvFilter()               { rvApply(); }
-function rvSort()                 { rvApply(); }
+function rvUpdateFilterCounts() {
+  const total = RV_DATA.length;
+  const five  = RV_DATA.filter(r=>r.rating===5).length;
+  const four  = RV_DATA.filter(r=>r.rating===4).length;
+  const three = RV_DATA.filter(r=>r.rating===3).length;
+  const btns  = document.querySelectorAll('.rv-filter-btn');
+  if (btns[0]) btns[0].textContent = `All (${total})`;
+  if (btns[1]) btns[1].textContent = `⭐⭐⭐⭐⭐ (${five})`;
+  if (btns[2]) btns[2].textContent = `⭐⭐⭐⭐ (${four})`;
+  if (btns[3]) btns[3].textContent = `⭐⭐⭐ (${three})`;
+}
+
+function rvFilter() { rvApply(); }
+function rvSort()   { rvApply(); }
+
 function rvSetFilter(val, btn) {
   rvActiveFilter = val;
   document.querySelectorAll('.rv-filter-btn').forEach(b => b.classList.remove('rv-filter-btn--active'));
@@ -381,7 +422,9 @@ function rvSetFilter(val, btn) {
   rvApply();
 }
 
-// ── HELPFUL ──
+// ════════════════════════════════
+// HELPFUL
+// ════════════════════════════════
 function rvHelpful(id, btn) {
   const r = RV_DATA.find(x => x.id === id);
   if (!r || btn.dataset.voted) return;
@@ -391,24 +434,110 @@ function rvHelpful(id, btn) {
   btn.style.color = '#00c9c8';
 }
 
-// ── STAR PICKER ──
+// ════════════════════════════════
+// STAR PICKER
+// ════════════════════════════════
 function rvPickStar(val) {
   rvStarSelected = val;
   document.getElementById('rv-rating-val').value = val;
   document.querySelectorAll('.rv-sp-star').forEach((btn, i) => {
     btn.classList.toggle('rv-sp-star--active', i < val);
   });
+  // Hide error if shown
+  const err = document.getElementById('rv-rating-error');
+  if (err) err.style.display = 'none';
 }
 
-// ── SUBMIT ──
+// ════════════════════════════════
+// ✅ SUBMIT — يضيف الريفيو للـ Grid فوراً
+// ════════════════════════════════
 function rvSubmit(e) {
   e.preventDefault();
-  if (rvStarSelected === 0) { alert('Please select a star rating.'); return; }
-  document.getElementById('rv-form').style.display    = 'none';
+
+  // Validate rating
+  if (rvStarSelected === 0) {
+    const err = document.getElementById('rv-rating-error');
+    if (err) err.style.display = 'flex';
+    return;
+  }
+
+  // Collect data
+  const name  = document.getElementById('rv-name').value.trim();
+  const title = document.getElementById('rv-title-input').value.trim();
+  const body  = document.getElementById('rv-body').value.trim();
+  const size  = document.getElementById('rv-size').value;
+  const today = new Date().toISOString().split('T')[0];
+
+  // ✅ Create new review object
+  const newReview = {
+    id:       rvNextId++,
+    name:     name,
+    loc:      "Verified Buyer",
+    rating:   rvStarSelected,
+    title:    title,
+    body:     body,
+    size:     size || null,
+    date:     today,
+    helpful:  0,
+    verified: true,
+    isNew:    true   // ← علامة إنه ريفيو جديد
+  };
+
+  // ✅ Add to beginning of data array
+  RV_DATA.unshift(newReview);
+
+  // ✅ Show success message
+  document.getElementById('rv-form').style.display = 'none';
   document.getElementById('rv-success').style.display = 'flex';
+
+  // ✅ Update total count in hero
+  const countEl = document.getElementById('rv-total-count');
+  if (countEl) countEl.textContent = RV_DATA.length;
+
+  // ✅ Reset filter to "All" and sort to "Newest"
+  rvActiveFilter = 'all';
+  document.querySelectorAll('.rv-filter-btn').forEach(b => b.classList.remove('rv-filter-btn--active'));
+  document.querySelector('.rv-filter-btn')?.classList.add('rv-filter-btn--active');
+  const sortEl = document.getElementById('rv-sort');
+  if (sortEl) sortEl.value = 'newest';
+
+  // ✅ Re-render grid — الريفيو هيظهر أول حاجة
+  rvApply();
+
+  // ✅ Show banner notification
+  const banner = document.getElementById('rv-new-banner');
+  const bannerText = document.getElementById('rv-new-banner-text');
+  if (banner && bannerText) {
+    bannerText.textContent = `✨ "${title}" has been added to the reviews!`;
+    banner.style.display = 'flex';
+    // Auto-hide after 5 seconds
+    setTimeout(() => { banner.style.display = 'none'; }, 5000);
+  }
+
+  // ✅ Scroll to grid to show new review
+  setTimeout(() => {
+    const anchor = document.getElementById('rv-grid-anchor');
+    if (anchor) anchor.scrollIntoView({ behavior:'smooth', block:'start' });
+  }, 300);
 }
 
-// ── INIT ──
+// ════════════════════════════════
+// WRITE ANOTHER
+// ════════════════════════════════
+function rvWriteAnother() {
+  // Reset form
+  document.getElementById('rv-form').reset();
+  document.getElementById('rv-form').style.display = 'flex';
+  document.getElementById('rv-success').style.display = 'none';
+  rvStarSelected = 0;
+  document.getElementById('rv-rating-val').value = '0';
+  document.querySelectorAll('.rv-sp-star').forEach(btn => btn.classList.remove('rv-sp-star--active'));
+  document.getElementById('rv-char-count').textContent = '0 / 500';
+}
+
+// ════════════════════════════════
+// INIT
+// ════════════════════════════════
 document.addEventListener('DOMContentLoaded', () => {
   // Char count
   const ta = document.getElementById('rv-body');
@@ -421,7 +550,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (len > 500) ta.value = ta.value.slice(0, 500);
     });
   }
-  // ✅ تشغيل الريفيوهات
+
+  // Init
   rvApply();
 });
 </script>
@@ -556,11 +686,41 @@ document.addEventListener('DOMContentLoaded', () => {
 .rv-scroll-btn i { animation: rvBounceArrow 1.5s infinite; }
 @keyframes rvPulse {
   0%,100% { box-shadow: 0 8px 32px rgba(0,201,200,0.35); }
-  50%      { box-shadow: 0 8px 48px rgba(0,201,200,0.6);  }
+  50%      { box-shadow: 0 8px 48px rgba(0,201,200,0.6); }
 }
 @keyframes rvBounceArrow {
-  0%,100% { transform: translateY(0);  }
+  0%,100% { transform: translateY(0); }
   50%      { transform: translateY(4px); }
+}
+
+/* ════════ NEW REVIEW BANNER ════════ */
+.rv-new-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, rgba(0,201,200,0.15), rgba(0,153,204,0.1));
+  border: 1px solid rgba(0,201,200,0.4);
+  border-radius: 14px;
+  padding: 14px 20px;
+  margin-bottom: 24px;
+  color: #00c9c8;
+  font-size: 14px;
+  font-weight: 600;
+  animation: rvSlideIn 0.4s ease;
+}
+.rv-new-banner button {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.4);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 4px;
+}
+.rv-new-banner button:hover { color: #fff; }
+@keyframes rvSlideIn {
+  from { opacity:0; transform:translateY(-10px); }
+  to   { opacity:1; transform:translateY(0); }
 }
 
 /* ════════ MAIN ════════ */
@@ -653,6 +813,40 @@ document.addEventListener('DOMContentLoaded', () => {
 }
 .rv-card:hover { border-color:rgba(0,201,200,0.2); transform:translateY(-4px); box-shadow:0 12px 40px rgba(0,0,0,0.3); }
 .rv-card:hover::before { opacity: 1; }
+
+/* ✅ New Review Card Style */
+.rv-card--new {
+  border-color: rgba(0,201,200,0.3) !important;
+  background: rgba(0,201,200,0.05) !important;
+  animation: rvCardIn 0.5s ease;
+}
+.rv-card--new::before { opacity: 1 !important; }
+@keyframes rvCardIn {
+  from { opacity:0; transform:translateY(-20px) scale(0.97); }
+  to   { opacity:1; transform:translateY(0) scale(1); }
+}
+.rv-card-new-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: linear-gradient(135deg, #00c9c8, #0099cc);
+  color: white;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 50px;
+  letter-spacing: 0.5px;
+}
+.rv-new-tag {
+  background: rgba(0,201,200,0.15);
+  color: #00c9c8;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 50px;
+  border: 1px solid rgba(0,201,200,0.3);
+}
+
 .rv-card-top { display:flex; align-items:flex-start; gap:12px; margin-bottom:14px; }
 .rv-card-avatar {
   width:44px; height:44px;
@@ -728,6 +922,21 @@ document.addEventListener('DOMContentLoaded', () => {
 .rv-star-picker { display:flex; gap:8px; }
 .rv-sp-star { background:none; border:none; font-size:28px; color:rgba(255,255,255,0.2); cursor:pointer; transition:all 0.2s; padding:0; line-height:1; }
 .rv-sp-star:hover, .rv-sp-star--active { color:#f0c040; transform:scale(1.2); }
+
+/* Rating Error */
+.rv-rating-error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #ff4d6d;
+  font-size: 13px;
+  font-weight: 600;
+  background: rgba(255,77,109,0.1);
+  border: 1px solid rgba(255,77,109,0.3);
+  border-radius: 10px;
+  padding: 10px 16px;
+}
+
 .rv-submit-btn {
   display:flex; align-items:center; justify-content:center; gap:10px;
   background:linear-gradient(135deg,#00c9c8,#0099cc); color:white;
@@ -736,23 +945,27 @@ document.addEventListener('DOMContentLoaded', () => {
   box-shadow:0 8px 32px rgba(0,201,200,0.3); align-self:flex-start;
 }
 .rv-submit-btn:hover { transform:translateY(-3px); box-shadow:0 16px 48px rgba(0,201,200,0.5); }
-.rv-success { flex-direction:column; align-items:center; text-align:center; padding:60px 20px; gap:16px; }
+
+.rv-success {
+  flex-direction:column; align-items:center; text-align:center;
+  padding:60px 20px; gap:16px;
+}
 .rv-success-icon { font-size:60px; color:#22c55e; animation:rvBounce 0.6s ease; }
 @keyframes rvBounce { 0%{transform:scale(0)} 70%{transform:scale(1.2)} 100%{transform:scale(1)} }
 .rv-success h3 { font-size:24px; font-weight:900; color:#fff; }
-.rv-success p { font-size:14px; color:rgba(255,255,255,0.5); max-width:400px; }
+.rv-success p  { font-size:14px; color:rgba(255,255,255,0.5); max-width:400px; }
 
 /* ════════ RESPONSIVE ════════ */
 @media (max-width: 768px) {
-  .rv-hero  { padding: 60px 20px 40px; }
-  .rv-main  { padding: 32px 20px 60px; }
-  .rv-write { padding: 32px 20px; }
+  .rv-hero   { padding: 60px 20px 40px; }
+  .rv-main   { padding: 32px 20px 60px; }
+  .rv-write  { padding: 32px 20px; }
   .rv-form-row { grid-template-columns: 1fr; }
-  .rv-grid     { grid-template-columns: 1fr; }
+  .rv-grid   { grid-template-columns: 1fr; }
   .rv-controls { flex-direction: column; align-items: stretch; }
-  .rv-hero-stats   { gap: 24px; }
+  .rv-hero-stats { gap: 24px; }
   .rv-stat-divider { display: none; }
-  .rv-scroll-btn   { font-size: 14px; padding: 12px 24px; }
+  .rv-scroll-btn { font-size: 14px; padding: 12px 24px; }
 }
 </style>
 
